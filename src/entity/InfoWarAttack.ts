@@ -32,8 +32,8 @@ class InfoWarAttack extends BaseRule {
   @Column()
   skillType: SkillType;
 
-  @Column()
-  special: string;
+  @Column({ nullable: true })
+  special?: string;
 }
 
 export default InfoWarAttack;

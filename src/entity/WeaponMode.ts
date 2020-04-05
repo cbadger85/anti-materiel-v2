@@ -26,7 +26,6 @@ class WeaponMode {
     weaponRangeBand => weaponRangeBand.weaponMode,
     { nullable: true, eager: true },
   )
-  @JoinTable()
   weaponRangeBands?: WeaponRangeBand[];
 
   @Column()
@@ -36,11 +35,11 @@ class WeaponMode {
   burst: string;
 
   @ManyToMany(type => Ammo, { eager: true, cascade: true })
-  @JoinColumn()
+  @JoinTable()
   ammo: Ammo[];
 
-  @ManyToMany(type => Ammo, { eager: true, cascade: true })
-  @JoinColumn()
+  @ManyToMany(type => Rule, { eager: true, cascade: true })
+  @JoinTable()
   traits: Rule[];
 
   @ManyToOne(
