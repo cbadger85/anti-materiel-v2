@@ -1,16 +1,38 @@
 import Ammo from './Ammo';
+import BaseRule from './BaseRule';
+import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 
-class InfoWarAttack {
-  id: string;
+@Entity()
+class InfoWarAttack extends BaseRule {
+  @Column()
   attackType: InfoWarAttackType;
+
+  @Column()
   category: InfoWarAttackCategory;
+
+  @Column()
   attackModifier: string;
+
+  @Column()
   oponentModifer: string;
+
+  @Column()
   damage: string;
+
+  @Column()
   burst: string;
+
+  @OneToOne(type => Ammo, { nullable: true, eager: true })
+  @JoinColumn()
   ammo: Ammo;
+
+  @Column()
   target: InfoWarAttackTarget;
+
+  @Column()
   skillType: SkillType;
+
+  @Column()
   special: string;
 }
 
