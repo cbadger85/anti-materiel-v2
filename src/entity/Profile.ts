@@ -10,6 +10,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   Entity,
+  RelationId,
 } from 'typeorm';
 import Entry from './Entry';
 
@@ -54,9 +55,12 @@ class Profile {
   @JoinTable()
   InfoWareAttacks: InfoWarAttack[];
 
-  @ManyToMany(type => Unit, { eager: true, cascade: true })
+  @ManyToMany(type => Unit, { cascade: true })
   @JoinTable()
   addedUnits: Unit[];
+
+  @RelationId((profile: Profile) => profile.addedUnits)
+  addedUnitIds: string[];
 
   @ManyToOne(
     type => Unit,
