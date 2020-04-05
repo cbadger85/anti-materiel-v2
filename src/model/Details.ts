@@ -6,7 +6,7 @@ class Details {
   isc: string;
   classification: string;
   name: string;
-  unitType: UnitType;
+  unitType?: UnitType;
   orderType: OrderType;
   hackable?: boolean;
   impetuous?: Impetuous;

@@ -1,4 +1,5 @@
 import Details from './Details';
+import Profile from './Profile';
 
 class Unit {
   id: string;
@@ -6,7 +7,7 @@ class Unit {
   secondaryDetails?: Details;
   additionalUnits: Unit[];
   isProfilesSelectable?: boolean;
-  // profiles: Profile[];
+  profiles: Profile[];
   notes: string[];
 }
 

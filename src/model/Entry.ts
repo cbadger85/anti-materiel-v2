@@ -1,5 +1,6 @@
 import { Sectorial } from './Sectorial';
 import Unit from './Unit';
+import Profile from './Profile';
 
 class Entry {
   id: string;
@@ -9,7 +10,7 @@ class Entry {
   primaryUnit: Unit;
   secondaryUnits: Unit[];
   // image: string;
-  // profiles: Profile[];
+  profiles: Profile[];
 }
 
 export default Entry;
