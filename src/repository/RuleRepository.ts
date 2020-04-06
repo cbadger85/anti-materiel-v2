@@ -12,6 +12,9 @@ class RuleRepository {
   findById = (id: string): Promise<Rule | undefined> =>
     this.repository.findOne(id);
 
+  findByIds = (ids: string[]): Promise<Rule[]> =>
+    this.repository.findByIds(ids);
+
   save = (rule: Rule): Promise<Rule> => this.repository.save(rule);
 }
 

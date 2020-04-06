@@ -1,16 +1,9 @@
+import { ValidationError } from 'class-validator';
 import {
-  Params,
-  RequestHandler,
   ErrorRequestHandler,
   ParamsDictionary,
 } from 'express-serve-static-core';
 import HttpError from '../errors/HttpError';
-import { ValidationError } from 'class-validator';
-
-export const asyncHandler = <P extends Params, ResBody, ReqBody>(
-  handler: RequestHandler<P, ResBody, ReqBody>,
-): RequestHandler<P, ResBody, ReqBody> => (req, res, next) =>
-  handler(req, res, next).catch(next);
 
 export const validationErrorHandler: ErrorRequestHandler<
   ParamsDictionary,

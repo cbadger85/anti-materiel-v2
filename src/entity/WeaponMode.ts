@@ -23,7 +23,7 @@ class WeaponMode {
   @OneToMany(
     type => WeaponRangeBand,
     weaponRangeBand => weaponRangeBand.weaponMode,
-    { nullable: true, eager: true },
+    { nullable: true, eager: true, cascade: true },
   )
   weaponRangeBands?: WeaponRangeBand[];
 
@@ -37,9 +37,9 @@ class WeaponMode {
   @JoinTable()
   ammo: Ammo[];
 
-  @ManyToMany(type => Rule, { eager: true, cascade: true })
+  @ManyToMany(type => Rule, { eager: true, cascade: true, nullable: true })
   @JoinTable()
-  traits: Rule[];
+  traits?: Rule[];
 
   @ManyToOne(
     type => Weapon,

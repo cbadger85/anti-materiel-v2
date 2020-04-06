@@ -15,14 +15,14 @@ class WeaponRangeBand {
   @Column()
   modifier: RangeBandModifier;
 
+  @Column()
+  type: RangeBandType;
+
   @ManyToOne(
     type => WeaponMode,
     weaponMode => weaponMode.weaponRangeBands,
   )
   weaponMode: WeaponMode;
-
-  @Column()
-  type: RangeBandType;
 }
 
 export default WeaponRangeBand;
@@ -33,5 +33,5 @@ export enum RangeBandType {
   SHORT = 'SHORT',
   MEDIUM = 'MEDIUM',
   LONG = 'LONG',
-  MAXIMUM = 'MAXIUMUM',
+  MAXIMUM = 'MAXIMUM',
 }

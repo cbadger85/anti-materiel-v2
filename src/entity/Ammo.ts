@@ -1,12 +1,13 @@
-import { JoinColumn, OneToOne, Entity } from 'typeorm';
+import { Entity, JoinTable, ManyToMany, RelationId } from 'typeorm';
 import BaseRule from './BaseRule';
 
 @Entity()
 class Ammo extends BaseRule {
-  id: string;
+  @ManyToMany(type => Ammo, { cascade: true })
+  @JoinTable()
+  combinedAmmo: Ammo[];
 
-  @OneToOne(type => Ammo, { nullable: true, eager: true })
-  @JoinColumn()
-  combinedAmmo?: Ammo;
+  @RelationId((ammo: Ammo) => ammo.combinedAmmo)
+  combinedAmmoIds: string[];
 }
 export default Ammo;
