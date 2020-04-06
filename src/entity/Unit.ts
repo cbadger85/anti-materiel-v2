@@ -33,7 +33,7 @@ class Unit {
 
   @OneToMany(
     type => Profile,
-    profile => profile.units,
+    profile => profile.unit,
     { cascade: true, eager: true },
   )
   @JoinTable()

@@ -28,6 +28,9 @@ class Profile {
   @Column()
   swc: number;
 
+  @Column({ default: false })
+  isLieutenant?: boolean;
+
   @ManyToMany(type => Rule, { eager: true, cascade: true })
   @JoinTable()
   specialRules: Rule[];
@@ -55,11 +58,11 @@ class Profile {
   @JoinTable()
   InfoWareAttacks: InfoWarAttack[];
 
-  @ManyToMany(type => Unit, { cascade: true })
+  @ManyToMany(type => Profile, { cascade: true })
   @JoinTable()
-  addedUnits: Unit[];
+  addedProfiles: Profile[];
 
-  @RelationId((profile: Profile) => profile.addedUnits)
+  @RelationId((profile: Profile) => profile.addedProfiles)
   addedUnitIds: string[];
 
   @ManyToOne(
@@ -67,7 +70,10 @@ class Profile {
     unit => unit.profiles,
     { nullable: true },
   )
-  units: Unit[];
+  unit: Unit;
+
+  @Column({ nullable: true })
+  unitsId: string;
 
   @ManyToOne(
     type => Entry,
