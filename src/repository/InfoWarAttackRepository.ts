@@ -15,6 +15,9 @@ class InfoWarAttackRepository {
   findById = (id: string): Promise<InfoWarAttack | undefined> =>
     this.repository.findOne(id);
 
+  findByIds = (ids: string[]): Promise<InfoWarAttack[]> =>
+    this.repository.findByIds(ids);
+
   save = (infoWarAttack: InfoWarAttack): Promise<InfoWarAttack> =>
     this.repository.save(infoWarAttack);
 }

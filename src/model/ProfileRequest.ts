@@ -6,19 +6,20 @@ import {
   IsBoolean,
   IsArray,
   IsUUID,
+  Min,
+  IsDivisibleBy,
 } from 'class-validator';
 import { Sectorial } from '../entity/Sectorial';
 
 class ProfileRequest {
   @IsString()
-  profile: string;
+  name: string;
 
   @IsPositive()
   @IsInt()
-  const: number;
+  cost: number;
 
-  @IsPositive()
-  @IsInt()
+  @Min(0)
   swc: number;
 
   @IsOptional()
@@ -46,12 +47,12 @@ class ProfileRequest {
   miscIds: string[];
 
   @IsArray()
-  @IsString({ each: true })
-  sectorials: Sectorial[];
-
-  @IsArray()
   @IsUUID(undefined, { each: true })
   infoWarAttackIds: string[];
+
+  @IsArray()
+  @IsString({ each: true })
+  sectorials: Sectorial[];
 
   @IsArray()
   @IsUUID(undefined, { each: true })

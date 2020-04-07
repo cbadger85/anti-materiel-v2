@@ -15,6 +15,9 @@ class UnitRepository {
   findById = (id: string): Promise<Unit | undefined> =>
     this.repository.findOne(id);
 
+  findByIds = (ids: string[]): Promise<Unit[]> =>
+    this.repository.findByIds(ids);
+
   save = (unit: Unit): Promise<Unit> => this.repository.save(unit);
 }
 

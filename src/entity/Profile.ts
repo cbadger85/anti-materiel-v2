@@ -31,30 +31,45 @@ class Profile {
   @Column({ default: false })
   isLieutenant?: boolean;
 
-  @ManyToMany(type => Rule, { eager: true, cascade: true })
+  @ManyToMany(type => Rule, { cascade: true })
   @JoinTable()
   specialRules: Rule[];
 
-  @ManyToMany(type => Rule, { eager: true, cascade: true })
+  @RelationId((profile: Profile) => profile.specialRules)
+  specialRuleIds: string[];
+
+  @ManyToMany(type => Rule, { cascade: true })
   @JoinTable()
   equipment: Rule[];
 
-  @ManyToMany(type => Weapon, { eager: true, cascade: true })
+  @RelationId((profile: Profile) => profile.equipment)
+  equipmentIds: string[];
+
+  @ManyToMany(type => Weapon, { cascade: true })
   @JoinTable()
   bsw: Weapon[];
 
-  @ManyToMany(type => Weapon, { eager: true, cascade: true })
+  @RelationId((profile: Profile) => profile.bsw)
+  bswIds: string[];
+
+  @ManyToMany(type => Weapon, { cascade: true })
   @JoinTable()
   ccw: Weapon[];
 
-  @ManyToMany(type => Weapon, { eager: true, cascade: true })
+  @RelationId((profile: Profile) => profile.ccw)
+  ccwIds: string[];
+
+  @ManyToMany(type => Weapon, { cascade: true })
   @JoinTable()
   misc: Weapon[];
+
+  @RelationId((profile: Profile) => profile.misc)
+  miscIds: string[];
 
   @Column('simple-array')
   sectorials: Sectorial[];
 
-  @ManyToMany(type => InfoWarAttack, { eager: true, cascade: true })
+  @ManyToMany(type => InfoWarAttack, { cascade: true })
   @JoinTable()
   InfoWareAttacks: InfoWarAttack[];
 
@@ -73,7 +88,7 @@ class Profile {
   unit: Unit;
 
   @Column({ nullable: true })
-  unitsId: string;
+  unitId: string;
 
   @ManyToOne(
     type => Entry,

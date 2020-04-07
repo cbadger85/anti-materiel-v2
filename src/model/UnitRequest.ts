@@ -1,32 +1,33 @@
+import { Type } from 'class-transformer';
 import {
-  IsString,
-  IsOptional,
+  IsArray,
   IsBoolean,
   IsEnum,
-  IsPositive,
-  ValidateNested,
-  IsArray,
-  IsUUID,
   IsInt,
+  IsOptional,
+  IsPositive,
+  IsString,
+  IsUUID,
+  ValidateNested,
 } from 'class-validator';
 import {
   Classification,
-  UnitType,
-  OrderType,
-  Impetuous,
   Cube,
+  Impetuous,
+  OrderType,
+  UnitType,
 } from '../entity/Details';
 import { Sectorial } from '../entity/Sectorial';
-import { Type } from 'class-transformer';
 import ProfileRequest from './ProfileRequest';
 
 class Availability {
   @IsString()
   sectorial: Sectorial;
 
+  @IsOptional()
   @IsPositive()
   @IsInt()
-  amount: number;
+  limit?: number;
 }
 
 class Details {
@@ -59,7 +60,7 @@ class Details {
   cube?: Cube;
 
   @IsString()
-  move: string;
+  mov: string;
 
   @IsString()
   cc: string;
@@ -91,7 +92,7 @@ class Details {
 
   @ValidateNested()
   @Type(type => Availability)
-  avaliability: Availability[];
+  ava: Availability[];
 
   @IsOptional()
   @IsArray()
@@ -122,7 +123,7 @@ class UnitRequest {
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
-  notes: string[];
+  notes?: string[];
 
   @ValidateNested()
   @Type(type => ProfileRequest)

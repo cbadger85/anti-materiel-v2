@@ -4,6 +4,7 @@ export type Sectorial =
   | 'Military Orders'
   | 'Neoterran Capitaline Army'
   | 'Varuna Immediate Reaction Division'
+  | `Svalarheima's Winter Force`
   | 'Yu Jing'
   | 'Imperial Service'
   | 'Invincible Army'

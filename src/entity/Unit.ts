@@ -11,6 +11,7 @@ import {
   Entity,
   RelationId,
 } from 'typeorm';
+import { Type } from 'class-transformer';
 
 @Entity()
 class Unit {
@@ -19,10 +20,12 @@ class Unit {
 
   @OneToOne(type => Details, { eager: true, cascade: true })
   @JoinColumn()
+  @Type(type => Details)
   primaryDetails: Details;
 
   @OneToOne(type => Details, { nullable: true, eager: true, cascade: true })
   @JoinColumn()
+  @Type(type => Details)
   secondaryDetails?: Details;
 
   @ManyToMany(type => Unit, { cascade: true })

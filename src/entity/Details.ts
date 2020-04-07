@@ -82,7 +82,7 @@ class Details {
 
 interface Availability {
   sectorial: Sectorial;
-  amount: number;
+  limit?: number;
 }
 
 export default Details;
@@ -106,13 +106,13 @@ export enum Impetuous {
 export type UnitType = 'LI' | 'MI' | 'HI' | 'REM' | 'SK' | 'WB' | 'TAG';
 
 export type Classification =
-  | 'Line Troop'
-  | 'Veteran Troop'
-  | 'Garrison Troop'
-  | 'Mechanized Troop'
-  | 'Elite Troop'
-  | 'Headquarters Troop'
-  | 'Spec. Trained Troop'
-  | 'Support Troop'
+  | 'Line Troops'
+  | 'Veteran Troops'
+  | 'Garrison Troops'
+  | 'Mechanized Troops'
+  | 'Elite Troops'
+  | 'Headquarters Troops'
+  | 'Spec. Trained Troops'
+  | 'Support Troops'
   | 'Character'
-  | 'Mercanary Troop';
+  | 'Mercanary Troops';

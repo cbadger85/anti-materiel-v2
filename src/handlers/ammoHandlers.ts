@@ -1,7 +1,6 @@
 import { RequestHandler } from 'express-serve-static-core';
 import Container from 'typedi';
 import Ammo from '../entity/Ammo';
-import Rule from '../entity/Rule';
 import AmmoRequest from '../model/AmmoRequest';
 import AmmoService from '../service/AmmoService';
 
@@ -18,7 +17,7 @@ export const createAmmo: RequestHandler<never, Ammo, AmmoRequest> = async (
 
 export const getAmmoById: RequestHandler<
   { ammoId: string },
-  Rule,
+  Ammo,
   never
 > = async (req, res) => {
   const ammoService = Container.get(AmmoService);

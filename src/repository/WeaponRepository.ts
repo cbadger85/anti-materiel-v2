@@ -15,6 +15,9 @@ class WeaponRepository {
   findById = (id: string): Promise<Weapon | undefined> =>
     this.repository.findOne(id);
 
+  findByIds = (ids: string[]): Promise<Weapon[]> =>
+    this.repository.findByIds(ids);
+
   save = (weapon: Weapon): Promise<Weapon> => this.repository.save(weapon);
 }
 
