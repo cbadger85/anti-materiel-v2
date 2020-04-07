@@ -1,6 +1,6 @@
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import Ammo from './Ammo';
 import BaseRule from './BaseRule';
-import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 class InfoWarAttack extends BaseRule {
@@ -10,11 +10,14 @@ class InfoWarAttack extends BaseRule {
   @Column()
   category: InfoWarAttackCategory;
 
+  @Column('simple-array')
+  range: InfoWareAttackRange[];
+
   @Column()
   attackModifier: string;
 
   @Column()
-  oponentModifer: string;
+  opponentModifier: string;
 
   @Column()
   damage: string;
@@ -22,18 +25,21 @@ class InfoWarAttack extends BaseRule {
   @Column()
   burst: string;
 
-  @OneToOne(type => Ammo, { nullable: true, eager: true })
-  @JoinColumn()
-  ammo: Ammo;
+  @ManyToMany(type => Ammo, { eager: true, cascade: true })
+  @JoinTable()
+  ammo: Ammo[];
 
-  @Column()
-  target: InfoWarAttackTarget;
+  @Column('simple-array')
+  target: InfoWarAttackTarget[];
 
-  @Column()
-  skillType: SkillType;
+  @Column('simple-array')
+  skillType: SkillType[];
 
   @Column({ nullable: true })
   special?: string;
+
+  @Column({ nullable: true })
+  effect?: string;
 }
 
 export default InfoWarAttack;

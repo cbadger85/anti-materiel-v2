@@ -52,7 +52,7 @@ class Profile {
   misc: Weapon[];
 
   @Column('simple-array')
-  sectorial: Sectorial[];
+  sectorials: Sectorial[];
 
   @ManyToMany(type => InfoWarAttack, { eager: true, cascade: true })
   @JoinTable()
@@ -60,10 +60,10 @@ class Profile {
 
   @ManyToMany(type => Profile, { cascade: true })
   @JoinTable()
-  addedProfiles: Profile[];
+  addsProfiles: Profile[];
 
-  @RelationId((profile: Profile) => profile.addedProfiles)
-  addedUnitIds: string[];
+  @RelationId((profile: Profile) => profile.addsProfiles)
+  addsProfileIds: string[];
 
   @ManyToOne(
     type => Unit,

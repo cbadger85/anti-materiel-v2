@@ -9,6 +9,7 @@ import {
   JoinTable,
   ManyToMany,
   Entity,
+  RelationId,
 } from 'typeorm';
 
 @Entity()
@@ -24,11 +25,14 @@ class Unit {
   @JoinColumn()
   secondaryDetails?: Details;
 
-  @ManyToMany(type => Unit, { eager: true, cascade: true })
+  @ManyToMany(type => Unit, { cascade: true })
   @JoinTable()
   additionalUnits: Unit[];
 
-  @Column()
+  @RelationId((unit: Unit) => unit.additionalUnits)
+  additionalUnitIds: string[];
+
+  @Column({ default: true })
   isProfilesSelectable?: boolean;
 
   @OneToMany(

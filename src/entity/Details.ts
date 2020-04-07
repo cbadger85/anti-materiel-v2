@@ -17,7 +17,9 @@ class Details {
   isc: string;
 
   @Column()
-  classification: string;
+  classification: Classification;
+
+  @Column()
   name: string;
 
   @Column({ nullable: true })
@@ -26,7 +28,7 @@ class Details {
   @Column()
   orderType: OrderType;
 
-  @Column({ nullable: true })
+  @Column({ default: false })
   hackable?: boolean;
 
   @Column({ nullable: true })
@@ -59,12 +61,14 @@ class Details {
   @Column()
   w: string;
 
-  @Column()
+  @Column({ default: false })
   structure?: boolean;
+
+  @Column()
   s: string;
 
   @Column('simple-json')
-  ava: [Sectorial, number][];
+  ava: Availability[];
 
   @ManyToMany(type => Rule, { eager: true, cascade: true })
   @JoinTable()
@@ -73,8 +77,12 @@ class Details {
   @ManyToMany(type => Rule, { eager: true, cascade: true })
   @JoinTable()
   equipment: Rule[];
-  notes?: string[];
   // image: string;
+}
+
+interface Availability {
+  sectorial: Sectorial;
+  amount: number;
 }
 
 export default Details;

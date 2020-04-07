@@ -7,6 +7,7 @@ import errorHandlers from './errors/errorHanders';
 import ruleRoutes from './routes/ruleRoutes';
 import ammoRoutes from './routes/ammoRoutes';
 import weaponRoutes from './routes/weaponRoutes';
+import infoWarAttackRoutes from './routes/infoWarAttackRoutes';
 
 const app = express();
 
@@ -21,6 +22,7 @@ export const server = async (): Promise<Express> => {
   app.use('/rules', ruleRoutes);
   app.use('/ammo', ammoRoutes);
   app.use('/weapons', weaponRoutes);
+  app.use('/info-war-attacks', infoWarAttackRoutes);
 
   app.use(errorHandlers);
 
