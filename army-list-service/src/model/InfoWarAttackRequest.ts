@@ -10,7 +10,7 @@ import {
   InfoWarAttackCategory,
   InfoWarAttackTarget,
   InfoWarAttackType,
-  InfoWareAttackRange,
+  InfoWarAttackRange,
   SkillType,
 } from '../entity/InfoWarAttack';
 
@@ -28,7 +28,7 @@ class InfoWarAttackRequest {
 
   @IsArray()
   @IsString({ each: true })
-  range: InfoWareAttackRange[];
+  range: InfoWarAttackRange[];
 
   @IsString()
   @IsNotEmpty()

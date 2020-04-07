@@ -6,6 +6,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  RelationId,
 } from 'typeorm';
 import Ammo from './Ammo';
 import Rule from './Rule';
@@ -33,9 +34,12 @@ class WeaponMode {
   @Column()
   burst: string;
 
-  @ManyToMany(type => Ammo, { eager: true, cascade: true })
+  @ManyToMany(type => Ammo, { cascade: true })
   @JoinTable()
   ammo: Ammo[];
+
+  @RelationId((mode: WeaponMode) => mode.ammo)
+  ammoIds: string[];
 
   @ManyToMany(type => Rule, { eager: true, cascade: true, nullable: true })
   @JoinTable()

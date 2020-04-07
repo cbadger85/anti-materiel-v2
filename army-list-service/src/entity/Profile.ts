@@ -31,19 +31,13 @@ class Profile {
   @Column({ default: false })
   isLieutenant?: boolean;
 
-  @ManyToMany(type => Rule, { cascade: true })
+  @ManyToMany(type => Rule, { eager: true, cascade: true })
   @JoinTable()
   specialRules: Rule[];
 
-  @RelationId((profile: Profile) => profile.specialRules)
-  specialRuleIds: string[];
-
-  @ManyToMany(type => Rule, { cascade: true })
+  @ManyToMany(type => Rule, { eager: true, cascade: true })
   @JoinTable()
   equipment: Rule[];
-
-  @RelationId((profile: Profile) => profile.equipment)
-  equipmentIds: string[];
 
   @ManyToMany(type => Weapon, { cascade: true })
   @JoinTable()
@@ -71,7 +65,10 @@ class Profile {
 
   @ManyToMany(type => InfoWarAttack, { cascade: true })
   @JoinTable()
-  InfoWareAttacks: InfoWarAttack[];
+  InfoWarAttacks: InfoWarAttack[];
+
+  @RelationId((profile: Profile) => profile.InfoWarAttacks)
+  infoWarAttackIds: string[];
 
   @ManyToMany(type => Profile, { cascade: true })
   @JoinTable()
@@ -88,7 +85,7 @@ class Profile {
   unit: Unit;
 
   @Column({ nullable: true })
-  unitId: string;
+  unitId?: string;
 
   @ManyToOne(
     type => Entry,

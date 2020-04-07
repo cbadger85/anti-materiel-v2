@@ -31,8 +31,8 @@ class Entry {
   @JoinColumn()
   primaryUnit: Unit;
 
-  @Column({ nullable: true })
-  primaryUnitId?: string;
+  @Column()
+  primaryUnitId: string;
 
   @ManyToMany(type => Unit, { cascade: true })
   @JoinTable()

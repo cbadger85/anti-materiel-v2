@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, RelationId } from 'typeorm';
 import Ammo from './Ammo';
 import BaseRule from './BaseRule';
 
@@ -11,7 +11,7 @@ class InfoWarAttack extends BaseRule {
   category: InfoWarAttackCategory;
 
   @Column('simple-array')
-  range: InfoWareAttackRange[];
+  range: InfoWarAttackRange[];
 
   @Column()
   attackModifier: string;
@@ -25,9 +25,12 @@ class InfoWarAttack extends BaseRule {
   @Column()
   burst: string;
 
-  @ManyToMany(type => Ammo, { eager: true, cascade: true })
+  @ManyToMany(type => Ammo, { cascade: true })
   @JoinTable()
   ammo: Ammo[];
+
+  @RelationId((infoWarAttack: InfoWarAttack) => infoWarAttack.ammo)
+  ammoIds: string[];
 
   @Column('simple-array')
   target: InfoWarAttackTarget[];
@@ -83,7 +86,7 @@ export type InfoWarAttackTarget =
   | 'Remote Presence in Unconscious State'
   | '--';
 
-export type InfoWareAttackRange =
+export type InfoWarAttackRange =
   | 'Hacking Area'
   | 'Table'
   | 'User'
