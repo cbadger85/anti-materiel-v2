@@ -8,7 +8,7 @@ const weaponSlice = createSlice({
   name: 'weapons',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(loadData.fulfilled, (state, action) => {
       return action.payload.weapons;
     });

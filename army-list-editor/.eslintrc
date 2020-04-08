@@ -4,7 +4,8 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "react-app"
   ],
   "plugins": ["@typescript-eslint", "prettier"],
   "env": {
@@ -18,14 +19,10 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "ignorePatterns": [
-    "**/__tests__/**/*.ts",
-    "src/migration/**/*.ts",
-    "**/node_modules/**/*"
-  ],
+  "ignorePatterns": ["**/__tests__/**/*.ts", "**/node_modules/**/*"],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": [
-      "error",
+      0,
       {
         "allowExpressions": true,
         "allowTypedFunctionExpressions": true
@@ -37,5 +34,10 @@
       { "vars": "all", "args": "none", "ignoreRestSiblings": true }
     ],
     "@typescript-eslint/triple-slash-reference": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

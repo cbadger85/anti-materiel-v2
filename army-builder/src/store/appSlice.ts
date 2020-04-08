@@ -15,7 +15,7 @@ const appSlice = createSlice({
   name: 'infoWarAttacks',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(loadData.rejected, (state, action) => {
       state.error = true;
     });

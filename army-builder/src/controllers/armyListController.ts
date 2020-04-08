@@ -13,9 +13,9 @@ import { EntryResponse, Entry } from '../types/entry';
 export const ammoBuilder = (ammoResponse: AmmoResponse[]) =>
   ammoResponse.map<Ammo>(({ id, combinedAmmoIds, link, name }) => {
     if (combinedAmmoIds.length) {
-      const combinedAmmo = combinedAmmoIds.map<Ammo>((ammoId) => {
+      const combinedAmmo = combinedAmmoIds.map<Ammo>(ammoId => {
         const { id, link, name } = ammoResponse.find(
-          (ammo) => ammo.id === ammoId,
+          ammo => ammo.id === ammoId,
         ) as AmmoResponse;
         return { id, link, name, combinedAmmo: [] };
       });
@@ -27,8 +27,8 @@ export const ammoBuilder = (ammoResponse: AmmoResponse[]) =>
   });
 
 export const weaponBuilder = (weaponResponse: WeaponResponse[], ammo: Ammo[]) =>
-  weaponResponse.map<Weapon>((weapon) => {
-    const weaponModes = weapon.weaponModes.map<WeaponMode>((mode) => {
+  weaponResponse.map<Weapon>(weapon => {
+    const weaponModes = weapon.weaponModes.map<WeaponMode>(mode => {
       const modeAmmo = ammo.filter(({ id }) => mode.ammoIds.includes(id));
 
       return {
