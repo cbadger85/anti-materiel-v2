@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { getAllData } from './controllers/armyListController';
+import { useDispatch } from 'react-redux';
+import { loadData } from './store/appSlice';
+import { AppDispatch } from './store';
 
 function App() {
-  const handleClick = async () => {
-    getAllData().then((data) => {
-      console.log(data);
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    setLoading(true);
+    dispatch(loadData()).then(() => {
+      setLoading(false);
     });
-  };
+  }, [dispatch]);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <div className="App">
@@ -17,7 +28,6 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <button onClick={handleClick}>click here</button>
         <a
           className="App-link"
           href="https://reactjs.org"

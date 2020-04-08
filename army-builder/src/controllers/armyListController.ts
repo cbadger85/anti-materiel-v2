@@ -97,8 +97,10 @@ export const getAllData = async () => {
   const units = unitBuilder(data.units);
   const entries = entryBuilder(data.entries, units);
 
-  return { ammo, weapons, infoWarAttacks, units, entries };
+  return { weapons, infoWarAttacks, units, entries };
 };
+
+export type AllData = ReturnType<typeof getAllData>;
 
 interface AllDataResponse {
   ammo: AmmoResponse[];
