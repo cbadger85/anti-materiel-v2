@@ -5,6 +5,7 @@ import { requestLogger } from './utils/requestLogger';
 import { serverTimout } from './utils/serverTimeout';
 import errorHandlers from './errors/errorHanders';
 import apiRoutes from './routes/apiRoutes';
+import path from 'path';
 
 const app = express();
 
@@ -13,6 +14,8 @@ export const server = async (): Promise<Express> => {
 
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
+
+  app.use(express.static(path.resolve(process.cwd(), 'static')));
 
   app.use(requestLogger);
 

@@ -41,7 +41,8 @@ class Entry {
   @RelationId((entry: Entry) => entry.secondaryUnits)
   secondaryUnitIds: string[];
 
-  // image: string;
+  @Column()
+  image?: string;
 
   @OneToMany(
     type => Profile,

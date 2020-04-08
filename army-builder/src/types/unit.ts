@@ -30,7 +30,7 @@ export interface Details {
   ava: Availability[];
   skills: Rule[];
   equipment: Rule[];
-  // image: string;
+  image: string;
 }
 
 export const classifications = [

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadData } from './store/appSlice';
 import { AppDispatch } from './store';
+import { RootState } from './store/rootReducer';
 
 function App() {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
+
+  const image = useSelector((state: RootState) => state.entries?.[0]?.image);
 
   useEffect(() => {
     setLoading(true);
@@ -24,7 +27,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={image} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>

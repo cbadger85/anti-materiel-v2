@@ -77,7 +77,9 @@ class Details {
   @ManyToMany(type => Rule, { eager: true, cascade: true })
   @JoinTable()
   equipment: Rule[];
-  // image: string;
+
+  @Column()
+  image?: string;
 }
 
 interface Availability {

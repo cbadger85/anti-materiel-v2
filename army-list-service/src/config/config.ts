@@ -11,7 +11,7 @@ export const connectionOptions = {
     entitiesDir: process.env.TYPEORM_ENTITIES_DIR,
     migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,
   },
-  synchronize: process.env.TYPEORM_SYNCHRONIZE,
+  synchronize: false,
 };
 
 export const serverConfig = {

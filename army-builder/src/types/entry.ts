@@ -10,6 +10,7 @@ export interface Entry {
   primaryUnit: Unit;
   secondaryUnits: Unit[];
   profiles: Profile[];
+  image: string;
 }
 
 export interface EntryResponse {
@@ -20,4 +21,5 @@ export interface EntryResponse {
   primaryUnitId: string;
   secondaryUnitIds: string[];
   profiles: Profile[];
+  image: string;
 }
