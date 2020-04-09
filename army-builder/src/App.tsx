@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadData } from './store/appSlice';
+import './App.css';
 import { AppDispatch } from './store';
+import { loadData } from './store/appSlice';
 import { RootState } from './store/rootReducer';
 
 function App() {
@@ -11,7 +10,7 @@ function App() {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const image = useSelector((state: RootState) => state.entries?.[0]?.image);
+  const image = useSelector((state: RootState) => state.entries[0]?.image);
 
   useEffect(() => {
     setLoading(true);

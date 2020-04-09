@@ -1,4 +1,4 @@
-import { Sectorial } from './sectorial';
+import { Sectorial } from './army';
 import { Rule } from './rule';
 
 export interface Profile {

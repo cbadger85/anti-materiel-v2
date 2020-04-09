@@ -1,5 +1,5 @@
 import { Rule } from './rule';
-import { Sectorial } from './sectorial';
+import { Sectorial } from './army';
 import { Profile } from './profile';
 
 export interface Availability {

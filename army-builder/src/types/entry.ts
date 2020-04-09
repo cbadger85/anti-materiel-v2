@@ -1,4 +1,4 @@
-import { Sectorial } from './sectorial';
+import { Sectorial } from './army';
 import { Unit } from './unit';
 import { Profile } from './profile';
 
