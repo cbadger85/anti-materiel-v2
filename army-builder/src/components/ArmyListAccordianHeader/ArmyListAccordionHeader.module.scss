@@ -1,0 +1,57 @@
+@import '../../styles/shadows';
+@import '../../styles/mixins';
+
+.containerShadow {
+  filter: drop-shadow($shadow-2-1) drop-shadow($shadow-2-2);
+  width: 100%;
+}
+
+.accordionHeader {
+  background-color: var(--blue-1);
+  display: flex;
+  align-items: center;
+  clip-path: polygon(
+    0 42px,
+    42px 84px,
+    59px 80%,
+    100% 80%,
+    100% 20%,
+    59px 20%,
+    42px 0
+  );
+  height: 84px;
+  width: 100%;
+  cursor: pointer;
+  @include no-select;
+
+  &:focus,
+  &:hover {
+    font-weight: bold;
+  }
+}
+
+.logoContainer {
+  margin-left: 12px;
+}
+
+.logoDiamondShadow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 60px;
+  transform: rotate(45deg);
+  background-color: var(--blue-1);
+  @include shadow-2;
+}
+
+.logo {
+  transform: rotate(-45deg);
+}
+
+.name {
+  font-size: 18px;
+  margin-left: 26px;
+  flex: 1;
+  font-weight: inherit;
+}

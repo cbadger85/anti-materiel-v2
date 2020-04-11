@@ -1,0 +1,41 @@
+$shadow-0-1: 4px 0 3px rgba(0, 0, 0, 0.03);
+$shadow-0-2: 2px 0 3px rgba(0, 0, 0, 0.08);
+
+@mixin shadow-0 {
+  box-shadow: $shadow-0-1, $shadow-0-2;
+}
+
+$shadow-1-1: 0 1px 3px rgba(3, 1, 1, 0.12);
+$shadow-1-2: 0 1px 2px rgba(0, 0, 0, 0.24);
+
+@mixin shadow-1 {
+  box-shadow: $shadow-1-1, $shadow-1-2;
+}
+
+$shadow-2-1: 0 3px 6px rgba(0, 0, 0, 0.16);
+$shadow-2-2: 0 3px 6px rgba(0, 0, 0, 0.23);
+
+@mixin shadow-2 {
+  box-shadow: $shadow-2-1, $shadow-2-2;
+}
+
+$shadow-3-1: 0 10px 20px rgba(0, 0, 0, 0.19);
+$shadow-3-2: 0 6px 6px rgba(0, 0, 0, 0.23);
+
+@mixin shadow-3 {
+  box-shadow: $shadow-3-1, $shadow-3-2;
+}
+
+$shadow-4-1: 0 14px 28px rgba(0, 0, 0, 0.25);
+$shadow-4-2: 0 10px 10px rgba(0, 0, 0, 0.22);
+
+@mixin shadow-4 {
+  box-shadow: $shadow-4-1, $shadow-4-2;
+}
+
+$shadow-5-1: 0 19px 38px rgba(0, 0, 0, 0.3);
+$shadow-5-2: 0 15px 12px rgba(0, 0, 0, 0.22);
+
+@mixin shadow-5 {
+  box-shadow: $shadow-5-1, $shadow-5-2;
+}

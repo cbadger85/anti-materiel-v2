@@ -1,0 +1,10 @@
+@import '../../styles/shadows';
+
+.appBar {
+  height: 36px;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  background-color: var(--gray-3);
+  @include shadow-3;
+}

@@ -1,0 +1,15 @@
+.container {
+  padding: 12px 4px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--blue-0-0);
+  }
+}
+
+.name {
+  margin-left: 12px;
+  font-size: 14px;
+}

@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import './App.css';
+import { useDispatch } from 'react-redux';
+import ArmyList from './components/ArmyList/ArmyList';
 import { AppDispatch } from './store';
 import { loadData } from './store/appSlice';
-import { RootState } from './store/rootReducer';
+import AppBar from './components/AppBar/AppBar';
 
 function App() {
   const [loading, setLoading] = useState(false);
-
   const dispatch = useDispatch<AppDispatch>();
-
-  const image = useSelector((state: RootState) => state.entries[0]?.image);
 
   useEffect(() => {
     setLoading(true);
@@ -25,20 +22,8 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={image} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppBar />
+      <ArmyList />
     </div>
   );
 }

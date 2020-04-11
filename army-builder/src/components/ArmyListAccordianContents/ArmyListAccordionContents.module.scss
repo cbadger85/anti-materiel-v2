@@ -1,0 +1,11 @@
+@import '../../styles/shadows';
+
+.container {
+  padding-left: 50px;
+}
+
+.contents {
+  margin-top: -16px;
+  background-color: var(--blue-0);
+  @include shadow-2;
+}
