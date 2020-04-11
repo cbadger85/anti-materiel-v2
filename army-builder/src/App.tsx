@@ -4,6 +4,8 @@ import ArmyList from './components/ArmyList/ArmyList';
 import { AppDispatch } from './store';
 import { loadData } from './store/appSlice';
 import AppBar from './components/AppBar/AppBar';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Page from './components/Page/Page';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -23,7 +25,18 @@ function App() {
   return (
     <div className="App">
       <AppBar />
-      <ArmyList />
+      <Router>
+        <Switch>
+          <Route path="/" exact>
+            <ArmyList />
+          </Route>
+          <Route path="/sectorial/:sectorial" exact>
+            <Page>
+              <div>Sectorial</div>
+            </Page>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

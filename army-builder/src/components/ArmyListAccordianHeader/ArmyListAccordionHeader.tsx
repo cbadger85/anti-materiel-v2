@@ -59,9 +59,9 @@ const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
         </div>
         <h2 className={styles.name}>{name}</h2>
         {isOpen ? (
-          <ChevronDown size={32} color={colors.orange4} />
+          <ChevronDown size={32} color={colors.teal7} />
         ) : (
-          <ChevronUp size={32} color={colors.orange4} />
+          <ChevronUp size={32} color={colors.teal7} />
         )}
       </div>
     </div>

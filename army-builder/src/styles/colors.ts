@@ -8,4 +8,7 @@ export default {
   gray3: getComputedStyle(document.body).getPropertyValue('--gray-3'),
   warmGray2: getComputedStyle(document.body).getPropertyValue('--warm-gray-2'),
   orange4: getComputedStyle(document.body).getPropertyValue('--orange-4'),
+  yellow7: getComputedStyle(document.body).getPropertyValue('--yellow-7'),
+  teal7: getComputedStyle(document.body).getPropertyValue('--teal-7'),
+  cyan8: getComputedStyle(document.body).getPropertyValue('--cyan-8'),
 };

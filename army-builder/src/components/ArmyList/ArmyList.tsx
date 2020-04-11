@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { armies, ArmyName } from '../../types/army';
 import ArmyListAccordion from '../ArmyListAccordion/ArmyListAccordion';
 import styles from './ArmyList.module.scss';
+import Page from '../Page/Page';
 
 const ArmyList = () => {
   const [openAccordion, setOpenAccordion] = useState<ArmyName>();
@@ -11,16 +12,18 @@ const ArmyList = () => {
   };
 
   return (
-    <div className={styles.container}>
-      {armies.map(army => (
-        <ArmyListAccordion
-          key={army.name}
-          army={army}
-          isOpen={army.name === openAccordion}
-          toggleAccordion={toggleAccordion}
-        />
-      ))}
-    </div>
+    <Page>
+      <div className={styles.container}>
+        {armies.map(army => (
+          <ArmyListAccordion
+            key={army.name}
+            army={army}
+            isOpen={army.name === openAccordion}
+            toggleAccordion={toggleAccordion}
+          />
+        ))}
+      </div>
+    </Page>
   );
 };
 
