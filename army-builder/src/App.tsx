@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import AppBar from './components/AppBar/AppBar';
 import ArmyList from './components/ArmyList/ArmyList';
-import UnitList from './components/UnitList/UnitList';
 import { AppDispatch } from './store';
 import { loadData } from './store/appSlice';
+import ListBuilder from './components/ListBuilder/ListBuilder';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -33,7 +33,7 @@ function App() {
             <ArmyList />
           </Route>
           <Route path="/builder/:sectorial" exact>
-            <UnitList />
+            <ListBuilder />
           </Route>
         </Switch>
       </AnimatePresence>

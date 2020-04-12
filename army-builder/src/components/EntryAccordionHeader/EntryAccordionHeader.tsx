@@ -1,16 +1,9 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { ArmyName } from '../../types/army';
+import React, { useRef, useState, useEffect } from 'react';
+import styles from './EntryAccordionHeader.module.scss';
+import { classnames } from '../../utils/classnames';
 import { useRipple } from 'react-use-ripple';
 import { ChevronLeft } from 'react-feather';
 import colors from '../../styles/colors';
-import styles from './ArmyListAccordionHeader.module.scss';
-import { classnames } from '../../utils/classnames';
-
-const loadImage = async (imageName: string) => {
-  const image = await import(`../../images/${imageName}`);
-
-  return image.default;
-};
 
 const isKeyboardEvent = <T,>(
   e: React.SyntheticEvent<T, unknown>,
@@ -23,14 +16,21 @@ const isKeyboardEvent = <T,>(
   return true;
 };
 
-const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
+const loadImage = async (imageName: string) => {
+  const image = await import(`../../images/${imageName}`);
+
+  return image.default;
+};
+
+const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
+  id,
   name,
   imageName,
   isOpen,
   toggleAccordion,
 }) => {
-  const accordianRef = useRef(null);
   const [image, setImage] = useState();
+  const accordianRef = useRef(null);
   useRipple(accordianRef);
 
   useEffect(() => {
@@ -46,11 +46,9 @@ const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
       isKeyboardEvent(e) &&
       (e.key === 'Enter' || e.key === 'Space' || !e.key)
     ) {
-      toggleAccordion(name);
+      toggleAccordion(id);
     }
   };
-
-  console.log(image);
 
   return (
     <div
@@ -77,11 +75,12 @@ const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
   );
 };
 
-export default ArmyListAccordionHeader;
+export default EntryAccordionHeader;
 
-interface ArmyListAccordionHeaderProps {
-  name: ArmyName;
+interface EntryAccordionHeaderProps {
+  id: string;
+  name: string;
   imageName: string;
   isOpen?: boolean;
-  toggleAccordion: (armyName: ArmyName) => void;
+  toggleAccordion: (entryId: string) => void;
 }

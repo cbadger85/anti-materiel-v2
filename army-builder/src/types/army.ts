@@ -1,217 +1,217 @@
 export const armies: Army[] = [
   {
     name: 'PanOceania',
-    image: 'images/pano.svg',
+    image: 'pano.svg',
     sectorials: [
       {
         name: 'PanOceania',
-        image: 'images/pano.svg',
+        image: 'pano.svg',
       },
       {
         name: 'Shock Army of Acontecimento',
-        image: 'images/shock-army.svg',
+        image: 'shock-army.svg',
       },
       {
         name: 'Military Orders',
-        image: 'images/military-orders.svg',
+        image: 'military-orders.svg',
       },
       {
         name: 'Neoterran Capitaline Army',
-        image: 'images/neoterra.svg',
+        image: 'neoterra.svg',
       },
       {
         name: 'Varuna Immediate Reaction Division',
-        image: 'images/varuna.svg',
+        image: 'varuna.svg',
       },
       {
         name: `Svalarheima's Winter Force`,
-        image: 'images/svalarheima.svg',
+        image: 'svalarheima.svg',
       },
     ],
   },
   {
     name: 'Yu Jing',
-    image: 'images/yu-jing.svg',
+    image: 'yu-jing.svg',
     sectorials: [
       {
         name: 'Yu Jing',
-        image: 'images/yu-jing.svg',
+        image: 'yu-jing.svg',
       },
       {
         name: 'Imperial Service',
-        image: 'images/iss.svg',
+        image: 'iss.svg',
       },
       {
         name: 'Invincible Army',
-        image: 'images/invincible-army.svg',
+        image: 'invincible-army.svg',
       },
       {
         name: 'The White Banner Army',
-        image: 'images/white-banner.svg',
+        image: 'white-banner.svg',
       },
     ],
   },
   {
     name: 'Ariadna',
-    image: 'images/ariadna.svg',
+    image: 'ariadna.svg',
     sectorials: [
       {
         name: 'Ariadna',
-        image: 'images/ariadna.svg',
+        image: 'ariadna.svg',
       },
       {
         name: 'Caledonian Highlander Army',
-        image: 'images/caledonia.svg',
+        image: 'caledonia.svg',
       },
       {
         name: 'Force de Résponse Rapide Merovingienne',
-        image: 'images/mrrf.svg',
+        image: 'mrrf.svg',
       },
       {
         name: 'USAriadna Ranger Force',
-        image: 'images/usariadna.svg',
+        image: 'usariadna.svg',
       },
       {
         name: 'Tartary Army Corps',
-        image: 'images/tak.svg',
+        image: 'tak.svg',
       },
     ],
   },
   {
     name: 'Haqqislam',
-    image: 'images/haqq.svg',
+    image: 'haqq.svg',
     sectorials: [
       {
         name: 'Haqqislam',
-        image: 'images/haqq.svg',
+        image: 'haqq.svg',
       },
       {
         name: 'Hassassin Bahram',
-        image: 'images/hassassins.svg',
+        image: 'hassassins.svg',
       },
       {
         name: 'Qapu Khalqi',
-        image: 'images/qk.svg',
+        image: 'qk.svg',
       },
       {
         name: 'Ramah Taskforce',
-        image: 'images/ramah.svg',
+        image: 'ramah.svg',
       },
     ],
   },
   {
     name: 'Nomads',
-    image: 'images/nomads.svg',
+    image: 'nomads.svg',
     sectorials: [
       {
         name: 'Nomads',
-        image: 'images/nomads.svg',
+        image: 'nomads.svg',
       },
       {
-        name: 'Jurisdicitonial Command of Corregidor',
-        image: 'images/corregidor.svg',
+        name: 'Jurisdictionial Command of Corregidor',
+        image: 'corregidor.svg',
       },
       {
-        name: 'Jurisdicitonial Command of Bakunin',
-        image: 'images/bakunin.svg',
+        name: 'Jurisdictionial Command of Bakunin',
+        image: 'bakunin.svg',
       },
       {
-        name: 'Jurisdicitonial Command of Tunguska',
-        image: 'images/tunguska.svg',
+        name: 'Jurisdictionial Command of Tunguska',
+        image: 'tunguska.svg',
       },
     ],
   },
   {
     name: 'Combined Army',
-    image: 'images/combined-army.svg',
+    image: 'combined-army.svg',
     sectorials: [
       {
         name: 'Combined Army',
-        image: 'images/combined-army.svg',
+        image: 'combined-army.svg',
       },
       {
         name: 'Morat Agression Force',
-        image: 'images/morats.svg',
+        image: 'morats.svg',
       },
       {
         name: 'Shasvastii Expeditionary Force',
-        image: 'images/shasvastii.svg',
+        image: 'shasvastii.svg',
       },
       {
         name: 'Onyx Contact Force',
-        image: 'images/onyx.svg',
+        image: 'onyx.svg',
       },
     ],
   },
   {
     name: 'ALEPH',
-    image: 'images/aleph.svg',
+    image: 'aleph.svg',
     sectorials: [
       {
         name: 'ALEPH',
-        image: 'images/aleph.svg',
+        image: 'aleph.svg',
       },
       {
         name: 'Steel Phalanx',
-        image: 'images/steel-phalanx.svg',
+        image: 'steel-phalanx.svg',
       },
       {
         name: 'Operations Subsection of the S.S.S.',
-        image: 'images/oss.svg',
+        image: 'oss.svg',
       },
     ],
   },
   {
     name: 'Tohaa',
-    image: 'images/tohaa.svg',
+    image: 'tohaa.svg',
     sectorials: [
       {
         name: 'Tohaa',
-        image: 'images/tohaa.svg',
+        image: 'tohaa.svg',
       },
     ],
   },
   {
     name: 'Non-Aligned Armies',
-    image: 'images/na2.svg',
+    image: 'na2.svg',
     sectorials: [
       {
         name: 'Druze Bayram Security',
-        image: 'images/druze.svg',
+        image: 'druze.svg',
       },
       {
         name: 'Japanese Secessionist Army',
-        image: 'images/jsa.svg',
+        image: 'jsa.svg',
       },
       {
         name: 'Ikari Company',
-        image: 'images/ikari.svg',
+        image: 'ikari.svg',
       },
       {
         name: 'Starco. Free Company of the Star',
-        image: 'images/starco.svg',
+        image: 'starco.svg',
       },
       {
         name: 'Spiral Corps',
-        image: 'images/spiral.svg',
+        image: 'spiral.svg',
       },
       {
         name: 'Foreign Company',
-        image: 'images/foreign-company.svg',
+        image: 'foreign-company.svg',
       },
       {
         name: 'Dahshat Company',
-        image: 'images/dashat.svg',
+        image: 'dashat.svg',
       },
     ],
   },
   {
     name: 'O-12',
-    image: 'images/o-12.svg',
+    image: 'o-12.svg',
     sectorials: [
       {
         name: 'O-12',
-        image: 'images/o-12.svg',
+        image: 'o-12.svg',
       },
     ],
   },
@@ -262,9 +262,9 @@ export const sectorials = [
   'Hassassin Bahram',
   'Ramah Taskforce',
   'Nomads',
-  'Jurisdicitonial Command of Corregidor',
-  'Jurisdicitonial Command of Bakunin',
-  'Jurisdicitonial Command of Tunguska',
+  'Jurisdictionial Command of Corregidor',
+  'Jurisdictionial Command of Bakunin',
+  'Jurisdictionial Command of Tunguska',
   'Combined Army',
   'Morat Agression Force',
   'Shasvastii Expeditionary Force',

@@ -17,7 +17,7 @@ const ArmyListAccordian: React.FC<ArmyListAccordianProps> = ({
     <div className={styles.accordion}>
       <ArmyListAccordionHeader
         name={army.name}
-        image={army.image}
+        imageName={army.image}
         isOpen={isOpen}
         toggleAccordion={toggleAccordion}
       />
