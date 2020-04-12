@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
 import { ArmyName } from '../../types/army';
 import { useRipple } from 'react-use-ripple';
-import { ChevronDown, ChevronUp } from 'react-feather';
+import { ChevronUp } from 'react-feather';
 import colors from '../../styles/colors';
 import styles from './ArmyListAccordionHeader.module.scss';
+import { classnames } from '../../utils/classnames';
 
 const isKeyboardEvent = <T,>(
   e: React.SyntheticEvent<T, unknown>,
@@ -58,11 +59,14 @@ const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
           </div>
         </div>
         <h2 className={styles.name}>{name}</h2>
-        {isOpen ? (
-          <ChevronDown size={32} color={colors.teal7} />
-        ) : (
+        <div
+          className={classnames(
+            styles.accordionIcon,
+            isOpen && styles['accordionIcon--active'],
+          )}
+        >
           <ChevronUp size={32} color={colors.teal7} />
-        )}
+        </div>
       </div>
     </div>
   );

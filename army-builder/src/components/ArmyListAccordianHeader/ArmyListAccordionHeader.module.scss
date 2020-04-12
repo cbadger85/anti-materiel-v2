@@ -55,3 +55,11 @@
   flex: 1;
   font-weight: inherit;
 }
+
+.accordionIcon {
+  transition: transform 0.2s;
+}
+
+.accordionIcon--active {
+  transform: rotate(-180deg);
+}
