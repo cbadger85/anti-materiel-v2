@@ -90,7 +90,7 @@ export const entryBuilder = (entryResponse: EntryResponse[], units: Unit[]) =>
   });
 
 export const getAllData = async () => {
-  const { data } = await axios.get<AllDataResponse>('api/all');
+  const { data } = await axios.get<AllDataResponse>('/api/all');
   const ammo = ammoBuilder(data.ammo);
   const weapons = weaponBuilder(data.weapons, ammo);
   const infoWarAttacks = infoWarAttackBuilder(data.infoWarAttacks, ammo);

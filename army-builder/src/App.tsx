@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import AppBar from './components/AppBar/AppBar';
 import ArmyList from './components/ArmyList/ArmyList';
-import Page from './components/Page/Page';
+import UnitList from './components/UnitList/UnitList';
 import { AppDispatch } from './store';
 import { loadData } from './store/appSlice';
 
@@ -33,9 +33,7 @@ function App() {
             <ArmyList />
           </Route>
           <Route path="/sectorials/:sectorial" exact>
-            <Page>
-              <div>Sectorial</div>
-            </Page>
+            <UnitList />
           </Route>
         </Switch>
       </AnimatePresence>

@@ -1,3 +1,5 @@
+import './colors.css';
+
 export default {
   black: getComputedStyle(document.body).getPropertyValue('--black'),
   blue00: getComputedStyle(document.body).getPropertyPriority('--blue-0-0'),
