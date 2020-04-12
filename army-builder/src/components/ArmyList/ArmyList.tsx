@@ -3,6 +3,7 @@ import { armies, ArmyName } from '../../types/army';
 import ArmyListAccordion from '../ArmyListAccordion/ArmyListAccordion';
 import styles from './ArmyList.module.scss';
 import Page from '../Page/Page';
+import { motion } from 'framer-motion';
 
 const ArmyList = () => {
   const [openAccordion, setOpenAccordion] = useState<ArmyName>();

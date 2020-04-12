@@ -1,15 +1,17 @@
+import { AnimatePresence } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Route, Switch, useLocation } from 'react-router-dom';
+import AppBar from './components/AppBar/AppBar';
 import ArmyList from './components/ArmyList/ArmyList';
+import Page from './components/Page/Page';
 import { AppDispatch } from './store';
 import { loadData } from './store/appSlice';
-import AppBar from './components/AppBar/AppBar';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Page from './components/Page/Page';
 
 function App() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
 
   useEffect(() => {
     setLoading(true);
@@ -25,18 +27,18 @@ function App() {
   return (
     <div className="App">
       <AppBar />
-      <Router>
-        <Switch>
+      <AnimatePresence exitBeforeEnter>
+        <Switch key={location.key} location={location}>
           <Route path="/" exact>
             <ArmyList />
           </Route>
-          <Route path="/sectorial/:sectorial" exact>
+          <Route path="/sectorials/:sectorial" exact>
             <Page>
               <div>Sectorial</div>
             </Page>
           </Route>
         </Switch>
-      </Router>
+      </AnimatePresence>
     </div>
   );
 }

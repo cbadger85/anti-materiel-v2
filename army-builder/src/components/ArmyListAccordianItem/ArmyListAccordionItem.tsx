@@ -19,7 +19,7 @@ const ArmyListAccordionItem: React.FC<ArmyListAccordionItemProps> = ({
 
   return (
     <Link
-      to={`/sectorial/${sectorial.name}`}
+      to={`/sectorials/${sectorial.name}`}
       className={styles.link}
       ref={linkRef}
     >
