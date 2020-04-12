@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { ArmyName } from '../../types/army';
 import { useRipple } from 'react-use-ripple';
-import { ChevronUp } from 'react-feather';
+import { ChevronLeft } from 'react-feather';
 import colors from '../../styles/colors';
 import styles from './ArmyListAccordionHeader.module.scss';
 import { classnames } from '../../utils/classnames';
@@ -38,35 +38,25 @@ const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
   };
 
   return (
-    <div className={styles.containerShadow}>
+    <div
+      className={styles.accordionHeader}
+      tabIndex={0}
+      ref={accordianRef}
+      onClick={handleToggle}
+      onKeyDown={handleToggle}
+      aria-expanded={isOpen}
+    >
+      <div className={styles.logoContainer}>
+        <img width={32} height={32} src={image} alt={`${name} logo`} />
+      </div>
+      <h2 className={styles.name}>{name}</h2>
       <div
-        className={styles.accordionHeader}
-        tabIndex={0}
-        ref={accordianRef}
-        onClick={handleToggle}
-        onKeyDown={handleToggle}
-        aria-expanded={isOpen}
+        className={classnames(
+          styles.accordionIcon,
+          isOpen && styles['accordionIcon--active'],
+        )}
       >
-        <div className={styles.logoContainer}>
-          <div className={styles.logoDiamondShadow}>
-            <img
-              width={46}
-              height={46}
-              src={image}
-              alt={`${name} logo`}
-              className={styles.logo}
-            />
-          </div>
-        </div>
-        <h2 className={styles.name}>{name}</h2>
-        <div
-          className={classnames(
-            styles.accordionIcon,
-            isOpen && styles['accordionIcon--active'],
-          )}
-        >
-          <ChevronUp size={32} color={colors.teal7} />
-        </div>
+        <ChevronLeft size={32} color={colors.gray3} />
       </div>
     </div>
   );

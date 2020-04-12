@@ -1,57 +1,40 @@
 @import '../../styles/shadows';
 @import '../../styles/mixins';
 
-.containerShadow {
-  filter: drop-shadow($shadow-2-1) drop-shadow($shadow-2-2);
-  width: 100%;
-}
-
 .accordionHeader {
   background-color: var(--blue-1);
   display: flex;
   align-items: center;
-  clip-path: polygon(
-    0 42px,
-    42px 84px,
-    59px 80%,
-    100% 80%,
-    100% 20%,
-    59px 20%,
-    42px 0
-  );
-  height: 84px;
+  height: 54px;
   width: 100%;
   cursor: pointer;
   @include no-select;
+  @include shadow-2;
+  border-radius: 5px;
+  border: 1px solid var(--warm-gray-2);
 
   &:focus,
   &:hover {
     font-weight: bold;
+    outline: none;
   }
 }
 
 .logoContainer {
-  margin-left: 12px;
-}
-
-.logoDiamondShadow {
+  margin: 0 12px 0 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
-  width: 60px;
-  transform: rotate(45deg);
-  background-color: var(--blue-1);
+  height: 36px;
+  width: 36px;
+  background-color: var(--blue-2);
   @include shadow-2;
-}
-
-.logo {
-  transform: rotate(-45deg);
+  border: 1px solid var(--warm-gray-2);
+  border-radius: 50%;
 }
 
 .name {
-  font-size: 18px;
-  margin-left: 26px;
+  font-size: 20px;
   flex: 1;
   font-weight: inherit;
 }
@@ -61,5 +44,5 @@
 }
 
 .accordionIcon--active {
-  transform: rotate(-180deg);
+  transform: rotate(-90deg);
 }

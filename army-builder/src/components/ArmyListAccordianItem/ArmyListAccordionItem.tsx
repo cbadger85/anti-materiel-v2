@@ -24,12 +24,14 @@ const ArmyListAccordionItem: React.FC<ArmyListAccordionItemProps> = ({
       ref={linkRef}
     >
       <div className={styles.container}>
-        <img
-          width={24}
-          height={24}
-          src={sectorial.image}
-          alt={`${sectorial.name} logo`}
-        />
+        <div className={styles.imageContainer}>
+          <img
+            width={26}
+            height={26}
+            src={sectorial.image}
+            alt={`${sectorial.name} logo`}
+          />
+        </div>
         <span className={styles.name}>{sectorial.name}</span>
         <ChevronsRight size={16} color={colors.orange4} />
       </div>

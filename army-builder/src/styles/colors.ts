@@ -5,6 +5,7 @@ export default {
   blue00: getComputedStyle(document.body).getPropertyPriority('--blue-0-0'),
   blue0: getComputedStyle(document.body).getPropertyValue('--blue-0'),
   blue1: getComputedStyle(document.body).getPropertyValue('--blue-1'),
+  blue2: getComputedStyle(document.body).getPropertyValue('--blue-2'),
   white: getComputedStyle(document.body).getPropertyValue('--white'),
   gray2: getComputedStyle(document.body).getPropertyValue('--gray-2'),
   gray3: getComputedStyle(document.body).getPropertyValue('--gray-3'),

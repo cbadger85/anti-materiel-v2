@@ -1,3 +1,5 @@
+@import '../../styles/shadows';
+
 .link {
   color: inherit;
   text-decoration: inherit;
@@ -19,8 +21,21 @@
   }
 }
 
+.imageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  background-color: var(--blue-1);
+  @include shadow-2;
+  border: 1px solid var(--warm-gray-2);
+  border-radius: 50%;
+}
+
 .name {
   margin-left: 12px;
-  font-size: 14px;
+  font-size: 16px;
   flex: 1;
+  margin-right: 6px;
 }
