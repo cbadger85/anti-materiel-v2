@@ -9,7 +9,7 @@ const entrySlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(loadData.fulfilled, (state, action) => {
+    builder.addCase(loadData, (state, action) => {
       return action.payload.entries;
     });
   },

@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
-import styles from './EntryAccordionHeader.module.scss';
-import { classnames } from '../../utils/classnames';
-import { useRipple } from 'react-use-ripple';
+import React, { useRef } from 'react';
 import { ChevronLeft } from 'react-feather';
+import { useRipple } from 'react-use-ripple';
 import colors from '../../styles/colors';
+import { classnames } from '../../utils/classnames';
+import Image from '../Image/Image';
+import styles from './EntryAccordionHeader.module.scss';
 
 const isKeyboardEvent = <T,>(
   e: React.SyntheticEvent<T, unknown>,
@@ -16,12 +17,6 @@ const isKeyboardEvent = <T,>(
   return true;
 };
 
-const loadImage = async (imageName: string) => {
-  const image = await import(`../../images/${imageName}`);
-
-  return image.default;
-};
-
 const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
   id,
   name,
@@ -29,15 +24,8 @@ const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
   isOpen,
   toggleAccordion,
 }) => {
-  const [image, setImage] = useState();
   const accordianRef = useRef(null);
   useRipple(accordianRef);
-
-  useEffect(() => {
-    loadImage(imageName).then(img => {
-      setImage(img);
-    });
-  }, [imageName]);
 
   const handleToggle = (
     e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
@@ -60,7 +48,7 @@ const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
       aria-expanded={isOpen}
     >
       <div className={styles.logoContainer}>
-        <img width={32} height={32} src={image} alt={`${name} logo`} />
+        <Image width={32} height={32} imageName={imageName} />
       </div>
       <h2 className={styles.name}>{name}</h2>
       <div

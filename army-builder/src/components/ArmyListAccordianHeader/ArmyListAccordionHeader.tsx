@@ -1,16 +1,11 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { ArmyName } from '../../types/army';
-import { useRipple } from 'react-use-ripple';
+import React, { useRef } from 'react';
 import { ChevronLeft } from 'react-feather';
+import { useRipple } from 'react-use-ripple';
 import colors from '../../styles/colors';
-import styles from './ArmyListAccordionHeader.module.scss';
+import { ArmyName } from '../../types/army';
 import { classnames } from '../../utils/classnames';
-
-const loadImage = async (imageName: string) => {
-  const image = await import(`../../images/${imageName}`);
-
-  return image.default;
-};
+import Image from '../Image/Image';
+import styles from './ArmyListAccordionHeader.module.scss';
 
 const isKeyboardEvent = <T,>(
   e: React.SyntheticEvent<T, unknown>,
@@ -30,14 +25,7 @@ const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
   toggleAccordion,
 }) => {
   const accordianRef = useRef(null);
-  const [image, setImage] = useState();
   useRipple(accordianRef);
-
-  useEffect(() => {
-    loadImage(imageName).then(img => {
-      setImage(img);
-    });
-  }, [imageName]);
 
   const handleToggle = (
     e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>,
@@ -50,8 +38,6 @@ const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
     }
   };
 
-  console.log(image);
-
   return (
     <div
       className={styles.accordionHeader}
@@ -62,7 +48,7 @@ const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
       aria-expanded={isOpen}
     >
       <div className={styles.logoContainer}>
-        <img width={32} height={32} src={image} alt={`${name} logo`} />
+        <Image width={32} height={32} imageName={imageName} />
       </div>
       <h2 className={styles.name}>{name}</h2>
       <div

@@ -1,14 +1,14 @@
-import axios from 'axios';
-import {
-  AmmoResponse,
-  WeaponResponse,
-  Ammo,
-  WeaponMode,
-  Weapon,
-} from '../types/weapon';
+import allData from '../data/allData.json';
+import { Entry, EntryResponse } from '../types/entry';
 import { InfoWarAttack, InfoWarAttackResponse } from '../types/infoWarAttack';
-import { UnitResponse, Unit } from '../types/unit';
-import { EntryResponse, Entry } from '../types/entry';
+import { Unit, UnitResponse } from '../types/unit';
+import {
+  Ammo,
+  AmmoResponse,
+  Weapon,
+  WeaponMode,
+  WeaponResponse,
+} from '../types/weapon';
 
 export const ammoBuilder = (ammoResponse: AmmoResponse[]) =>
   ammoResponse.map<Ammo>(({ id, combinedAmmoIds, link, name }) => {
@@ -89,12 +89,17 @@ export const entryBuilder = (entryResponse: EntryResponse[], units: Unit[]) =>
     };
   });
 
-export const getAllData = async () => {
-  const { data } = await axios.get<AllDataResponse>('/api/all');
+const getAllDataResponse = (data: unknown) => data as AllDataResponse;
+
+export const getAllData = () => {
+  const data = getAllDataResponse(allData);
   const ammo = ammoBuilder(data.ammo);
-  const weapons = weaponBuilder(data.weapons, ammo);
-  const infoWarAttacks = infoWarAttackBuilder(data.infoWarAttacks, ammo);
-  const units = unitBuilder(data.units);
+  const weapons = weaponBuilder(data.weapons as WeaponResponse[], ammo);
+  const infoWarAttacks = infoWarAttackBuilder(
+    data.infoWarAttacks as InfoWarAttackResponse[],
+    ammo,
+  );
+  const units = unitBuilder(data.units as UnitResponse[]);
   const entries = entryBuilder(data.entries, units);
 
   return { weapons, infoWarAttacks, units, entries };

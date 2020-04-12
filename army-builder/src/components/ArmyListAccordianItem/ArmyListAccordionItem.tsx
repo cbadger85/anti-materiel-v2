@@ -1,29 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import kebabcase from 'lodash/kebabCase';
+import React, { useEffect, useRef } from 'react';
 import { ChevronsRight } from 'react-feather';
 import { Link } from 'react-router-dom';
 import colors from '../../styles/colors';
 import { Sectorial } from '../../types/army';
+import Image from '../Image/Image';
 import styles from './ArmyListAccordionItem.module.scss';
-import kebabcase from 'lodash/kebabCase';
-
-const loadImage = async (imageName: string) => {
-  const image = await import(`../../images/${imageName}`);
-
-  return image.default;
-};
 
 const ArmyListAccordionItem: React.FC<ArmyListAccordionItemProps> = ({
   sectorial,
   autoFocus,
 }) => {
-  const [image, setImage] = useState();
   const linkRef = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    loadImage(sectorial.image).then(img => {
-      setImage(img);
-    });
-  }, [sectorial.image]);
 
   useEffect(() => {
     if (linkRef.current && autoFocus) {
@@ -37,12 +25,7 @@ const ArmyListAccordionItem: React.FC<ArmyListAccordionItemProps> = ({
     <Link to={`/builder/${sectorialUri}`} className={styles.link} ref={linkRef}>
       <div className={styles.container}>
         <div className={styles.imageContainer}>
-          <img
-            width={26}
-            height={26}
-            src={image}
-            alt={`${sectorial.name} logo`}
-          />
+          <Image width={26} height={26} imageName={sectorial.image} />
         </div>
         <span className={styles.name}>{sectorial.name}</span>
         <ChevronsRight size={16} color={colors.orange4} />
