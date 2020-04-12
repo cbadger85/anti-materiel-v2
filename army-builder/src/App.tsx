@@ -32,7 +32,7 @@ function App() {
           <Route path="/" exact>
             <ArmyList />
           </Route>
-          <Route path="/sectorials/:sectorial" exact>
+          <Route path="/builder/:sectorial" exact>
             <UnitList />
           </Route>
         </Switch>
