@@ -11,13 +11,6 @@ const generateFile = async () => {
 
   const svgFiles = files.filter(file => file.includes('.svg'));
 
-  // const imports = svgFiles.reduce((file, acc, i) => {
-  //   return `
-  //   ${acc}
-  //   import {ReactComponent as ReactComponent${i} from './${file}';
-  //     `;
-  // }, '');
-
   const imports = svgFiles
     .map(
       (file, i) => `
