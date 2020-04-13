@@ -1,18 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Unit } from '../types/unit';
+import { Weapon } from '../types/weapon';
 import { loadData } from './appSlice';
 
-const initialState: Unit[] = [];
+const initialState: Weapon[] = [];
 
-const unitSlice = createSlice({
-  name: 'infoWarAttacks',
+const weaponDataSlice = createSlice({
+  name: 'weaponData',
   initialState,
   reducers: {},
   extraReducers: builder => {
     builder.addCase(loadData, (state, action) => {
-      return action.payload.units;
+      return action.payload.weapons;
     });
   },
 });
 
-export default unitSlice.reducer;
+export default weaponDataSlice.reducer;

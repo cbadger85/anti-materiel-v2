@@ -4,8 +4,8 @@ import { loadData } from './appSlice';
 
 const initialState: InfoWarAttack[] = [];
 
-const infoWarAttackSlice = createSlice({
-  name: 'infoWarAttacks',
+const infoWarAttackDataSlice = createSlice({
+  name: 'infoWarAttackData',
   initialState,
   reducers: {},
   extraReducers: builder => {
@@ -15,4 +15,4 @@ const infoWarAttackSlice = createSlice({
   },
 });
 
-export default infoWarAttackSlice.reducer;
+export default infoWarAttackDataSlice.reducer;

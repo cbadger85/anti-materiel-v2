@@ -1,7 +1,9 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import { AllData } from '../controllers/armyListController';
 
-export const loadData = createAction<AllData>('*/loadData');
+export const loadData = createAction<AllData>('data/loadData');
+
+export const resetToDefault = createAction('*/resetToDefault');
 
 interface AppState {
   error?: boolean;

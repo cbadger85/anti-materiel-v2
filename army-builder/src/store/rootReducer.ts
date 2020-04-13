@@ -1,16 +1,20 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import appReducer from './appSlice';
-import entryReducer from './entrySlice';
-import unitReducer from './unitSlice';
-import weaponReducer from './weaponSlice';
-import infoWarAttackReducer from './infoWarAttackSlice';
+import entryDataReducer from './entryDataSlice';
+import entryListReducer from './entryListSlice';
+import unitDataReducer from './unitDataSlice';
+import weaponDataReducer from './weaponDataSlice';
+import infoWarAttackDataReducer from './infoWarAttackDataSlice';
 
 const rootReducer = combineReducers({
   app: appReducer,
-  entries: entryReducer,
-  units: unitReducer,
-  weapons: weaponReducer,
-  infoWarAttacks: infoWarAttackReducer,
+  data: combineReducers({
+    entries: entryDataReducer,
+    units: unitDataReducer,
+    weapons: weaponDataReducer,
+    infoWarAttacks: infoWarAttackDataReducer,
+  }),
+  entries: entryListReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
