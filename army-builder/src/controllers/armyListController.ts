@@ -1,4 +1,5 @@
-import allData from '../data/allData.json';
+// import allData from '../data/allData.json';
+import axios from 'axios';
 import { Entry, EntryResponse } from '../types/entry';
 import { InfoWarAttack, InfoWarAttackResponse } from '../types/infoWarAttack';
 import { Unit, UnitResponse } from '../types/unit';
@@ -89,17 +90,12 @@ export const entryBuilder = (entryResponse: EntryResponse[], units: Unit[]) =>
     };
   });
 
-const getAllDataResponse = (data: unknown) => data as AllDataResponse;
-
-export const getAllData = () => {
-  const data = getAllDataResponse(allData);
+export const getAllData = async () => {
+  const { data } = await axios.get<AllDataResponse>('/api/all');
   const ammo = ammoBuilder(data.ammo);
-  const weapons = weaponBuilder(data.weapons as WeaponResponse[], ammo);
-  const infoWarAttacks = infoWarAttackBuilder(
-    data.infoWarAttacks as InfoWarAttackResponse[],
-    ammo,
-  );
-  const units = unitBuilder(data.units as UnitResponse[]);
+  const weapons = weaponBuilder(data.weapons, ammo);
+  const infoWarAttacks = infoWarAttackBuilder(data.infoWarAttacks, ammo);
+  const units = unitBuilder(data.units);
   const entries = entryBuilder(data.entries, units);
 
   return { weapons, infoWarAttacks, units, entries };

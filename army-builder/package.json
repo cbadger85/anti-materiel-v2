@@ -62,5 +62,6 @@
     "eslint-plugin-react-hooks": "^1.x",
     "node-sass": "^4.13.1",
     "prettier": "^1.19.1"
-  }
+  },
+  "proxy": "http://localhost:7777"
 }

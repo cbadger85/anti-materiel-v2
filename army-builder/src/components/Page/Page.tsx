@@ -1,27 +1,23 @@
 import React from 'react';
 import styles from './Page.module.scss';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
-const variants = {
-  initial: {
-    x: '100%',
-  },
-  animate: {
-    x: 0,
-  },
-  exit: {
-    x: '-100%',
-  },
-};
+interface LocationState {
+  direction?: 'right' | 'left';
+}
 
 const Page: React.FC = ({ children }) => {
+  const location = useLocation<LocationState>();
+
+  const direction = location.state?.direction || 'left';
+
   return (
     <motion.div
       className={styles.page}
-      variants={variants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
+      initial={{ x: direction === 'left' ? '-100%' : '100%' }}
+      animate={{ x: 0 }}
+      exit={{ x: direction === 'left' ? '-100%' : '100%' }}
       transition={{ duration: 0.2 }}
     >
       {children}

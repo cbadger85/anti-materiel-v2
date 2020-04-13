@@ -9,7 +9,7 @@ const unitDataSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(loadData, (state, action) => {
+    builder.addCase(loadData.fulfilled, (state, action) => {
       return action.payload.units;
     });
   },

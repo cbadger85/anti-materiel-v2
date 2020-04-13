@@ -1,7 +1,11 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
-import { AllData } from '../controllers/armyListController';
+import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getAllData } from '../controllers/armyListController';
 
-export const loadData = createAction<AllData>('data/loadData');
+export const loadData = createAsyncThunk('/data/loadData', async () => {
+  const data = await getAllData();
+
+  return data;
+});
 
 export const resetToDefault = createAction('*/resetToDefault');
 
@@ -15,6 +19,11 @@ const appSlice = createSlice({
   name: 'infoWarAttacks',
   initialState,
   reducers: {},
+  extraReducers: builder => {
+    builder.addCase(loadData.rejected, (state, action) => {
+      state.error = true;
+    });
+  },
 });
 
 export default appSlice.reducer;

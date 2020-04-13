@@ -22,7 +22,14 @@ const ArmyListAccordionItem: React.FC<ArmyListAccordionItemProps> = ({
   const sectorialUri = kebabcase(sectorial.name.toLowerCase());
 
   return (
-    <Link to={`/builder/${sectorialUri}`} className={styles.link} ref={linkRef}>
+    <Link
+      to={{
+        pathname: `/builder/${sectorialUri}`,
+        state: { direction: 'right' },
+      }}
+      className={styles.link}
+      ref={linkRef}
+    >
       <div className={styles.container}>
         <div className={styles.imageContainer}>
           <Image width={28} height={28} imageName={sectorial.image} />
@@ -42,4 +49,8 @@ interface ArmyListAccordionItemProps {
     image: string;
   };
   autoFocus?: boolean;
+}
+
+interface LocationState {
+  direction?: 'right' | 'left';
 }

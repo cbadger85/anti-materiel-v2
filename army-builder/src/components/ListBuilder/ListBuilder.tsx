@@ -1,9 +1,9 @@
-import React from 'react';
-import Page from '../Page/Page';
-import EntryList from '../EntryList/EntryList';
 import kebabcase from 'lodash/kebabCase';
-import { sectorials, Sectorial } from '../../types/army';
+import React from 'react';
 import { useParams } from 'react-router-dom';
+import { Sectorial, sectorials } from '../../types/army';
+import EntryList from '../EntryList/EntryList';
+import Page from '../Page/Page';
 
 const ListBuilder = () => {
   const { sectorial } = useParams<{ sectorial: Sectorial }>();
