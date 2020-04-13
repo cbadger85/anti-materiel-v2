@@ -48,7 +48,7 @@ const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
       aria-expanded={isOpen}
     >
       <div className={styles.logoContainer}>
-        <Image width={34} height={34} imageName={imageName} />
+        <Image width={36} height={36} imageName={imageName} />
       </div>
       <h2 className={styles.name}>{name}</h2>
       <div

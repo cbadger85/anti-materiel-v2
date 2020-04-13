@@ -25,11 +25,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 30px;
-  width: 30px;
-  background-color: var(--blue-1);
+  height: 28px;
+  width: 28px;
   @include shadow-2;
-  // border: 1px solid var(--warm-gray-2);
   border-radius: 50%;
 }
 
