@@ -25,7 +25,7 @@ const ArmyListAccordionItem: React.FC<ArmyListAccordionItemProps> = ({
     <Link to={`/builder/${sectorialUri}`} className={styles.link} ref={linkRef}>
       <div className={styles.container}>
         <div className={styles.imageContainer}>
-          <Image width={26} height={26} imageName={sectorial.image} />
+          <Image width={28} height={28} imageName={sectorial.image} />
         </div>
         <span className={styles.name}>{sectorial.name}</span>
         <ChevronsRight size={16} color={colors.orange4} />

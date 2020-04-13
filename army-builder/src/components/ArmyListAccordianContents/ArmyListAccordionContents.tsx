@@ -22,23 +22,14 @@ const ArmyListAccordionContents: React.FC<ArmyListAccordionContentsProps> = ({
               opacity: 1,
             }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.1, ease: [0.04, 0.62, 0.23, 0.98] }}
+            transition={{ duration: 0.25, ease: [0.04, 0.62, 0.23, 0.98] }}
           >
-            <motion.div
-              layoutTransition
-              style={{ originY: 0 }}
-              initial={{ opacity: 0, scaleY: 0 }}
-              animate={{ opacity: 1, scaleY: 1 }}
-              exit={{ opacity: 0, scaleY: 0 }}
-              transition={{ duration: 0.1, ease: [0.04, 0.62, 0.23, 0.98] }}
-            >
-              {sectorials.map((sectorial, i) => (
-                <React.Fragment key={sectorial.name}>
-                  <SectorialListItem sectorial={sectorial} autoFocus={!i} />
-                  {i !== sectorials.length - 1 && <Divider color="gray" />}
-                </React.Fragment>
-              ))}
-            </motion.div>
+            {sectorials.map((sectorial, i) => (
+              <React.Fragment key={sectorial.name}>
+                <SectorialListItem sectorial={sectorial} autoFocus={!i} />
+                {i !== sectorials.length - 1 && <Divider color="gray" />}
+              </React.Fragment>
+            ))}
           </motion.div>
         </div>
       )}
