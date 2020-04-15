@@ -30,6 +30,7 @@ const EntryList: React.FC<EntryListProps> = ({ sectorial }) => {
           isOpen={openAccordion === entry.id}
           toggleAccordion={toggleAccordion}
           entry={entry}
+          sectorial={sectorial}
         />
       ))}
     </div>

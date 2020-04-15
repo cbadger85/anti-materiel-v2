@@ -5,11 +5,13 @@ import { Entry } from '../../types/entry';
 // import ArmyListAccordionHeader from '../ArmyListAccordianHeader/ArmyListAccordionHeader';
 import styles from './EntryAccordion.module.scss';
 import EntryAccordionHeader from '../EntryAccordionHeader/EntryAccordionHeader';
+import { Sectorial } from '../../types/army';
 
 const EntryAccordion: React.FC<EntryAccordionProps> = ({
   entry,
   isOpen,
   toggleAccordion,
+  sectorial,
 }) => {
   const accordianRef = useRef(null);
   useRipple(accordianRef);
@@ -17,11 +19,10 @@ const EntryAccordion: React.FC<EntryAccordionProps> = ({
   return (
     <div className={styles.accordion}>
       <EntryAccordionHeader
-        id={entry.id}
-        name={entry.name}
-        imageName={entry.primaryUnit.primaryDetails.image}
+        entry={entry}
         isOpen={isOpen}
         toggleAccordion={toggleAccordion}
+        sectorial={sectorial}
       />
       {/* <ArmyListAccordionContents isOpen={isOpen} sectorials={army.sectorials} /> */}
     </div>
@@ -34,4 +35,5 @@ interface EntryAccordionProps {
   entry: Entry;
   toggleAccordion: (entryId: string) => void;
   isOpen?: boolean;
+  sectorial: Sectorial;
 }

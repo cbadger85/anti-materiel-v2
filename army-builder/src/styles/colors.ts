@@ -14,4 +14,6 @@ export default {
   yellow7: getComputedStyle(document.body).getPropertyValue('--yellow-7'),
   teal7: getComputedStyle(document.body).getPropertyValue('--teal-7'),
   cyan8: getComputedStyle(document.body).getPropertyValue('--cyan-8'),
+  lightBlue: getComputedStyle(document.body).getPropertyValue('--light-blue'),
+  skyBlue: getComputedStyle(document.body).getPropertyValue('--sky-blue'),
 };

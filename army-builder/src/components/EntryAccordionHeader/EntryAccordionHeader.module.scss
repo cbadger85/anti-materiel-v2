@@ -1,11 +1,8 @@
 @import '../../styles/shadows';
 @import '../../styles/mixins';
 
-.accordionHeader {
+.accordionHeaderContainer {
   background-color: var(--blue-1);
-  display: flex;
-  align-items: center;
-  height: 64px;
   width: 100%;
   cursor: pointer;
   @include no-select;
@@ -19,6 +16,12 @@
   }
 }
 
+.accordionHeader {
+  display: flex;
+  align-items: center;
+  height: 64px;
+}
+
 .logoContainer {
   margin: 0 12px 0 8px;
   display: flex;
@@ -30,10 +33,20 @@
   border-radius: 50%;
 }
 
-.name {
-  font-size: 20px;
+.primaryInfo {
   flex: 1;
+}
+
+.unitTypeAndClassification {
+  font-weight: normal;
+  font-size: 13px;
+  color: var(--sky-blue);
+}
+
+.name {
+  font-size: 16px;
   font-weight: inherit;
+  margin: 0;
 }
 
 .accordionIcon {

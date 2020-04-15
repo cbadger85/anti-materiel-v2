@@ -5,6 +5,9 @@ import colors from '../../styles/colors';
 import { classnames } from '../../utils/classnames';
 import Image from '../Image/Image';
 import styles from './EntryAccordionHeader.module.scss';
+import { Entry } from '../../types/entry';
+import { Sectorial } from '../../types/army';
+import StatsTable from '../StatsTable/StatsTable';
 
 const isKeyboardEvent = <T,>(
   e: React.SyntheticEvent<T, unknown>,
@@ -18,11 +21,10 @@ const isKeyboardEvent = <T,>(
 };
 
 const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
-  id,
-  name,
-  imageName,
   isOpen,
   toggleAccordion,
+  entry,
+  sectorial,
 }) => {
   const accordianRef = useRef(null);
   useRipple(accordianRef);
@@ -34,31 +36,51 @@ const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
       isKeyboardEvent(e) &&
       (e.key === 'Enter' || e.key === 'Space' || !e.key)
     ) {
-      toggleAccordion(id);
+      toggleAccordion(entry.id);
     }
   };
 
   return (
     <div
-      className={styles.accordionHeader}
+      className={styles.accordionHeaderContainer}
       tabIndex={0}
       ref={accordianRef}
       onClick={handleToggle}
       onKeyDown={handleToggle}
       aria-expanded={isOpen}
     >
-      <div className={styles.logoContainer}>
-        <Image width={48} height={48} imageName={imageName} />
+      <div className={styles.accordionHeader}>
+        <div className={styles.logoContainer}>
+          <Image
+            width={48}
+            height={48}
+            imageName={entry.primaryUnit.primaryDetails.image}
+          />
+        </div>
+        <div className={styles.primaryInfo}>
+          <div className={styles.unitTypeAndClassification}>
+            {entry.primaryUnit.primaryDetails.unitType} -
+            {entry.primaryUnit.primaryDetails.classification}
+          </div>
+          <h2 className={styles.name}>{entry.name}</h2>
+        </div>
+        <div
+          className={classnames(
+            styles.accordionIcon,
+            isOpen && styles['accordionIcon--active'],
+          )}
+        >
+          <ChevronLeft size={32} color={colors.gray3} />
+        </div>
       </div>
-      <h2 className={styles.name}>{name}</h2>
-      <div
-        className={classnames(
-          styles.accordionIcon,
-          isOpen && styles['accordionIcon--active'],
-        )}
-      >
-        <ChevronLeft size={32} color={colors.gray3} />
-      </div>
+      {isOpen && (
+        <div>
+          <StatsTable
+            details={entry.primaryUnit.primaryDetails}
+            sectorial={sectorial}
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -66,9 +88,8 @@ const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
 export default EntryAccordionHeader;
 
 interface EntryAccordionHeaderProps {
-  id: string;
-  name: string;
-  imageName: string;
+  entry: Entry;
   isOpen?: boolean;
+  sectorial: Sectorial;
   toggleAccordion: (entryId: string) => void;
 }
