@@ -48,7 +48,7 @@ const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
       aria-expanded={isOpen}
     >
       <div className={styles.logoContainer}>
-        <Image width={36} height={36} imageName={imageName} />
+        <Image width={48} height={48} imageName={imageName} />
       </div>
       <h2 className={styles.name}>{name}</h2>
       <div

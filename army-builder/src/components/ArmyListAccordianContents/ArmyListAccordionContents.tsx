@@ -26,7 +26,7 @@ const ArmyListAccordionContents: React.FC<ArmyListAccordionContentsProps> = ({
           >
             {sectorials.map((sectorial, i) => (
               <React.Fragment key={sectorial.name}>
-                <SectorialListItem sectorial={sectorial} autoFocus={!i} />
+                <SectorialListItem sectorial={sectorial} />
                 {i !== sectorials.length - 1 && <Divider color="gray" />}
               </React.Fragment>
             ))}

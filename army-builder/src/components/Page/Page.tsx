@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 interface LocationState {
   direction?: 'right' | 'left';
+  reset?: boolean;
 }
 
 const Page: React.FC = ({ children }) => {

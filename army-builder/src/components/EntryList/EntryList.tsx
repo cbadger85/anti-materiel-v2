@@ -41,3 +41,7 @@ export default EntryList;
 interface EntryListProps {
   sectorial: Sectorial;
 }
+
+interface LocationState {
+  reset?: boolean;
+}

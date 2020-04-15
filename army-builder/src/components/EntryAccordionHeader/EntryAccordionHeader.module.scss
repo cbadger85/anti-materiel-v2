@@ -5,7 +5,7 @@
   background-color: var(--blue-1);
   display: flex;
   align-items: center;
-  height: 54px;
+  height: 64px;
   width: 100%;
   cursor: pointer;
   @include no-select;
@@ -24,8 +24,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 36px;
-  width: 36px;
+  height: fit-content;
+  width: fit-content;
   @include shadow-2;
   border-radius: 50%;
 }

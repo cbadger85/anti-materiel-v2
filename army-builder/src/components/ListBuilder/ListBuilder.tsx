@@ -1,6 +1,6 @@
 import kebabcase from 'lodash/kebabCase';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { Sectorial, sectorials } from '../../types/army';
 import EntryList from '../EntryList/EntryList';
 import Page from '../Page/Page';
@@ -12,13 +12,13 @@ const ListBuilder = () => {
     name => sectorial === kebabcase(name.toLowerCase()),
   );
 
-  if (!sectorialName) {
-    return null;
-  }
-
   return (
     <Page>
-      <EntryList sectorial={sectorialName} />
+      {sectorialName ? (
+        <EntryList sectorial={sectorialName} />
+      ) : (
+        <Redirect to="/" />
+      )}
     </Page>
   );
 };
