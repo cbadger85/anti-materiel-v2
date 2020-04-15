@@ -2,28 +2,22 @@ import React, { useRef } from 'react';
 import { ChevronLeft } from 'react-feather';
 import { useRipple } from 'react-use-ripple';
 import colors from '../../styles/colors';
+import { Sectorial } from '../../types/army';
+import { Details } from '../../types/unit';
 import { classnames } from '../../utils/classnames';
 import Image from '../Image/Image';
-import styles from './EntryAccordionHeader.module.scss';
-import { Entry } from '../../types/entry';
-import { Sectorial } from '../../types/army';
 import StatsTable from '../StatsTable/StatsTable';
-
-const isKeyboardEvent = <T,>(
-  e: React.SyntheticEvent<T, unknown>,
-): e is React.KeyboardEvent<T> => {
-  if (e.type === 'keyboard') {
-    console.log(e.type);
-    return true;
-  }
-
-  return true;
-};
+import styles from './EntryAccordionHeader.module.scss';
+import { Info } from 'react-feather';
+import { getTextList } from '../../utils/getTextList';
+import { isKeyboardEvent } from '../../types/typeGuards';
 
 const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
   isOpen,
   toggleAccordion,
-  entry,
+  details,
+  id,
+  name,
   sectorial,
 }) => {
   const accordianRef = useRef(null);
@@ -36,7 +30,7 @@ const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
       isKeyboardEvent(e) &&
       (e.key === 'Enter' || e.key === 'Space' || !e.key)
     ) {
-      toggleAccordion(entry.id);
+      toggleAccordion(id);
     }
   };
 
@@ -51,18 +45,13 @@ const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
     >
       <div className={styles.accordionHeader}>
         <div className={styles.logoContainer}>
-          <Image
-            width={48}
-            height={48}
-            imageName={entry.primaryUnit.primaryDetails.image}
-          />
+          <Image width={48} height={48} imageName={details.image} />
         </div>
         <div className={styles.primaryInfo}>
           <div className={styles.unitTypeAndClassification}>
-            {entry.primaryUnit.primaryDetails.unitType} -
-            {entry.primaryUnit.primaryDetails.classification}
+            {details.unitType} - {details.classification}
           </div>
-          <h2 className={styles.name}>{entry.name}</h2>
+          <h2 className={styles.name}>{name}</h2>
         </div>
         <div
           className={classnames(
@@ -73,12 +62,29 @@ const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
           <ChevronLeft size={32} color={colors.gray3} />
         </div>
       </div>
+
       {isOpen && (
-        <div>
-          <StatsTable
-            details={entry.primaryUnit.primaryDetails}
-            sectorial={sectorial}
-          />
+        <div className={styles.infoAndStats}>
+          <StatsTable details={details} sectorial={sectorial} />
+          <div className={styles.secondaryInfo}>
+            <div className={styles.rulesContainer}>
+              {!!details.equipment?.length && (
+                <div className={styles.rules}>
+                  <span className={styles.ruleLabel}>Equipment: </span>
+                  {getTextList(details.equipment.map(eq => eq.name))}
+                </div>
+              )}
+              {!!details.skills?.length && (
+                <div className={styles.rules}>
+                  <span className={styles.ruleLabel}>Special Skills: </span>
+                  {getTextList(details.skills.map(skill => skill.name))}
+                </div>
+              )}
+            </div>
+            <div className={styles.infoButton}>
+              <Info width={20} height={20} color={colors.teal5} />
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -88,7 +94,9 @@ const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
 export default EntryAccordionHeader;
 
 interface EntryAccordionHeaderProps {
-  entry: Entry;
+  details: Details;
+  id: string;
+  name: string;
   isOpen?: boolean;
   sectorial: Sectorial;
   toggleAccordion: (entryId: string) => void;

@@ -6,17 +6,7 @@ import { ArmyName } from '../../types/army';
 import { classnames } from '../../utils/classnames';
 import Image from '../Image/Image';
 import styles from './ArmyListAccordionHeader.module.scss';
-
-const isKeyboardEvent = <T,>(
-  e: React.SyntheticEvent<T, unknown>,
-): e is React.KeyboardEvent<T> => {
-  if (e.type === 'keyboard') {
-    console.log(e.type);
-    return true;
-  }
-
-  return true;
-};
+import { isKeyboardEvent } from '../../types/typeGuards';
 
 const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
   name,

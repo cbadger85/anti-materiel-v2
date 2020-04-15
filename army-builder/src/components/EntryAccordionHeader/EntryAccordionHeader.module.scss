@@ -56,3 +56,37 @@
 .accordionIcon--active {
   transform: rotate(-90deg);
 }
+
+.infoAndStats {
+  font-weight: normal;
+  font-size: 10px;
+  padding: 4px 8px;
+}
+
+.secondaryInfo {
+  display: flex;
+  align-items: flex-end;
+}
+
+@media (min-width: 480px) {
+  .secondaryInfo {
+    font-size: 12px;
+  }
+}
+
+.rulesContainer {
+  margin-bottom: 8px;
+  flex: 1;
+}
+
+.rules {
+  margin-top: 4px;
+}
+
+.ruleLabel {
+  color: var(--light-blue);
+}
+
+.infoButton {
+  margin-bottom: 6px;
+}

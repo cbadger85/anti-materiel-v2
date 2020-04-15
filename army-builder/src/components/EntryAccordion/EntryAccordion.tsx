@@ -19,7 +19,9 @@ const EntryAccordion: React.FC<EntryAccordionProps> = ({
   return (
     <div className={styles.accordion}>
       <EntryAccordionHeader
-        entry={entry}
+        id={entry.id}
+        name={entry.name}
+        details={entry.primaryUnit.primaryDetails}
         isOpen={isOpen}
         toggleAccordion={toggleAccordion}
         sectorial={sectorial}
