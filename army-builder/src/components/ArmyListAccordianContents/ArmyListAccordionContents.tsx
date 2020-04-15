@@ -16,13 +16,12 @@ const ArmyListAccordionContents: React.FC<ArmyListAccordionContentsProps> = ({
           <motion.div
             className={styles.contents}
             key="content"
-            initial={{ height: 0, opacity: 0 }}
+            initial={{ height: 0 }}
             animate={{
               height: 'auto',
-              opacity: 1,
             }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.04, 0.62, 0.23, 0.98] }}
+            exit={{ height: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
           >
             {sectorials.map((sectorial, i) => (
               <React.Fragment key={sectorial.name}>

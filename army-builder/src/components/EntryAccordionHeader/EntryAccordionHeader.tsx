@@ -11,6 +11,8 @@ import styles from './EntryAccordionHeader.module.scss';
 import { Info } from 'react-feather';
 import { getTextList } from '../../utils/getTextList';
 import { isKeyboardEvent } from '../../types/typeGuards';
+import UnitIcon from '../UnitIcons/UnitIcons';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
   isOpen,
@@ -59,34 +61,51 @@ const EntryAccordionHeader: React.FC<EntryAccordionHeaderProps> = ({
             isOpen && styles['accordionIcon--active'],
           )}
         >
-          <ChevronLeft size={32} color={colors.gray3} />
+          <ChevronLeft size={32} color={colors.lightBlue} />
         </div>
       </div>
-
-      {isOpen && (
-        <div className={styles.infoAndStats}>
-          <StatsTable details={details} sectorial={sectorial} />
-          <div className={styles.secondaryInfo}>
-            <div className={styles.rulesContainer}>
-              {!!details.equipment?.length && (
-                <div className={styles.rules}>
-                  <span className={styles.ruleLabel}>Equipment: </span>
-                  {getTextList(details.equipment.map(eq => eq.name))}
-                </div>
-              )}
-              {!!details.skills?.length && (
-                <div className={styles.rules}>
-                  <span className={styles.ruleLabel}>Special Skills: </span>
-                  {getTextList(details.skills.map(skill => skill.name))}
-                </div>
-              )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className={styles.infoAndStats}
+          >
+            <div className={styles.unitIconsContainer}>
+              <UnitIcon
+                cube={details.cube}
+                order={details.orderType}
+                impetuous={details.impetuous}
+                hackable={details.hackable}
+              />
             </div>
-            <div className={styles.infoButton}>
-              <Info width={20} height={20} color={colors.teal5} />
+            <div className={styles.statsTableContainer}>
+              <StatsTable details={details} sectorial={sectorial} />
             </div>
-          </div>
-        </div>
-      )}
+            <div className={styles.secondaryInfo}>
+              <div className={styles.rulesContainer}>
+                {!!details.equipment?.length && (
+                  <div className={styles.rules}>
+                    <span className={styles.ruleLabel}>Equipment: </span>
+                    {getTextList(details.equipment.map(eq => eq.name))}
+                  </div>
+                )}
+                {!!details.skills?.length && (
+                  <div className={styles.rules}>
+                    <span className={styles.ruleLabel}>Special Skills: </span>
+                    {getTextList(details.skills.map(skill => skill.name))}
+                  </div>
+                )}
+              </div>
+              <div className={styles.infoButton}>
+                <Info width={24} height={24} color={colors.teal5} />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

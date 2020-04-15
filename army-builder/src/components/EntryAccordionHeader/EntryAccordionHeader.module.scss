@@ -8,6 +8,7 @@
   @include no-select;
   @include shadow-2;
   border-radius: 5px;
+  padding: 4px 0;
 
   &:focus,
   &:hover {
@@ -60,7 +61,8 @@
 .infoAndStats {
   font-weight: normal;
   font-size: 10px;
-  padding: 4px 8px;
+  padding: 0 8px;
+  position: relative;
 }
 
 .secondaryInfo {
@@ -89,4 +91,15 @@
 
 .infoButton {
   margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.unitIconsContainer {
+  position: absolute;
+  top: -12px;
+}
+
+.statsTableContainer {
+  margin-top: 8px;
 }

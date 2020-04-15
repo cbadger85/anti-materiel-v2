@@ -47,7 +47,7 @@ const ArmyListAccordionHeader: React.FC<ArmyListAccordionHeaderProps> = ({
           isOpen && styles['accordionIcon--active'],
         )}
       >
-        <ChevronLeft size={32} color={colors.gray3} />
+        <ChevronLeft size={32} color={colors.lightBlue} />
       </div>
     </div>
   );

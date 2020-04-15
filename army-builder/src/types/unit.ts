@@ -13,7 +13,7 @@ export interface Details {
   classification: Classification;
   name: string;
   unitType?: UnitType;
-  orderType: OrderType;
+  orderType?: OrderType;
   hackable?: boolean;
   impetuous?: Impetuous;
   cube?: Cube;
