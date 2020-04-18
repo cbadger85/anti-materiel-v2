@@ -13,7 +13,7 @@ const ruleSlice = createSlice({
         ...state,
         action.payload,
       ],
-      prepare: (rule: Omit<BaseRule, 'id'>) => ({
+      prepare: (rule: BaseRule) => ({
         payload: { ...rule, id: shortid() },
       }),
     },

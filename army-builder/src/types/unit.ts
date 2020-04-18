@@ -43,7 +43,7 @@ export const classifications = [
   'Spec. Trained Troops',
   'Support Troops',
   'Character',
-  'Mercanary Troops',
+  'Mercenary Troops',
 ] as const;
 
 export type Classification = typeof classifications[number];

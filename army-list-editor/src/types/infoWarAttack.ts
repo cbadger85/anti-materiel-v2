@@ -16,6 +16,10 @@ export interface InfoWarAttack extends BaseRule {
   effect?: string;
 }
 
+export type InfoWarAttackStore = Omit<InfoWarAttack, 'ammo'> & {
+  ammoIds: string[];
+};
+
 export enum InfoWarAttackType {
   HACKING_PROGRAM = 'HACKING_PROGRAM',
   PHEROWARE_TACTIC = 'PHEROWARE_TACTIC',
