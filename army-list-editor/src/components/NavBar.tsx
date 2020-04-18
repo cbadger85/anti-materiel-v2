@@ -58,7 +58,7 @@ const NavBar = () => {
         </Link>
         <Link
           component={NavLink}
-          to="/"
+          to="/ammo"
           color="secondary"
           className={classes.navLink}
         >

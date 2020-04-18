@@ -28,6 +28,10 @@ export interface AmmoStore extends BaseRule {
   combinedAmmoIds: string[];
 }
 
+export interface AmmoFields extends BaseRule {
+  combinedAmmo: AmmoStore[];
+}
+
 export interface WeaponMode {
   id: string;
   name: string;

@@ -13,12 +13,17 @@ const ammoSlice = createSlice({
         ...state,
         action.payload,
       ],
-      prepare: (rule: Omit<AmmoStore, 'id'>) => ({
-        payload: { ...rule, id: shortid() },
+      prepare: (ammo: AmmoStore) => ({
+        payload: {
+          ...ammo,
+          id: shortid(),
+        },
       }),
     },
     removeAmmo: (state, action: PayloadAction<string>) =>
-      state.filter(rule => rule.id !== action.payload),
+      state
+        .filter(rule => rule.id !== action.payload)
+        .filter(rule => !rule.combinedAmmoIds.includes(action.payload)),
     updateAmmo: (state, action: PayloadAction<AmmoStore>) =>
       state.map(rule =>
         rule.id === action.payload.id ? action.payload : rule,

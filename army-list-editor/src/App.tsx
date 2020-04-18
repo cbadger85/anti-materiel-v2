@@ -3,8 +3,9 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
-import Rules from './pages/Rules';
+import RulesPage from './pages/RulesPage';
 import { SnackbarProvider } from 'notistack';
+import AmmoPage from './pages/AmmoPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -35,8 +36,11 @@ export function App() {
         <Router>
           <NavBar />
           <Switch>
+            <Route path="/ammo" exact>
+              <AmmoPage />
+            </Route>
             <Route path="/rules" exact>
-              <Rules />
+              <RulesPage />
             </Route>
           </Switch>
         </Router>

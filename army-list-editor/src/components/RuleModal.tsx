@@ -68,7 +68,7 @@ const RuleForm: React.FC<RuleFormProps> = ({
           type="submit"
           disabled={isDisabled}
         >
-          {edit ? 'Edit' : 'Add'} Rule
+          Save Rule
         </Button>
       </DialogActions>
     </form>

@@ -9,7 +9,7 @@ import { RootState } from '../store/rootReducer';
 import { addRule } from '../store/ruleSlice';
 import { BaseRule } from '../types/rule';
 
-const Rules = () => {
+const RulesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const snack = useAppSnackbar();
@@ -77,4 +77,4 @@ const Rules = () => {
   );
 };
 
-export default Rules;
+export default RulesPage;
