@@ -6,6 +6,8 @@ import NavBar from './components/NavBar';
 import RulesPage from './pages/RulesPage';
 import { SnackbarProvider } from 'notistack';
 import AmmoPage from './pages/AmmoPage';
+import InfoWarAttackPage from './pages/InfoWarAttackPage';
+import InfoWarAttackFormPage from './pages/InfoWarAttackFormPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -41,6 +43,15 @@ export function App() {
             </Route>
             <Route path="/rules" exact>
               <RulesPage />
+            </Route>
+            <Route path="/infowar-attacks" exact>
+              <InfoWarAttackPage />
+            </Route>
+            <Route path="/new/infowar-attacks" exact>
+              <InfoWarAttackFormPage />
+            </Route>
+            <Route path="/edit/infowar-attacks/:infoWarAttackId" exact>
+              <InfoWarAttackFormPage />
             </Route>
           </Switch>
         </Router>

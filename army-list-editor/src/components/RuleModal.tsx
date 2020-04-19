@@ -19,7 +19,6 @@ const RuleForm: React.FC<RuleFormProps> = ({
   rule = initialFields,
   onClose,
   onSave,
-  edit,
 }) => {
   const [ruleFields, setRuleFields] = useState(rule);
 
@@ -48,6 +47,7 @@ const RuleForm: React.FC<RuleFormProps> = ({
           color="secondary"
           fullWidth
           value={ruleFields.name}
+          required
         />
         <TextField
           margin="dense"
@@ -79,7 +79,6 @@ interface RuleFormProps {
   rule?: BaseRule;
   onClose: () => void;
   onSave: (rule: BaseRule) => void;
-  edit?: boolean;
 }
 
 const RuleModal: React.FC<RuleModalProps> = ({
@@ -93,7 +92,7 @@ const RuleModal: React.FC<RuleModalProps> = ({
       <DialogTitle id="add-rule-title">
         {rule ? 'Edit' : 'Add'} Rule
       </DialogTitle>
-      <RuleForm rule={rule} onClose={onClose} onSave={onSave} edit={!!rule} />
+      <RuleForm rule={rule} onClose={onClose} onSave={onSave} />
     </Dialog>
   );
 };

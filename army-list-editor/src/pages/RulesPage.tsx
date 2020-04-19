@@ -44,7 +44,7 @@ const RulesPage = () => {
   };
 
   return (
-    <Box marginX={32} marginY={6}>
+    <Box maxWidth={1000} marginY={6} marginX="auto" padding={2}>
       <Box display="flex" justifyContent="space-between" marginBottom={2}>
         <Typography variant="h5">Rules</Typography>
         <Button color="primary" variant="contained" onClick={toggleModal}>
@@ -57,10 +57,10 @@ const RulesPage = () => {
         columns={columns}
         options={{
           download: false,
+          responsive: 'scrollFullHeight',
           print: false,
           viewColumns: false,
           filter: false,
-          selectableRowsOnClick: true,
           selectableRowsHeader: false,
           selectableRows: 'single',
           customToolbarSelect: selectedRow => (

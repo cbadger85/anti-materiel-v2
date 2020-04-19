@@ -24,7 +24,6 @@ const AmmoForm: React.FC<AmmoFormProps> = ({
   ammo = initialFields,
   onClose,
   onSave,
-  edit,
 }) => {
   const ammoOptions = useSelector((state: RootState) =>
     state.ammo.filter(ammo => !ammo.combinedAmmoIds.length),
@@ -42,17 +41,17 @@ const AmmoForm: React.FC<AmmoFormProps> = ({
     setAmmoFields({ ...ammoFields, [e.target.name]: e.target.value });
   };
 
-  const handleAddAmmo = (e: React.FormEvent) => {
+  const handleSaveAmmo = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newAmmo: AmmoStore = {
+    const ammoStore: AmmoStore = {
       id: ammo.id,
       name: ammoFields.name,
       link: ammoFields.link,
       combinedAmmoIds: ammoFields.combinedAmmo.map(ammo => ammo.id),
     };
 
-    onSave(newAmmo);
+    onSave(ammoStore);
     onClose();
   };
 
@@ -63,16 +62,17 @@ const AmmoForm: React.FC<AmmoFormProps> = ({
           autoFocus
           margin="dense"
           name="name"
-          id="rule-name"
+          id="ammo-name"
           label="Name"
           onChange={handleChange}
           color="secondary"
           fullWidth
           value={ammoFields.name}
+          required
         />
         <TextField
           margin="dense"
-          id="rule-link"
+          id="ammo-link"
           label="Link"
           name="link"
           color="secondary"
@@ -82,29 +82,24 @@ const AmmoForm: React.FC<AmmoFormProps> = ({
         />
         <Autocomplete<AmmoStore>
           multiple
-          id="tags-standard"
+          id="ammo-combined-ammo"
           options={sortBy(ammoOptions, 'name')}
           getOptionLabel={option => option.name}
           value={ammoFields.combinedAmmo}
-          onChange={(e, combinedAmmo, c) => {
+          onChange={(e, combinedAmmo) => {
             setAmmoFields({
               ...ammoFields,
               combinedAmmo,
             });
           }}
           renderInput={params => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="Multiple values"
-              placeholder="Combined Ammo"
-            />
+            <TextField {...params} variant="standard" label="Combined Ammo" />
           )}
         />
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={handleAddAmmo}
+          onClick={handleSaveAmmo}
           color="primary"
           variant="contained"
           type="submit"
@@ -121,7 +116,6 @@ interface AmmoFormProps {
   ammo?: AmmoStore;
   onClose: () => void;
   onSave: (ammo: AmmoStore) => void;
-  edit?: boolean;
 }
 
 const AmmoModal: React.FC<AmmoModalProps> = ({
@@ -135,7 +129,7 @@ const AmmoModal: React.FC<AmmoModalProps> = ({
       <DialogTitle id="add-ammo-title">
         {ammo ? 'Edit' : 'Add'} Ammo
       </DialogTitle>
-      <AmmoForm ammo={ammo} onClose={onClose} onSave={onSave} edit={!!ammo} />
+      <AmmoForm ammo={ammo} onClose={onClose} onSave={onSave} />
     </Dialog>
   );
 };

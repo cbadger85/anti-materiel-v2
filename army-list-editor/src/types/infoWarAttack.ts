@@ -4,16 +4,16 @@ import { Ammo } from './weapon';
 export interface InfoWarAttack extends BaseRule {
   attackType: InfoWarAttackType;
   category: InfoWarAttackCategory;
-  range: InfoWarAttackRange[];
-  attackModifier: string;
-  opponentModifier: string;
-  damage: string;
-  burst: string;
-  ammo: Ammo[];
+  range?: InfoWarAttackRange;
   target: InfoWarAttackTarget[];
   skillType: SkillType[];
-  special?: string;
+  attackModifier?: string;
+  opponentModifier?: string;
+  damage?: string;
+  burst?: string;
+  ammo: Ammo[];
   effect?: string;
+  special?: string;
 }
 
 export type InfoWarAttackStore = Omit<InfoWarAttack, 'ammo'> & {
@@ -25,7 +25,7 @@ export enum InfoWarAttackType {
   PHEROWARE_TACTIC = 'PHEROWARE_TACTIC',
 }
 
-const infoWarAttackCategories = [
+export const infoWarAttackCategories = [
   'Attack',
   'Support',
   'CLAW-1',

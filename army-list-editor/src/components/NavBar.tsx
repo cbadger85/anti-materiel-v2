@@ -34,7 +34,7 @@ const NavBar = () => {
         </Typography>
         <Link
           component={NavLink}
-          to="/"
+          to="/entries"
           color="secondary"
           className={classes.navLink}
         >
@@ -42,7 +42,7 @@ const NavBar = () => {
         </Link>
         <Link
           component={NavLink}
-          to="/"
+          to="/weapons"
           color="secondary"
           className={classes.navLink}
         >
@@ -50,11 +50,11 @@ const NavBar = () => {
         </Link>
         <Link
           component={NavLink}
-          to="/"
+          to="/infowar-attacks"
           color="secondary"
           className={classes.navLink}
         >
-          Info War Attacks
+          InfoWar Attacks
         </Link>
         <Link
           component={NavLink}
