@@ -23,7 +23,7 @@ const WeaponsPage = () => {
       },
     },
     {
-      name: 'weaponModes',
+      name: 'modes',
       label: 'Weapon Modes',
       options: {
         filter: true,

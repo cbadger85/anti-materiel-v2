@@ -1,13 +1,13 @@
 import {
   Box,
   Button,
-  IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   makeStyles,
-  Paper,
   TextField,
-  Typography,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import sortBy from 'lodash/sortBy';
 import React, { useState } from 'react';
@@ -16,7 +16,6 @@ import shortid from 'shortid';
 import { RootState } from '../store/rootReducer';
 import { BaseRule } from '../types/rule';
 import { AmmoStore, WeaponModeStore, weaponRangeBands } from '../types/weapon';
-import WeaponModeTable from './WeaponModeTable';
 
 const useStyles = makeStyles(theme => ({
   field: {
@@ -34,17 +33,9 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(4),
     marginBottom: theme.spacing(4),
   },
-  paper: {
-    borderColor: theme.palette.secondary.dark,
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-  },
-  error: {
-    marginBottom: theme.spacing(4),
-  },
 }));
 
-const initialFields: WeaponModeFields = {
+const initialFields: WeaponModeStore = {
   id: '',
   name: '',
   shortRange: '',
@@ -53,14 +44,14 @@ const initialFields: WeaponModeFields = {
   maximumRange: '',
   damage: '',
   burst: '',
-  ammo: [],
-  traits: [],
+  ammoIds: [],
+  traitIds: [],
 };
 
 const WeaponModeForm: React.FC<WeaponModeFormProps> = ({
-  weaponModes,
   onSave,
-  onDelete,
+  onClose,
+  weaponMode = initialFields,
 }) => {
   const classes = useStyles();
 
@@ -69,9 +60,22 @@ const WeaponModeForm: React.FC<WeaponModeFormProps> = ({
     rules: sortBy(rules, 'name'),
   }));
 
-  const [weaponModeFields, setWeaponModeFields] = useState(initialFields);
-
-  console.log(weaponModeFields);
+  const [weaponModeFields, setWeaponModeFields] = useState<WeaponModeFields>({
+    id: weaponMode.id,
+    name: weaponMode.name,
+    shortRange: weaponMode.shortRange,
+    mediumRange: weaponMode.mediumRange,
+    longRange: weaponMode.longRange,
+    maximumRange: weaponMode.maximumRange,
+    damage: weaponMode.damage,
+    burst: weaponMode.burst,
+    ammo: weaponMode.ammoIds.map(
+      ammoId => ammo.find(ammo => ammo.id === ammoId) as AmmoStore,
+    ),
+    traits: weaponMode.traitIds.map(
+      traitId => rules.find(rule => rule.id === traitId) as BaseRule,
+    ),
+  });
 
   const isDisabled = !weaponModeFields.name || !weaponModeFields.burst;
 
@@ -84,7 +88,9 @@ const WeaponModeForm: React.FC<WeaponModeFormProps> = ({
     });
   };
 
-  const handleSave = () => {
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+
     const weaponModeStore = {
       id: shortid(),
       name: weaponModeFields.name,
@@ -99,31 +105,12 @@ const WeaponModeForm: React.FC<WeaponModeFormProps> = ({
     };
 
     onSave(weaponModeStore);
-    setWeaponModeFields(initialFields);
+    onClose();
   };
 
   return (
-    <Paper variant="outlined" className={classes.paper}>
-      <Typography variant="h6">Weapon Modes</Typography>
-      {weaponModes.map(mode => (
-        <Box
-          key={mode.id}
-          display="flex"
-          alignItems="flex-start"
-          justifyContent="space-between"
-        >
-          <WeaponModeTable weaponMode={mode} ammo={ammo} traits={rules} />
-          <IconButton onClick={() => onDelete(mode.id)}>
-            <DeleteIcon />
-          </IconButton>
-        </Box>
-      ))}
-      {!weaponModes.length && (
-        <Typography color="error" className={classes.error}>
-          No weapon modes have been added yet...
-        </Typography>
-      )}
-      <div>
+    <form>
+      <DialogContent>
         <Box display="flex" flexWrap="wrap" alignItems="flex-end">
           <TextField
             name="name"
@@ -252,15 +239,21 @@ const WeaponModeForm: React.FC<WeaponModeFormProps> = ({
             }}
           />
         </Box>
-        <Button color="secondary" onClick={handleSave} disabled={isDisabled}>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          color="secondary"
+          type="submit"
+          variant="contained"
+          onClick={handleSave}
+          disabled={isDisabled}
+        >
           Save Weapon Mode
         </Button>
-      </div>
-    </Paper>
+      </DialogActions>
+    </form>
   );
 };
-
-export default WeaponModeForm;
 
 type WeaponModeFields = Omit<WeaponModeStore, 'ammoIds' | 'traitIds'> & {
   ammo: AmmoStore[];
@@ -268,7 +261,42 @@ type WeaponModeFields = Omit<WeaponModeStore, 'ammoIds' | 'traitIds'> & {
 };
 
 interface WeaponModeFormProps {
-  weaponModes: WeaponModeStore[];
   onSave: (weaponMode: WeaponModeStore) => void;
-  onDelete: (modeId: string) => void;
+  onClose: () => void;
+  weaponMode?: WeaponModeStore;
+}
+
+const WeaponModeFormModal: React.FC<WeaponModeModalProps> = ({
+  isOpen,
+  onSave,
+  onClose,
+  weaponMode,
+}) => {
+  return (
+    <Dialog
+      open={isOpen}
+      onClose={onClose}
+      aria-labelledby="add-weapon-mode-title"
+      maxWidth="md"
+      fullWidth
+    >
+      <DialogTitle id="add-weapon-mode-title">
+        {weaponMode ? 'Edit' : 'Add'} Weapon Mode
+      </DialogTitle>
+      <WeaponModeForm
+        onClose={onClose}
+        onSave={onSave}
+        weaponMode={weaponMode}
+      />
+    </Dialog>
+  );
+};
+
+export default WeaponModeFormModal;
+
+interface WeaponModeModalProps {
+  isOpen: boolean;
+  weaponMode?: WeaponModeStore;
+  onSave: (weaponMode: WeaponModeStore) => void;
+  onClose: () => void;
 }

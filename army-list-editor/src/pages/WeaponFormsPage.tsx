@@ -31,10 +31,13 @@ const WeaponsFormPage = () => {
   const classes = useStyles();
   const history = useHistory();
   const { weaponId } = useParams<{ weaponId: string }>();
-  const { weapons, rules } = useSelector(({ weapons, rules }: RootState) => ({
-    weapons,
-    rules,
-  }));
+  const { weapons, rules, ammo } = useSelector(
+    ({ weapons, rules, ammo }: RootState) => ({
+      weapons,
+      rules,
+      ammo,
+    }),
+  );
 
   const weapon = weapons.find(weapon => weapon.id === weaponId);
 
@@ -125,6 +128,8 @@ const WeaponsFormPage = () => {
         <WeaponForm
           onSave={weapon ? handleUpdateWeapon : handleAddWeapon}
           weapon={weapon}
+          ammo={ammo}
+          traits={rules}
         />
       </Paper>
       <AmmoModal
