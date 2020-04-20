@@ -20,7 +20,7 @@ const initialFields = {
   id: '',
   name: '',
   link: '',
-  weaponModes: [],
+  modes: [],
 };
 
 const WeaponForm: React.FC<WeaponFormProps> = ({
@@ -42,14 +42,14 @@ const WeaponForm: React.FC<WeaponFormProps> = ({
   const handleSaveWeaponMode = (mode: WeaponModeStore) => {
     setWeaponFields({
       ...weaponFields,
-      weaponModes: [...weaponFields.weaponModes, mode],
+      modes: [...weaponFields.modes, mode],
     });
   };
 
   const handleDeleteWeaponMode = (id: string) => {
     setWeaponFields({
       ...weaponFields,
-      weaponModes: weaponFields.weaponModes.filter(mode => mode.id !== id),
+      modes: weaponFields.modes.filter(mode => mode.id !== id),
     });
   };
 
@@ -84,7 +84,7 @@ const WeaponForm: React.FC<WeaponFormProps> = ({
         />
       </Box>
       <WeaponModeForm
-        weaponModes={weaponFields.weaponModes}
+        weaponModes={weaponFields.modes}
         onSave={handleSaveWeaponMode}
         onDelete={handleDeleteWeaponMode}
       />
@@ -92,7 +92,7 @@ const WeaponForm: React.FC<WeaponFormProps> = ({
         color="primary"
         variant="contained"
         onClick={handleSave}
-        disabled={!weaponFields.name || !weaponFields.weaponModes.length}
+        disabled={!weaponFields.name || !weaponFields.modes.length}
         type="submit"
       >
         Save Weapon

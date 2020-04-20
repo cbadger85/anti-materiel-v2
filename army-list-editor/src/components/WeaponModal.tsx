@@ -45,7 +45,7 @@ const WeaponModal: React.FC<WeaponModalProps> = ({ weapon, onClose }) => {
             </Link>
           </DialogTitle>
           <DialogContent>
-            {weapon.weaponModes.map(mode => (
+            {weapon.modes.map(mode => (
               <WeaponModeTable weaponMode={mode} ammo={ammo} traits={rules} />
             ))}
           </DialogContent>

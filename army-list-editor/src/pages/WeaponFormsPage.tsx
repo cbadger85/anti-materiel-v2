@@ -46,7 +46,7 @@ const WeaponsFormPage = () => {
   const toggleRulesModal = () => setIsRulesModalOpen(isOpen => !isOpen);
 
   const handleAddWeapon = (weapon: WeaponStore) => {
-    const suppressiveFireModes = weapon.weaponModes
+    const suppressiveFireModes = weapon.modes
       .filter(mode =>
         mode.traitIds
           .map(traitId => rules.find(rule => rule.id === traitId)?.name)
@@ -76,7 +76,7 @@ const WeaponsFormPage = () => {
     dispatch(
       addWeapon({
         ...weapon,
-        weaponModes: [...weapon.weaponModes, ...suppressiveFireModes],
+        modes: [...weapon.modes, ...suppressiveFireModes],
       }),
     );
     snack('Weapon Added', 'success');

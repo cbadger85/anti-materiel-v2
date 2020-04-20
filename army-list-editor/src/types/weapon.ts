@@ -61,7 +61,7 @@ export interface WeaponMode {
 }
 
 export interface Weapon extends BaseRule {
-  weaponModes: WeaponMode[];
+  modes: WeaponMode[];
 }
 
 export interface WeaponModeStore {
@@ -78,5 +78,5 @@ export interface WeaponModeStore {
 }
 
 export interface WeaponStore extends BaseRule {
-  weaponModes: WeaponModeStore[];
+  modes: WeaponModeStore[];
 }
