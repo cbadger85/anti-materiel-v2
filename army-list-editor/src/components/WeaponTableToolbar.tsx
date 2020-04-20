@@ -5,30 +5,27 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { removeInfoWarAttack } from '../store/infoWarAttackSlice';
+import { removeWeapon } from '../store/weaponSlice';
 import { Row } from '../types/app';
-import { InfoWarAttackStore } from '../types/infoWarAttack';
+import { WeaponStore } from '../types/weapon';
 
-const InfoWarAttackTableToolbar: React.FC<InfoWarAttackTableToolbarProps> = ({
+const WeaponTableToolbar: React.FC<WeaponTableToolbarProps> = ({
   row,
   data,
 }) => {
-  const infoWarAttack = data[row.data[0].dataIndex];
+  const weapon = data[row.data[0].dataIndex];
 
   const dispatch = useDispatch();
   const snack = useAppSnackbar();
 
   const handleDelete = () => {
-    dispatch(removeInfoWarAttack(infoWarAttack.id));
-    snack('InfoWar Attack Removed', 'success');
+    dispatch(removeWeapon(weapon.id));
+    snack('Weapon Removed', 'success');
   };
 
   return (
     <Box>
-      <IconButton
-        component={Link}
-        to={`/edit/infowar-attacks/${infoWarAttack.id}`}
-      >
+      <IconButton component={Link} to={`/edit/weapons/${weapon.id}`}>
         <EditIcon />
       </IconButton>
       <IconButton onClick={handleDelete}>
@@ -38,9 +35,9 @@ const InfoWarAttackTableToolbar: React.FC<InfoWarAttackTableToolbarProps> = ({
   );
 };
 
-interface InfoWarAttackTableToolbarProps {
+interface WeaponTableToolbarProps {
   row: Row;
-  data: InfoWarAttackStore[];
+  data: WeaponStore[];
 }
 
-export default InfoWarAttackTableToolbar;
+export default WeaponTableToolbar;

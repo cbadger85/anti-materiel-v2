@@ -8,6 +8,8 @@ import { SnackbarProvider } from 'notistack';
 import AmmoPage from './pages/AmmoPage';
 import InfoWarAttackPage from './pages/InfoWarAttackPage';
 import InfoWarAttackFormPage from './pages/InfoWarAttackFormPage';
+import WeaponsPage from './pages/WeaponsPage';
+import WeaponsFormPage from './pages/WeaponFormsPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -52,6 +54,15 @@ export function App() {
             </Route>
             <Route path="/edit/infowar-attacks/:infoWarAttackId" exact>
               <InfoWarAttackFormPage />
+            </Route>
+            <Route path="/weapons" exact>
+              <WeaponsPage />
+            </Route>
+            <Route path="/new/weapons" exact>
+              <WeaponsFormPage />
+            </Route>
+            <Route path="/edit/weapons/:weaponId" exact>
+              <WeaponsFormPage />
             </Route>
           </Switch>
         </Router>

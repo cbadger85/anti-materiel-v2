@@ -20,12 +20,12 @@ const AmmoTableToolbar: React.FC<AmmoTableToolbarProps> = ({ row, data }) => {
 
   const handleDelete = () => {
     dispatch(removeAmmo(ammo.id));
-    snack('Rule Removed', 'success');
+    snack('Ammo Removed', 'success');
   };
 
   const handleSave = (ammo: AmmoStore) => {
     dispatch(updateAmmo(ammo));
-    snack('Rule Updated', 'success');
+    snack('Ammo Updated', 'success');
   };
 
   return (

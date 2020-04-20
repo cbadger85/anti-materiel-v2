@@ -61,7 +61,9 @@ const InfoWarAttackFormPage = () => {
   return (
     <Box maxWidth={1000} marginY={6} marginX="auto" padding={2}>
       <Box display="flex" justifyContent="space-between" marginBottom={2}>
-        <Typography variant="h5">Add InfoWar Attack</Typography>
+        <Typography variant="h5">
+          {infoWarAttack ? 'Edit' : 'Add'} InfoWar Attack
+        </Typography>
         <Button color="primary" variant="contained" onClick={toggleModal}>
           Add Ammo
         </Button>
