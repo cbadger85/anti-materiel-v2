@@ -1,10 +1,9 @@
-import { Box, Button, Typography } from '@material-ui/core';
 import MUIDataTable from 'mui-datatables';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import InfoWarAttackModal from '../components/InfoWarAttackModal';
 import InfoWarAttackTableToolbar from '../components/InfoWarAttackToolbar';
+import PageTemplate from '../components/PageTemplate';
 import { RootState } from '../store/rootReducer';
 import { InfoWarAttackStore, InfoWarAttackType } from '../types/infoWarAttack';
 import { enumToCapitalize } from '../utils/enumToCapitalize';
@@ -57,18 +56,7 @@ const InfoWarAttackPage = () => {
   const handleCloseModal = () => setSelectedInfoWarAttack(undefined);
 
   return (
-    <Box maxWidth={1000} marginY={6} marginX="auto" padding={2}>
-      <Box display="flex" justifyContent="space-between" marginBottom={2}>
-        <Typography variant="h5">InfoWar Attacks</Typography>
-        <Button
-          color="primary"
-          variant="contained"
-          component={Link}
-          to="/new/infowar-attacks"
-        >
-          Add InfoWar Attack
-        </Button>
-      </Box>
+    <PageTemplate title="InfoWar">
       <MUIDataTable
         title=""
         data={infoWarAttacks}
@@ -95,7 +83,7 @@ const InfoWarAttackPage = () => {
         infoWarAttack={selectedInfoWarAttack}
         onClose={handleCloseModal}
       />
-    </Box>
+    </PageTemplate>
   );
 };
 

@@ -10,20 +10,25 @@ import InfoWarAttackPage from './pages/InfoWarAttackPage';
 import InfoWarAttackFormPage from './pages/InfoWarAttackFormPage';
 import WeaponsPage from './pages/WeaponsPage';
 import WeaponsFormPage from './pages/WeaponFormsPage';
+import NotFound from './pages/NotFound';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#baffff',
-      main: '#84ffff',
-      dark: '#4bcbcc',
+      light: '#ffad42',
+      main: '#f57c00',
+      dark: '#bb4d00',
       contrastText: '#000000',
     },
     secondary: {
-      light: '#fbfffc',
-      main: '#c8e6c9',
-      dark: '##97b498',
+      light: '#6ff9ff',
+      main: '#26c6da',
+      dark: '#0095a8',
       contrastText: '#000000',
+    },
+    background: {
+      paper: '#121212',
+      default: '#090909',
     },
     type: 'dark',
   },
@@ -63,6 +68,9 @@ export function App() {
             </Route>
             <Route path="/edit/weapons/:weaponId" exact>
               <WeaponsFormPage />
+            </Route>
+            <Route>
+              <NotFound />
             </Route>
           </Switch>
         </Router>

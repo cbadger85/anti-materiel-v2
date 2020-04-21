@@ -1,79 +1,131 @@
-import { Box, Button, Typography } from '@material-ui/core';
-import MUIDataTable from 'mui-datatables';
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  Link,
+  List,
+  ListItem,
+  ListItemText,
+  Paper,
+  TextField,
+  Typography,
+  Button,
+} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import SearchIcon from '@material-ui/icons/Search';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AmmoModal from '../components/AmmoModal';
-import AmmoTableToolbar from '../components/AmmoTableToolbar';
+import ListDrawer from '../components/ListDrawer';
+import PageTemplate from '../components/PageTemplate';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { addAmmo } from '../store/ammoSlice';
+import { addAmmo, removeAmmo } from '../store/ammoSlice';
 import { RootState } from '../store/rootReducer';
 import { AmmoStore } from '../types/weapon';
 
 const AmmoPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch();
+  const [isAmmoModalOpen, setIsAmmoModalOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const [selectedAmmo, setSelectedAmmo] = useState<AmmoStore>();
+
   const snack = useAppSnackbar();
+  const dispatch = useDispatch();
 
   const ammo = useSelector((state: RootState) => state.ammo);
 
-  const columns = [
-    {
-      name: 'name',
-      label: 'Name',
-      options: {
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'link',
-      label: 'Link',
-      options: {
-        filter: true,
-        sort: true,
-        searchable: false,
-      },
-    },
-  ];
+  const filterAmmo = ammo.filter(ammo =>
+    ammo.name.toLowerCase().includes(searchInput.toLowerCase()),
+  );
 
-  const toggleModal = () => setIsModalOpen(isOpen => !isOpen);
+  const toggleAmmoModal = () => setIsAmmoModalOpen(isOpen => !isOpen);
 
-  const handleSave = (ammo: AmmoStore) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
+
+  const handleDelete = (ammoId: string) => {
+    dispatch(removeAmmo(ammoId));
+    snack('Ammo Removed', 'success');
+    setSelectedAmmo(undefined);
+  };
+
+  const handleUpdate = (ammo: AmmoStore) => {
     dispatch(addAmmo(ammo));
     snack('Ammo Added', 'success');
   };
 
   return (
-    <Box maxWidth={1000} marginY={6} marginX="auto" padding={2}>
-      <Box display="flex" justifyContent="space-between" marginBottom={2}>
-        <Typography variant="h5">Ammo</Typography>
-        <Button color="primary" variant="contained" onClick={toggleModal}>
-          Add Ammo
-        </Button>
-      </Box>
-      <MUIDataTable
-        title=""
-        data={ammo}
-        columns={columns}
-        options={{
-          download: false,
-          responsive: 'scrollFullHeight',
-          print: false,
-          viewColumns: false,
-          filter: false,
-          selectableRowsHeader: false,
-          selectableRows: 'single',
-          customToolbarSelect: selectedRow => (
-            <AmmoTableToolbar row={selectedRow} data={ammo} />
-          ),
-        }}
-      />
+    <PageTemplate title="Ammo">
+      <ListDrawer>
+        <TextField
+          id="ammo-search-input"
+          label="Search Ammo"
+          value={searchInput}
+          onChange={handleChange}
+          color="secondary"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <List>
+          {filterAmmo.map(ammo => (
+            <ListItem
+              button
+              key={ammo.id}
+              onClick={() => setSelectedAmmo(ammo)}
+            >
+              <ListItemText>{ammo.name}</ListItemText>
+            </ListItem>
+          ))}
+        </List>
+      </ListDrawer>
+      {selectedAmmo && (
+        <Box
+          component={Paper}
+          paddingX={3}
+          paddingY={3}
+          display="flex"
+          justifyContent="space-between"
+          alignItems="flex-start"
+        >
+          <div>
+            <Typography variant="h6">{selectedAmmo.name}</Typography>
+            <Link href={selectedAmmo.link}>{selectedAmmo.link}</Link>
+            <Typography variant="overline">combines:</Typography>
+            {selectedAmmo.combinedAmmoIds.length &&
+              selectedAmmo.combinedAmmoIds
+                .map(ammoId => ammo.find(ammo => ammo.id === ammoId))
+                .map(ammo => (
+                  <Button onClick={() => setSelectedAmmo(ammo)}>
+                    {ammo?.name}
+                  </Button>
+                ))}
+          </div>
+          <Box>
+            <IconButton onClick={toggleAmmoModal} size="small">
+              <EditIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => handleDelete(selectedAmmo.id)}
+              size="small"
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        </Box>
+      )}
       <AmmoModal
-        isOpen={isModalOpen}
-        onClose={toggleModal}
-        onSave={handleSave}
+        isOpen={isAmmoModalOpen}
+        onClose={toggleAmmoModal}
+        onSave={handleUpdate}
+        ammo={selectedAmmo}
       />
-    </Box>
+    </PageTemplate>
   );
 };
 

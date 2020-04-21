@@ -1,13 +1,12 @@
-import { Box, Button, Typography } from '@material-ui/core';
 import MUIDataTable from 'mui-datatables';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import PageTemplate from '../components/PageTemplate';
+import WeaponModal from '../components/WeaponModal';
+import WeaponTableToolbar from '../components/WeaponTableToolbar';
 import { RootState } from '../store/rootReducer';
 import { WeaponMode, WeaponStore } from '../types/weapon';
 import { commaSeparateList } from '../utils/commaSeparateList';
-import WeaponTableToolbar from '../components/WeaponTableToolbar';
-import WeaponModal from '../components/WeaponModal';
 
 const WeaponsPage = () => {
   const [selectedWeapon, setSelectedWeapon] = useState<WeaponStore>();
@@ -46,18 +45,7 @@ const WeaponsPage = () => {
   const handleCloseModal = () => setSelectedWeapon(undefined);
 
   return (
-    <Box maxWidth={1000} marginY={6} marginX="auto" padding={2}>
-      <Box display="flex" justifyContent="space-between" marginBottom={2}>
-        <Typography variant="h5">Weapons</Typography>
-        <Button
-          color="primary"
-          variant="contained"
-          component={Link}
-          to="/new/weapons"
-        >
-          Add Weapon
-        </Button>
-      </Box>
+    <PageTemplate title="Weapons">
       <MUIDataTable
         title=""
         data={weapons}
@@ -78,7 +66,7 @@ const WeaponsPage = () => {
         }}
       />
       <WeaponModal weapon={selectedWeapon} onClose={handleCloseModal} />
-    </Box>
+    </PageTemplate>
   );
 };
 

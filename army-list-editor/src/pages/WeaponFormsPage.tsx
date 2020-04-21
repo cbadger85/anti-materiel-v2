@@ -1,18 +1,19 @@
-import { Box, Button, makeStyles, Paper, Typography } from '@material-ui/core';
+import { makeStyles, Paper } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import shortid from 'shortid';
 import AmmoModal from '../components/AmmoModal';
+import PageTemplate from '../components/PageTemplate';
 import RuleModal from '../components/RuleModal';
+import WeaponForm from '../components/WeaponForm';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { addAmmo } from '../store/ammoSlice';
 import { RootState } from '../store/rootReducer';
 import { addRule } from '../store/ruleSlice';
 import { addWeapon, updateWeapon } from '../store/weaponSlice';
 import { BaseRule } from '../types/rule';
-import { AmmoStore, WeaponStore, WeaponModeStore } from '../types/weapon';
-import shortid from 'shortid';
-import WeaponForm from '../components/WeaponForm';
+import { AmmoStore, WeaponModeStore, WeaponStore } from '../types/weapon';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,10 +41,6 @@ const WeaponsFormPage = () => {
   );
 
   const weapon = weapons.find(weapon => weapon.id === weaponId);
-
-  if (!weapon && weaponId) {
-    history.push('/new/weapons');
-  }
 
   const toggleAmmoModal = () => setIsAmmoModalOpen(isOpen => !isOpen);
   const toggleRulesModal = () => setIsRulesModalOpen(isOpen => !isOpen);
@@ -103,27 +100,7 @@ const WeaponsFormPage = () => {
   };
 
   return (
-    <Box maxWidth={1000} marginY={6} marginX="auto" padding={2}>
-      <Box display="flex" justifyContent="space-between" marginBottom={2}>
-        <Typography variant="h5">{weapon ? 'Edit' : 'Add'} Weapon</Typography>
-        <div>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={toggleAmmoModal}
-            className={classes.ammoButton}
-          >
-            Add Ammo
-          </Button>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={toggleRulesModal}
-          >
-            Add Rule
-          </Button>
-        </div>
-      </Box>
+    <PageTemplate title={weapon ? 'Edit Weapon' : 'Add Weapon'}>
       <Paper className={classes.root}>
         <WeaponForm
           onSave={weapon ? handleUpdateWeapon : handleAddWeapon}
@@ -142,7 +119,7 @@ const WeaponsFormPage = () => {
         onClose={toggleRulesModal}
         onSave={handleSaveRule}
       />
-    </Box>
+    </PageTemplate>
   );
 };
 

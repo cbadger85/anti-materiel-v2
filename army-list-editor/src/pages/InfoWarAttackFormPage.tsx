@@ -1,18 +1,19 @@
+import { makeStyles, Paper } from '@material-ui/core';
 import React, { useState } from 'react';
-import { Paper, Box, Typography, makeStyles, Button } from '@material-ui/core';
-import InfoWarAttackForm from '../components/InfoWarAttackForm';
-import AmmoModal from '../components/AmmoModal';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import AmmoModal from '../components/AmmoModal';
+import InfoWarAttackForm from '../components/InfoWarAttackForm';
+import PageTemplate from '../components/PageTemplate';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { AmmoStore } from '../types/weapon';
 import { addAmmo } from '../store/ammoSlice';
-import { InfoWarAttackStore } from '../types/infoWarAttack';
 import {
   addInfoWarAttack,
   updateInfoWarAttack,
 } from '../store/infoWarAttackSlice';
-import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from '../store/rootReducer';
+import { InfoWarAttackStore } from '../types/infoWarAttack';
+import { AmmoStore } from '../types/weapon';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -59,15 +60,7 @@ const InfoWarAttackFormPage = () => {
   };
 
   return (
-    <Box maxWidth={1000} marginY={6} marginX="auto" padding={2}>
-      <Box display="flex" justifyContent="space-between" marginBottom={2}>
-        <Typography variant="h5">
-          {infoWarAttack ? 'Edit' : 'Add'} InfoWar Attack
-        </Typography>
-        <Button color="primary" variant="contained" onClick={toggleModal}>
-          Add Ammo
-        </Button>
-      </Box>
+    <PageTemplate title={infoWarAttack ? 'Edit InfoWar' : 'Add InfoWar'}>
       <Paper className={classes.root}>
         <InfoWarAttackForm
           onSave={
@@ -81,7 +74,7 @@ const InfoWarAttackFormPage = () => {
         onClose={toggleModal}
         onSave={handleSaveAmmo}
       />
-    </Box>
+    </PageTemplate>
   );
 };
 
