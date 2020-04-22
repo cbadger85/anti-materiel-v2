@@ -45,10 +45,10 @@ export function App() {
         <Router>
           <NavBar />
           <Switch>
-            <Route path="/ammo" exact>
+            <Route path="/ammo">
               <AmmoPage />
             </Route>
-            <Route path="/rules" exact>
+            <Route path="/rules">
               <RulesPage />
             </Route>
             <Route path="/infowar-attacks" exact>

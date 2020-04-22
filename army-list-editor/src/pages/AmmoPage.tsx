@@ -1,38 +1,47 @@
 import {
   Box,
-  IconButton,
   InputAdornment,
-  Link,
   List,
   ListItem,
   ListItemText,
-  Paper,
+  makeStyles,
   TextField,
   Typography,
   Button,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import AmmoModal from '../components/AmmoModal';
+import { useSelector, useDispatch } from 'react-redux';
+import { Route, Switch, Link } from 'react-router-dom';
 import ListDrawer from '../components/ListDrawer';
 import PageTemplate from '../components/PageTemplate';
-import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { addAmmo, removeAmmo } from '../store/ammoSlice';
 import { RootState } from '../store/rootReducer';
+import SelectedAmmoPage from './SelectedAmmoPage';
+import { useAppSnackbar } from '../hooks/useAppSnackbar';
+import { addAmmo } from '../store/ammoSlice';
 import { AmmoStore } from '../types/weapon';
+import AmmoModal from '../components/AmmoModal';
+
+const useStyles = makeStyles(theme => ({
+  arrowForwardIcon: {
+    marginLeft: theme.spacing(1),
+  },
+  addButton: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const AmmoPage = () => {
-  const [isAmmoModalOpen, setIsAmmoModalOpen] = useState(false);
-  const [searchInput, setSearchInput] = useState('');
-  const [selectedAmmo, setSelectedAmmo] = useState<AmmoStore>();
-
-  const snack = useAppSnackbar();
+  const classes = useStyles();
   const dispatch = useDispatch();
+  const snack = useAppSnackbar();
+
+  const [isAmmoModalOpen, setIsAmmoModalOpen] = useState(false);
 
   const ammo = useSelector((state: RootState) => state.ammo);
+
+  const [searchInput, setSearchInput] = useState('');
 
   const filterAmmo = ammo.filter(ammo =>
     ammo.name.toLowerCase().includes(searchInput.toLowerCase()),
@@ -40,19 +49,13 @@ const AmmoPage = () => {
 
   const toggleAmmoModal = () => setIsAmmoModalOpen(isOpen => !isOpen);
 
+  const handleSave = (rule: AmmoStore) => {
+    dispatch(addAmmo(rule));
+    snack('Ammo Added', 'success');
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
-  };
-
-  const handleDelete = (ammoId: string) => {
-    dispatch(removeAmmo(ammoId));
-    snack('Ammo Removed', 'success');
-    setSelectedAmmo(undefined);
-  };
-
-  const handleUpdate = (ammo: AmmoStore) => {
-    dispatch(addAmmo(ammo));
-    snack('Ammo Added', 'success');
   };
 
   return (
@@ -77,53 +80,55 @@ const AmmoPage = () => {
             <ListItem
               button
               key={ammo.id}
-              onClick={() => setSelectedAmmo(ammo)}
+              component={Link}
+              to={`/ammo/${ammo.id}`}
             >
               <ListItemText>{ammo.name}</ListItemText>
             </ListItem>
           ))}
         </List>
       </ListDrawer>
-      {selectedAmmo && (
-        <Box
-          component={Paper}
-          paddingX={3}
-          paddingY={3}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="flex-start"
-        >
-          <div>
-            <Typography variant="h6">{selectedAmmo.name}</Typography>
-            <Link href={selectedAmmo.link}>{selectedAmmo.link}</Link>
-            <Typography variant="overline">combines:</Typography>
-            {selectedAmmo.combinedAmmoIds.length &&
-              selectedAmmo.combinedAmmoIds
-                .map(ammoId => ammo.find(ammo => ammo.id === ammoId))
-                .map(ammo => (
-                  <Button onClick={() => setSelectedAmmo(ammo)}>
-                    {ammo?.name}
-                  </Button>
-                ))}
-          </div>
-          <Box>
-            <IconButton onClick={toggleAmmoModal} size="small">
-              <EditIcon />
-            </IconButton>
-            <IconButton
-              onClick={() => handleDelete(selectedAmmo.id)}
-              size="small"
-            >
-              <DeleteIcon />
-            </IconButton>
-          </Box>
-        </Box>
-      )}
+      <Switch>
+        <Route path="/ammo/:ammoId" exact>
+          <SelectedAmmoPage />
+        </Route>
+        <Route>
+          {ammo.length ? (
+            <Box>
+              <Box display="flex">
+                <Typography>
+                  Select an ammo type to view it's details
+                </Typography>
+                <ArrowForwardIcon className={classes.arrowForwardIcon} />
+              </Box>
+              <Button
+                onClick={toggleAmmoModal}
+                variant="outlined"
+                color="secondary"
+                className={classes.addButton}
+              >
+                Add Ammo
+              </Button>
+            </Box>
+          ) : (
+            <Box>
+              <Typography>Add an ammo type to get started</Typography>
+              <Button
+                onClick={toggleAmmoModal}
+                variant="outlined"
+                color="secondary"
+                className={classes.addButton}
+              >
+                Add Ammo
+              </Button>
+            </Box>
+          )}
+        </Route>
+      </Switch>
       <AmmoModal
         isOpen={isAmmoModalOpen}
         onClose={toggleAmmoModal}
-        onSave={handleUpdate}
-        ammo={selectedAmmo}
+        onSave={handleSave}
       />
     </PageTemplate>
   );

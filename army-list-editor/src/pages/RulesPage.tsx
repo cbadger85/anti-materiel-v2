@@ -1,37 +1,47 @@
 import {
   Box,
-  IconButton,
+  Button,
   InputAdornment,
-  Link,
   List,
   ListItem,
   ListItemText,
-  Paper,
+  makeStyles,
   TextField,
   Typography,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, Route, Switch } from 'react-router-dom';
 import ListDrawer from '../components/ListDrawer';
 import PageTemplate from '../components/PageTemplate';
 import RuleModal from '../components/RuleModal';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { RootState } from '../store/rootReducer';
-import { removeRule, updateRule } from '../store/ruleSlice';
+import { addRule } from '../store/ruleSlice';
 import { BaseRule } from '../types/rule';
+import SelectedRulePage from './SelectedRulePage';
+
+const useStyles = makeStyles(theme => ({
+  arrowForwardIcon: {
+    marginLeft: theme.spacing(1),
+  },
+  addButton: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const RulesPage = () => {
-  const rules = useSelector((state: RootState) => state.rules);
-
-  const [isRuleModalOpen, setIsRuleModalOpen] = useState(false);
-  const [searchInput, setSearchInput] = useState('');
-  const [selectedRule, setSelectedRule] = useState<BaseRule>();
-
+  const classes = useStyles();
   const dispatch = useDispatch();
   const snack = useAppSnackbar();
+
+  const [isRuleModalOpen, setIsRuleModalOpen] = useState(false);
+
+  const rules = useSelector((state: RootState) => state.rules);
+
+  const [searchInput, setSearchInput] = useState('');
 
   const filteredRules = rules.filter(rule =>
     rule.name.toLowerCase().includes(searchInput.toLowerCase()),
@@ -39,19 +49,13 @@ const RulesPage = () => {
 
   const toggleRuleModal = () => setIsRuleModalOpen(isOpen => !isOpen);
 
+  const handleSave = (rule: BaseRule) => {
+    dispatch(addRule(rule));
+    snack('Rule Added', 'success');
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
-  };
-
-  const handleDelete = (ruleId: string) => {
-    dispatch(removeRule(ruleId));
-    snack('Rule Removed', 'success');
-    setSelectedRule(undefined);
-  };
-
-  const handleUpdate = (rule: BaseRule) => {
-    dispatch(updateRule(rule));
-    snack('Rule Updated', 'success');
   };
 
   return (
@@ -76,44 +80,53 @@ const RulesPage = () => {
             <ListItem
               button
               key={rule.id}
-              onClick={() => setSelectedRule(rule)}
+              component={Link}
+              to={`/rules/${rule.id}`}
             >
               <ListItemText>{rule.name}</ListItemText>
             </ListItem>
           ))}
         </List>
       </ListDrawer>
-      {selectedRule && (
-        <Box
-          component={Paper}
-          paddingX={3}
-          paddingY={3}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="flex-start"
-        >
-          <div>
-            <Typography variant="h6">{selectedRule.name}</Typography>
-            <Link href={selectedRule.link}>{selectedRule.link}</Link>
-          </div>
-          <Box>
-            <IconButton onClick={toggleRuleModal} size="small">
-              <EditIcon />
-            </IconButton>
-            <IconButton
-              onClick={() => handleDelete(selectedRule.id)}
-              size="small"
-            >
-              <DeleteIcon />
-            </IconButton>
-          </Box>
-        </Box>
-      )}
+      <Switch>
+        <Route path="/rules/:ruleId" exact>
+          <SelectedRulePage />
+        </Route>
+        <Route>
+          {rules.length ? (
+            <Box>
+              <Box display="flex">
+                <Typography>Select a rule to view it's details</Typography>
+                <ArrowForwardIcon className={classes.arrowForwardIcon} />
+              </Box>
+              <Button
+                onClick={toggleRuleModal}
+                variant="outlined"
+                color="secondary"
+                className={classes.addButton}
+              >
+                Add Rule
+              </Button>
+            </Box>
+          ) : (
+            <Box>
+              <Typography>Add a rule to get started</Typography>
+              <Button
+                onClick={toggleRuleModal}
+                variant="outlined"
+                color="secondary"
+                className={classes.addButton}
+              >
+                Add Rule
+              </Button>
+            </Box>
+          )}
+        </Route>
+      </Switch>
       <RuleModal
         isOpen={isRuleModalOpen}
         onClose={toggleRuleModal}
-        onSave={handleUpdate}
-        rule={selectedRule}
+        onSave={handleSave}
       />
     </PageTemplate>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { Drawer, makeStyles } from '@material-ui/core';
 import { appBarHeight } from './NavBar';
 
-export const ListDrawerWidth = 400;
+export const ListDrawerWidth = 300;
 
 const useStyles = makeStyles(theme => ({
   drawer: {
