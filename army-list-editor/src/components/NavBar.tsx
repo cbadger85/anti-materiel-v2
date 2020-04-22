@@ -29,8 +29,9 @@ import WeaponDrawer from './WeaponDrawer';
 import { InfoWarStore } from '../types/infoWarAttack';
 import { addInfoWar } from '../store/infoWar';
 import InfoWarDrawer from './InfoWarDrawer';
+import CloseIcon from '@material-ui/icons/Close';
 
-export const drawerWidth = 240;
+export const drawerWidth = 260;
 export const appBarHeight = 64;
 
 const useStyles = makeStyles(theme => ({
@@ -90,6 +91,11 @@ const NavBar = () => {
     }),
   );
 
+  const toggleAmmoModal = () => setIsAmmoModalOpen(isOpen => !isOpen);
+  const toggleRuleModal = () => setIsRuleModalOpen(isOpen => !isOpen);
+  const toggleWeaponDrawer = () => setIsWeaponDrawerOpen(isOpen => !isOpen);
+  const toggleInfoWarDrawer = () => setIsInfoWarDrawerOpen(isOpen => !isOpen);
+
   const handleAddAmmo = (ammo: AmmoStore) => {
     dispatch(addAmmo(ammo));
     snack('Ammo Added', 'success');
@@ -146,24 +152,24 @@ const NavBar = () => {
     <>
       <AmmoModal
         isOpen={isAmmoModalOpen}
-        onClose={() => setIsAmmoModalOpen(false)}
+        onClose={toggleAmmoModal}
         onSave={handleAddAmmo}
       />
       <RuleModal
         isOpen={isRuleModalOpen}
-        onClose={() => setIsRuleModalOpen(false)}
+        onClose={toggleRuleModal}
         onSave={handleAddRule}
       />
       <WeaponDrawer
         isOpen={isWeaponDrawerOpen}
-        onClose={() => setIsWeaponDrawerOpen(false)}
+        onClose={toggleWeaponDrawer}
         ammo={ammo}
         traits={rules}
         onSave={handleAddWeapon}
       />
       <InfoWarDrawer
         isOpen={isInfoWarDrawerOpen}
-        onClose={() => setIsInfoWarDrawerOpen(false)}
+        onClose={toggleInfoWarDrawer}
         onSave={handleAddInfoWar}
       />
       <AppBar className={classes.appBar}>
@@ -217,12 +223,19 @@ const NavBar = () => {
                   </Box>
                 </ListItemText>
               </ListItem>
-              <ListItem button onClick={() => setIsWeaponDrawerOpen(true)}>
+              <ListItem button onClick={toggleWeaponDrawer}>
                 <ListItemText className={classes.listItemText}>
-                  <Box display="flex" alignItems="center">
-                    <AddIcon className={classes.listItemIcon} />
-                    Add Weapon
-                  </Box>
+                  {isWeaponDrawerOpen ? (
+                    <Box display="flex" alignItems="center">
+                      <CloseIcon className={classes.listItemIcon} />
+                      Close Weapon Drawer
+                    </Box>
+                  ) : (
+                    <Box display="flex" alignItems="center">
+                      <AddIcon className={classes.listItemIcon} />
+                      Add Weapon
+                    </Box>
+                  )}
                 </ListItemText>
               </ListItem>
             </List>
@@ -239,12 +252,19 @@ const NavBar = () => {
                   </Box>
                 </ListItemText>
               </ListItem>
-              <ListItem button onClick={() => setIsInfoWarDrawerOpen(true)}>
+              <ListItem button onClick={toggleInfoWarDrawer}>
                 <ListItemText className={classes.listItemText}>
-                  <Box display="flex" alignItems="center">
-                    <AddIcon className={classes.listItemIcon} />
-                    Add InfoWar
-                  </Box>
+                  {isInfoWarDrawerOpen ? (
+                    <Box display="flex" alignItems="center">
+                      <CloseIcon className={classes.listItemIcon} />
+                      Close InfoWar Drawer
+                    </Box>
+                  ) : (
+                    <Box display="flex" alignItems="center">
+                      <AddIcon className={classes.listItemIcon} />
+                      Add InfoWar
+                    </Box>
+                  )}
                 </ListItemText>
               </ListItem>
             </List>
@@ -261,7 +281,7 @@ const NavBar = () => {
                   </Box>
                 </ListItemText>
               </ListItem>
-              <ListItem button onClick={() => setIsAmmoModalOpen(true)}>
+              <ListItem button onClick={toggleAmmoModal}>
                 <ListItemText className={classes.listItemText}>
                   <Box display="flex" alignItems="center">
                     <AddIcon className={classes.listItemIcon} />
@@ -283,7 +303,7 @@ const NavBar = () => {
                   </Box>
                 </ListItemText>
               </ListItem>
-              <ListItem button onClick={() => setIsRuleModalOpen(true)}>
+              <ListItem button onClick={toggleRuleModal}>
                 <ListItemText className={classes.listItemText}>
                   <Box display="flex" alignItems="center">
                     <AddIcon className={classes.listItemIcon} />
