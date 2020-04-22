@@ -22,6 +22,7 @@ import { RootState } from '../store/rootReducer';
 import { addRule } from '../store/ruleSlice';
 import { BaseRule } from '../types/rule';
 import SelectedRulePage from './SelectedRulePage';
+import sortyBy from 'lodash/sortBy';
 
 const useStyles = makeStyles(theme => ({
   arrowForwardIcon: {
@@ -76,7 +77,7 @@ const RulesPage = () => {
           }}
         />
         <List>
-          {filteredRules.map(rule => (
+          {sortyBy(filteredRules, rule => rule.name).map(rule => (
             <ListItem
               button
               key={rule.id}
@@ -96,7 +97,7 @@ const RulesPage = () => {
           {rules.length ? (
             <Box>
               <Box display="flex">
-                <Typography>Select a rule to view it's details</Typography>
+                <Typography>Select a rule to view it's details.</Typography>
                 <ArrowForwardIcon className={classes.arrowForwardIcon} />
               </Box>
               <Button
@@ -110,7 +111,7 @@ const RulesPage = () => {
             </Box>
           ) : (
             <Box>
-              <Typography>Add a rule to get started</Typography>
+              <Typography>Add a rule to get started.</Typography>
               <Button
                 onClick={toggleRuleModal}
                 variant="outlined"

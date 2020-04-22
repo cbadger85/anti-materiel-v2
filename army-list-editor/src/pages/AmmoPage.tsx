@@ -22,6 +22,7 @@ import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { addAmmo } from '../store/ammoSlice';
 import { AmmoStore } from '../types/weapon';
 import AmmoModal from '../components/AmmoModal';
+import sortBy from 'lodash/sortBy';
 
 const useStyles = makeStyles(theme => ({
   arrowForwardIcon: {
@@ -43,7 +44,7 @@ const AmmoPage = () => {
 
   const [searchInput, setSearchInput] = useState('');
 
-  const filterAmmo = ammo.filter(ammo =>
+  const filteredAmmo = ammo.filter(ammo =>
     ammo.name.toLowerCase().includes(searchInput.toLowerCase()),
   );
 
@@ -76,7 +77,7 @@ const AmmoPage = () => {
           }}
         />
         <List>
-          {filterAmmo.map(ammo => (
+          {sortBy(filteredAmmo, ammo => ammo.name).map(ammo => (
             <ListItem
               button
               key={ammo.id}
@@ -97,7 +98,7 @@ const AmmoPage = () => {
             <Box>
               <Box display="flex">
                 <Typography>
-                  Select an ammo type to view it's details
+                  Select an ammo type to view it's details.
                 </Typography>
                 <ArrowForwardIcon className={classes.arrowForwardIcon} />
               </Box>
@@ -112,7 +113,7 @@ const AmmoPage = () => {
             </Box>
           ) : (
             <Box>
-              <Typography>Add an ammo type to get started</Typography>
+              <Typography>Add an ammo type to get started.</Typography>
               <Button
                 onClick={toggleAmmoModal}
                 variant="outlined"

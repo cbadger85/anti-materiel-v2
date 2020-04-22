@@ -56,7 +56,7 @@ const SelectedAmmoPage = () => {
         <Typography variant="h6">{selectedAmmo.name}</Typography>
         <Link href={selectedAmmo.link}>{selectedAmmo.link}</Link>
         <Typography variant="overline">combines:</Typography>
-        {selectedAmmo.combinedAmmoIds.length &&
+        {!!selectedAmmo.combinedAmmoIds.length &&
           selectedAmmo.combinedAmmoIds
             .map(ammoId => ammo.find(ammo => ammo.id === ammoId))
             .map(ammo => (
@@ -68,6 +68,7 @@ const SelectedAmmoPage = () => {
                 {ammo?.name}
               </Button>
             ))}
+        {!selectedAmmo.combinedAmmoIds.length && <span> 0</span>}
       </div>
       <Box>
         <IconButton onClick={toggleAmmoModal} size="small">

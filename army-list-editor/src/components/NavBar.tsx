@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import { Link as NavLink } from 'react-router-dom';
 import NavigationAccordion from './NavigationAccordion';
 import { useDispatch, useSelector } from 'react-redux';
-import { AmmoStore } from '../types/weapon';
+import { AmmoStore, WeaponStore, WeaponModeStore } from '../types/weapon';
 import { addAmmo } from '../store/ammoSlice';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { BaseRule } from '../types/rule';
@@ -23,6 +23,9 @@ import { addRule } from '../store/ruleSlice';
 import AmmoModal from './AmmoModal';
 import RuleModal from './RuleModal';
 import { RootState } from '../store/rootReducer';
+import shortid from 'shortid';
+import { addWeapon } from '../store/weaponSlice';
+import WeaponDrawer from './WeaponDrawer';
 
 export const drawerWidth = 240;
 export const appBarHeight = 64;
@@ -72,8 +75,16 @@ const NavBar = () => {
 
   const [isAmmoModalOpen, setIsAmmoModalOpen] = useState(false);
   const [isRuleModalOpen, setIsRuleModalOpen] = useState(false);
+  const [isWeaponDrawerOpen, setIsWeaponDrawerOpen] = useState(false);
 
   const title = useSelector((state: RootState) => state.app.title);
+  const { rules, ammo } = useSelector(
+    ({ rules, ammo, weapons }: RootState) => ({
+      rules,
+      ammo,
+      weapons,
+    }),
+  );
 
   const handleAddAmmo = (ammo: AmmoStore) => {
     dispatch(addAmmo(ammo));
@@ -83,6 +94,43 @@ const NavBar = () => {
   const handleAddRule = (rule: BaseRule) => {
     dispatch(addRule(rule));
     snack('Rule Added', 'success');
+  };
+
+  const handleAddWeapon = (weapon: WeaponStore) => {
+    const suppressiveFireModes = weapon.modes
+      .filter(mode =>
+        mode.traitIds
+          .map(traitId => rules.find(rule => rule.id === traitId)?.name)
+          .toString()
+          .toLowerCase()
+          .includes('suppressive'),
+      )
+      .map<WeaponModeStore>(mode => ({
+        ...mode,
+        id: shortid(),
+        name: `${mode.name} Suppressive Fire Mode`,
+        shortRange: '0-8" 0',
+        mediumRange: '8-16" 0',
+        longRange: '16-24" -3',
+        maximumRange: '',
+        burst: '3',
+        traitIds: mode.traitIds.filter(
+          traitId =>
+            !rules
+              .find(rule => rule.id === traitId)
+              ?.name.toString()
+              .toLowerCase()
+              .includes('suppressive'),
+        ),
+      }));
+
+    dispatch(
+      addWeapon({
+        ...weapon,
+        modes: [...weapon.modes, ...suppressiveFireModes],
+      }),
+    );
+    snack('Weapon Added', 'success');
   };
 
   return (
@@ -96,6 +144,13 @@ const NavBar = () => {
         isOpen={isRuleModalOpen}
         onClose={() => setIsRuleModalOpen(false)}
         onSave={handleAddRule}
+      />
+      <WeaponDrawer
+        isOpen={isWeaponDrawerOpen}
+        onClose={() => setIsWeaponDrawerOpen(false)}
+        ammo={ammo}
+        traits={rules}
+        onSave={handleAddWeapon}
       />
       <AppBar className={classes.appBar}>
         <Toolbar>
@@ -148,7 +203,7 @@ const NavBar = () => {
                   </Box>
                 </ListItemText>
               </ListItem>
-              <ListItem button component={NavLink} to="new/weapons">
+              <ListItem button onClick={() => setIsWeaponDrawerOpen(true)}>
                 <ListItemText className={classes.listItemText}>
                   <Box display="flex" alignItems="center">
                     <AddIcon className={classes.listItemIcon} />

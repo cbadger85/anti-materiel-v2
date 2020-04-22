@@ -1,71 +1,175 @@
-import MUIDataTable from 'mui-datatables';
+import {
+  Box,
+  Button,
+  InputAdornment,
+  List,
+  ListItem,
+  ListItemText,
+  makeStyles,
+  TextField,
+  Typography,
+} from '@material-ui/core';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import SearchIcon from '@material-ui/icons/Search';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Route, Switch } from 'react-router-dom';
+import shortid from 'shortid';
+import ListDrawer from '../components/ListDrawer';
 import PageTemplate from '../components/PageTemplate';
-import WeaponModal from '../components/WeaponModal';
-import WeaponTableToolbar from '../components/WeaponTableToolbar';
+import WeaponDrawer from '../components/WeaponDrawer';
+import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { RootState } from '../store/rootReducer';
-import { WeaponMode, WeaponStore } from '../types/weapon';
-import { commaSeparateList } from '../utils/commaSeparateList';
+import { addWeapon } from '../store/weaponSlice';
+import { WeaponModeStore, WeaponStore } from '../types/weapon';
+import SelectedWeaponPage from './SelectedWeaponPage';
+import sortBy from 'lodash/sortBy';
+
+const useStyles = makeStyles(theme => ({
+  arrowForwardIcon: {
+    marginLeft: theme.spacing(1),
+  },
+  addButton: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const WeaponsPage = () => {
-  const [selectedWeapon, setSelectedWeapon] = useState<WeaponStore>();
-  const weapons = useSelector((state: RootState) => state.weapons);
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const snack = useAppSnackbar();
 
-  const columns = [
-    {
-      name: 'name',
-      label: 'Name',
-      options: {
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'modes',
-      label: 'Weapon Modes',
-      options: {
-        filter: true,
-        sort: true,
-        customBodyRender: (value: WeaponMode[]) =>
-          commaSeparateList(value.map(mode => mode.name)),
-      },
-    },
-    {
-      name: 'link',
-      label: 'Link',
-      options: {
-        filter: false,
-        sort: false,
-        searchable: false,
-      },
-    },
-  ];
+  const [isWeaponDrawerOpen, setIsWeaponDrawerOpen] = useState(false);
 
-  const handleCloseModal = () => setSelectedWeapon(undefined);
+  const { rules, ammo, weapons } = useSelector(
+    ({ rules, ammo, weapons }: RootState) => ({
+      rules,
+      ammo,
+      weapons,
+    }),
+  );
+
+  const [searchInput, setSearchInput] = useState('');
+
+  const filteredWeapons = weapons.filter(weapon =>
+    weapon.name.toLowerCase().includes(searchInput.toLowerCase()),
+  );
+
+  const toggleWeaponDrawer = () => setIsWeaponDrawerOpen(isOpen => !isOpen);
+
+  const handleSave = (weapon: WeaponStore) => {
+    const suppressiveFireModes = weapon.modes
+      .filter(mode =>
+        mode.traitIds
+          .map(traitId => rules.find(rule => rule.id === traitId)?.name)
+          .toString()
+          .toLowerCase()
+          .includes('suppressive'),
+      )
+      .map<WeaponModeStore>(mode => ({
+        ...mode,
+        id: shortid(),
+        name: `${mode.name} Suppressive Fire Mode`,
+        shortRange: '0-8" 0',
+        mediumRange: '8-16" 0',
+        longRange: '16-24" -3',
+        maximumRange: '',
+        burst: '3',
+        traitIds: mode.traitIds.filter(
+          traitId =>
+            !rules
+              .find(rule => rule.id === traitId)
+              ?.name.toString()
+              .toLowerCase()
+              .includes('suppressive'),
+        ),
+      }));
+
+    dispatch(
+      addWeapon({
+        ...weapon,
+        modes: [...weapon.modes, ...suppressiveFireModes],
+      }),
+    );
+    snack('Weapon Added', 'success');
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
 
   return (
     <PageTemplate title="Weapons">
-      <MUIDataTable
-        title=""
-        data={weapons}
-        columns={columns}
-        options={{
-          download: false,
-          responsive: 'scrollFullHeight',
-          print: false,
-          viewColumns: false,
-          filter: false,
-          selectableRowsHeader: false,
-          selectableRows: 'single',
-          onRowClick: (rowData, rowMeta) =>
-            setSelectedWeapon(weapons[rowMeta.dataIndex]),
-          customToolbarSelect: selectedRow => (
-            <WeaponTableToolbar row={selectedRow} data={weapons} />
-          ),
-        }}
+      <ListDrawer>
+        <TextField
+          id="weapon-search-input"
+          label="Search Weapon"
+          value={searchInput}
+          onChange={handleChange}
+          color="secondary"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <List>
+          {sortBy(filteredWeapons, weapon => weapon.name).map(weapon => (
+            <ListItem
+              button
+              key={weapon.id}
+              component={Link}
+              to={`/weapons/${weapon.id}`}
+            >
+              <ListItemText>{weapon.name}</ListItemText>
+            </ListItem>
+          ))}
+        </List>
+      </ListDrawer>
+      <Switch>
+        <Route path="/weapons/:weaponId" exact>
+          <SelectedWeaponPage />
+        </Route>
+        <Route>
+          {ammo.length ? (
+            <Box>
+              <Box display="flex">
+                <Typography>Select a weapon to view it's details.</Typography>
+                <ArrowForwardIcon className={classes.arrowForwardIcon} />
+              </Box>
+              <Button
+                onClick={toggleWeaponDrawer}
+                variant="outlined"
+                color="secondary"
+                className={classes.addButton}
+              >
+                Add Weapon
+              </Button>
+            </Box>
+          ) : (
+            <Box>
+              <Typography>Add a weapon to get started.</Typography>
+              <Button
+                onClick={toggleWeaponDrawer}
+                variant="outlined"
+                color="secondary"
+                className={classes.addButton}
+              >
+                Add Weapon
+              </Button>
+            </Box>
+          )}
+        </Route>
+      </Switch>
+      <WeaponDrawer
+        isOpen={isWeaponDrawerOpen}
+        onClose={toggleWeaponDrawer}
+        ammo={ammo}
+        traits={rules}
+        onSave={handleSave}
       />
-      <WeaponModal weapon={selectedWeapon} onClose={handleCloseModal} />
     </PageTemplate>
   );
 };

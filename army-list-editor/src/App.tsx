@@ -1,16 +1,15 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
-import RulesPage from './pages/RulesPage';
-import { SnackbarProvider } from 'notistack';
 import AmmoPage from './pages/AmmoPage';
-import InfoWarAttackPage from './pages/InfoWarAttackPage';
 import InfoWarAttackFormPage from './pages/InfoWarAttackFormPage';
-import WeaponsPage from './pages/WeaponsPage';
-import WeaponsFormPage from './pages/WeaponFormsPage';
+import InfoWarAttackPage from './pages/InfoWarAttackPage';
 import NotFound from './pages/NotFound';
+import RulesPage from './pages/RulesPage';
+import WeaponsPage from './pages/WeaponsPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -60,14 +59,8 @@ export function App() {
             <Route path="/edit/infowar-attacks/:infoWarAttackId" exact>
               <InfoWarAttackFormPage />
             </Route>
-            <Route path="/weapons" exact>
+            <Route path="/weapons">
               <WeaponsPage />
-            </Route>
-            <Route path="/new/weapons" exact>
-              <WeaponsFormPage />
-            </Route>
-            <Route path="/edit/weapons/:weaponId" exact>
-              <WeaponsFormPage />
             </Route>
             <Route>
               <NotFound />
