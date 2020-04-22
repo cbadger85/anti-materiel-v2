@@ -26,8 +26,8 @@ import { RootState } from '../store/rootReducer';
 import shortid from 'shortid';
 import { addWeapon } from '../store/weaponSlice';
 import WeaponDrawer from './WeaponDrawer';
-import { InfoWarAttackStore } from '../types/infoWarAttack';
-import { addInfoWarAttack } from '../store/infoWarAttackSlice';
+import { InfoWarStore } from '../types/infoWarAttack';
+import { addInfoWar } from '../store/infoWar';
 import InfoWarDrawer from './InfoWarDrawer';
 
 export const drawerWidth = 240;
@@ -137,8 +137,8 @@ const NavBar = () => {
     snack('Weapon Added', 'success');
   };
 
-  const handleAddInfoWar = (infoWar: InfoWarAttackStore) => {
-    dispatch(addInfoWarAttack(infoWar));
+  const handleAddInfoWar = (infoWar: InfoWarStore) => {
+    dispatch(addInfoWar(infoWar));
     snack('InfoWar Added', 'success');
   };
 

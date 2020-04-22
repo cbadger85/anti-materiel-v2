@@ -1,11 +1,11 @@
 import { BaseRule } from './rule';
 import { Ammo } from './weapon';
 
-export interface InfoWarAttack extends BaseRule {
-  attackType: InfoWarAttackType;
-  category: InfoWarAttackCategory;
-  range?: InfoWarAttackRange;
-  target: InfoWarAttackTarget[];
+export interface InfoWar extends BaseRule {
+  attackType: InfoWarType;
+  category: InfoWarCategory;
+  range?: InfoWarRange;
+  target: InfoWarTarget[];
   skillType: SkillType[];
   attackModifier?: string;
   opponentModifier?: string;
@@ -16,16 +16,16 @@ export interface InfoWarAttack extends BaseRule {
   special?: string;
 }
 
-export type InfoWarAttackStore = Omit<InfoWarAttack, 'ammo'> & {
+export type InfoWarStore = Omit<InfoWar, 'ammo'> & {
   ammoIds: string[];
 };
 
-export enum InfoWarAttackType {
+export enum InfoWarType {
   HACKING_PROGRAM = 'HACKING_PROGRAM',
   PHEROWARE_TACTIC = 'PHEROWARE_TACTIC',
 }
 
-export const infoWarAttackCategories = [
+export const infoWarCategories = [
   'Attack',
   'Support',
   'CLAW-1',
@@ -42,9 +42,9 @@ export const infoWarAttackCategories = [
   'UPGRADE',
 ] as const;
 
-export type InfoWarAttackCategory = typeof infoWarAttackCategories[number];
+export type InfoWarCategory = typeof infoWarCategories[number];
 
-export const infoWarAttackTargets = [
+export const infoWarTargets = [
   'Trooper possessing Wounds Attribute.',
   'Trooper with Symbiont Armor in Unconscious state.',
   'User in active Symbiont Armor state',
@@ -63,9 +63,9 @@ export const infoWarAttackTargets = [
   '--',
 ] as const;
 
-export type InfoWarAttackTarget = typeof infoWarAttackTargets[number];
+export type InfoWarTarget = typeof infoWarTargets[number];
 
-export const infoWarAttackRange = [
+export const infoWarRange = [
   'Hacking Area',
   'Table',
   'User',
@@ -73,7 +73,7 @@ export const infoWarAttackRange = [
   'ZoC',
 ] as const;
 
-export type InfoWarAttackRange = typeof infoWarAttackRange[number];
+export type InfoWarRange = typeof infoWarRange[number];
 
 export const skillType = [
   'Short Skill',

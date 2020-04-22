@@ -1,8 +1,8 @@
 import { Box, Drawer, Fab, makeStyles } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
-import { InfoWarAttackStore } from '../types/infoWarAttack';
-import InfoWarAttackForm from './InfoWarAttackForm';
+import { InfoWarStore } from '../types/infoWarAttack';
+import InfoWarAttackForm from './InfoWarForm';
 import { appBarHeight, drawerWidth } from './NavBar';
 
 const useStyles = makeStyles(theme => ({
@@ -36,7 +36,7 @@ const InfoWarDrawer: React.FC<InfoWarDrawerProps> = ({
 }) => {
   const classes = useStyles();
 
-  const handleSave = (infoWar: InfoWarAttackStore) => {
+  const handleSave = (infoWar: InfoWarStore) => {
     onSave(infoWar);
     onClose();
   };
@@ -58,7 +58,7 @@ const InfoWarDrawer: React.FC<InfoWarDrawerProps> = ({
         <Fab onClick={onClose} className={classes.closeIcon}>
           <CloseIcon />
         </Fab>
-        <InfoWarAttackForm onSave={handleSave} infoWarAttack={infoWar} />
+        <InfoWarAttackForm onSave={handleSave} infoWar={infoWar} />
       </Box>
     </Drawer>
   );
@@ -69,6 +69,6 @@ export default InfoWarDrawer;
 interface InfoWarDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (infoWar: InfoWarAttackStore) => void;
-  infoWar?: InfoWarAttackStore;
+  onSave: (infoWar: InfoWarStore) => void;
+  infoWar?: InfoWarStore;
 }

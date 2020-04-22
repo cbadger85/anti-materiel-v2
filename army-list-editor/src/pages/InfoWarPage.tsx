@@ -19,9 +19,9 @@ import InfoWarDrawer from '../components/InfoWarDrawer';
 import ListDrawer from '../components/ListDrawer';
 import PageTemplate from '../components/PageTemplate';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { addInfoWarAttack } from '../store/infoWarAttackSlice';
+import { addInfoWar } from '../store/infoWar';
 import { RootState } from '../store/rootReducer';
-import { InfoWarAttackStore } from '../types/infoWarAttack';
+import { InfoWarStore } from '../types/infoWarAttack';
 import SelectedInfoWarPage from './SelectedInfoWarPage';
 
 const useStyles = makeStyles(theme => ({
@@ -40,7 +40,7 @@ const InfoWarAttackPage = () => {
 
   const [isInfoWarDrawerOpen, setIsInfpWarDrawerOpen] = useState(false);
 
-  const infoWar = useSelector((state: RootState) => state.infoWarAttacks);
+  const infoWar = useSelector((state: RootState) => state.infoWar);
 
   const [searchInput, setSearchInput] = useState('');
 
@@ -50,8 +50,8 @@ const InfoWarAttackPage = () => {
 
   const toggleInfoWarDrawer = () => setIsInfpWarDrawerOpen(isOpen => !isOpen);
 
-  const handleSave = (infoWar: InfoWarAttackStore) => {
-    dispatch(addInfoWarAttack(infoWar));
+  const handleSave = (infoWar: InfoWarStore) => {
+    dispatch(addInfoWar(infoWar));
     snack('InfoWar Added', 'success');
   };
 

@@ -5,7 +5,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import AmmoPage from './pages/AmmoPage';
-import InfoWarAttackPage from './pages/InfoWarAttackPage';
+import InfoWarAttackPage from './pages/InfoWarPage';
 import NotFound from './pages/NotFound';
 import RulesPage from './pages/RulesPage';
 import WeaponsPage from './pages/WeaponsPage';

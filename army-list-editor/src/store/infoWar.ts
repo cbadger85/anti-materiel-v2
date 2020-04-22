@@ -1,25 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import shortid from 'shortid';
-import { InfoWarAttackStore } from '../types/infoWarAttack';
+import { InfoWarStore } from '../types/infoWarAttack';
 
-const initialState: InfoWarAttackStore[] = [];
+const initialState: InfoWarStore[] = [];
 
 const infoWarAttackSlice = createSlice({
   name: 'infoWarAttack',
   initialState,
   reducers: {
-    addInfoWarAttack: {
-      reducer: (state, action: PayloadAction<InfoWarAttackStore>) => [
+    addInfoWar: {
+      reducer: (state, action: PayloadAction<InfoWarStore>) => [
         ...state,
         action.payload,
       ],
-      prepare: (rule: Omit<InfoWarAttackStore, 'id'>) => ({
+      prepare: (rule: Omit<InfoWarStore, 'id'>) => ({
         payload: { ...rule, id: shortid() },
       }),
     },
-    removeInfoWarAttack: (state, action: PayloadAction<string>) =>
+    removeInfoWar: (state, action: PayloadAction<string>) =>
       state.filter(rule => rule.id !== action.payload),
-    updateInfoWarAttack: (state, action: PayloadAction<InfoWarAttackStore>) =>
+    updateInfoWar: (state, action: PayloadAction<InfoWarStore>) =>
       state.map(rule =>
         rule.id === action.payload.id ? action.payload : rule,
       ),
@@ -29,7 +29,7 @@ const infoWarAttackSlice = createSlice({
 export default infoWarAttackSlice.reducer;
 
 export const {
-  addInfoWarAttack,
-  removeInfoWarAttack,
-  updateInfoWarAttack,
+  addInfoWar,
+  removeInfoWar,
+  updateInfoWar,
 } = infoWarAttackSlice.actions;

@@ -18,13 +18,13 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 import {
-  infoWarAttackCategories,
-  InfoWarAttackCategory,
-  infoWarAttackRange,
-  InfoWarAttackRange,
-  InfoWarAttackStore,
-  infoWarAttackTargets,
-  InfoWarAttackType,
+  infoWarCategories,
+  InfoWarCategory,
+  infoWarRange,
+  InfoWarRange,
+  InfoWarStore,
+  infoWarTargets,
+  InfoWarType,
   skillType,
 } from '../types/infoWarAttack';
 import { AmmoStore } from '../types/weapon';
@@ -93,14 +93,14 @@ const initialFields = {
 };
 
 const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
-  infoWarAttack = initialFields,
+  infoWar = initialFields,
   onSave,
 }) => {
   const ammoOptions = useSelector((state: RootState) => state.ammo);
 
-  const [infoWarAttackFields, setInfoWarAttackFields] = useState({
-    ...infoWarAttack,
-    ammo: (infoWarAttack.ammoIds as string[]).map(
+  const [infoWarFields, setInfoWarFields] = useState({
+    ...infoWar,
+    ammo: (infoWar.ammoIds as string[]).map(
       ammoId => ammoOptions.find(ammo => ammo.id === ammoId) as AmmoStore,
     ),
   });
@@ -109,16 +109,16 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
   const theme = useTheme();
 
   const isDisabled =
-    !infoWarAttackFields.name ||
-    !infoWarAttackFields.attackType ||
-    !infoWarAttackFields.category ||
-    !infoWarAttackFields.skillType.length;
+    !infoWarFields.name ||
+    !infoWarFields.attackType ||
+    !infoWarFields.category ||
+    !infoWarFields.skillType.length;
 
   const handleChange = (
     e: React.ChangeEvent<{ value: unknown; name?: string }>,
   ) => {
-    setInfoWarAttackFields({
-      ...infoWarAttackFields,
+    setInfoWarFields({
+      ...infoWarFields,
       [e.target.name as string]: e.target.value,
     });
   };
@@ -126,25 +126,25 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const infoWarAttackStore: InfoWarAttackStore = {
-      id: infoWarAttack.id,
-      name: infoWarAttackFields.name,
-      link: infoWarAttackFields.link,
-      attackType: infoWarAttackFields.attackType as InfoWarAttackType,
-      category: infoWarAttackFields.category as InfoWarAttackCategory,
-      range: infoWarAttackFields.range as InfoWarAttackRange | undefined,
-      target: infoWarAttackFields.target,
-      attackModifier: infoWarAttackFields.attackModifier,
-      opponentModifier: infoWarAttackFields.opponentModifier,
-      damage: infoWarAttackFields.damage,
-      burst: infoWarAttackFields.burst,
-      ammoIds: infoWarAttackFields.ammo.map(ammo => ammo.id),
-      skillType: infoWarAttackFields.skillType,
-      effect: infoWarAttackFields.effect,
-      special: infoWarAttack.special,
+    const infoWarStore: InfoWarStore = {
+      id: infoWar.id,
+      name: infoWarFields.name,
+      link: infoWarFields.link,
+      attackType: infoWarFields.attackType as InfoWarType,
+      category: infoWarFields.category as InfoWarCategory,
+      range: infoWarFields.range as InfoWarRange | undefined,
+      target: infoWarFields.target,
+      attackModifier: infoWarFields.attackModifier,
+      opponentModifier: infoWarFields.opponentModifier,
+      damage: infoWarFields.damage,
+      burst: infoWarFields.burst,
+      ammoIds: infoWarFields.ammo.map(ammo => ammo.id),
+      skillType: infoWarFields.skillType,
+      effect: infoWarFields.effect,
+      special: infoWar.special,
     };
 
-    onSave(infoWarAttackStore);
+    onSave(infoWarStore);
   };
 
   return (
@@ -158,7 +158,7 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
           color="secondary"
           className={classes.field}
           required
-          value={infoWarAttackFields.name}
+          value={infoWarFields.name}
           onChange={handleChange}
         />
         <TextField
@@ -167,7 +167,7 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
           name="link"
           color="secondary"
           className={classes.fieldWide}
-          value={infoWarAttackFields.link}
+          value={infoWarFields.link}
           onChange={handleChange}
         />
       </Box>
@@ -179,13 +179,13 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
             id="infowar-attack-type"
             color="secondary"
             name="attackType"
-            value={infoWarAttackFields.attackType}
+            value={infoWarFields.attackType}
             onChange={handleChange}
           >
-            <MenuItem value={InfoWarAttackType.HACKING_PROGRAM}>
+            <MenuItem value={InfoWarType.HACKING_PROGRAM}>
               Hacking Program
             </MenuItem>
-            <MenuItem value={InfoWarAttackType.PHEROWARE_TACTIC}>
+            <MenuItem value={InfoWarType.PHEROWARE_TACTIC}>
               Pheroware Tactic
             </MenuItem>
           </Select>
@@ -197,10 +197,10 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
             id="infowar-range"
             color="secondary"
             name="range"
-            value={infoWarAttackFields.range}
+            value={infoWarFields.range}
             onChange={handleChange}
           >
-            {infoWarAttackRange.map(range => (
+            {infoWarRange.map(range => (
               <MenuItem value={range} key={range}>
                 {range}
               </MenuItem>
@@ -216,10 +216,10 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
             id="infowar-category"
             color="secondary"
             name="category"
-            value={infoWarAttackFields.category}
+            value={infoWarFields.category}
             onChange={handleChange}
           >
-            {infoWarAttackCategories.map(category => (
+            {infoWarCategories.map(category => (
               <MenuItem value={category} key={category}>
                 {category}
               </MenuItem>
@@ -234,7 +234,7 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
             name="target"
             multiple
             input={<Input id="infowar-target-chip" />}
-            value={infoWarAttackFields.target}
+            value={infoWarFields.target}
             onChange={handleChange}
             color="secondary"
             renderValue={selected => (
@@ -246,7 +246,7 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
             )}
             MenuProps={MenuProps}
           >
-            {infoWarAttackTargets.map(target => (
+            {infoWarTargets.map(target => (
               <MenuItem
                 key={target}
                 value={target}
@@ -265,7 +265,7 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
           label="Attack Modifier"
           color="secondary"
           className={classes.fieldSmall}
-          value={infoWarAttackFields.attackModifier}
+          value={infoWarFields.attackModifier}
           onChange={handleChange}
         />
         <TextField
@@ -274,7 +274,7 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
           name="opponentModifier"
           color="secondary"
           className={classes.fieldSmall}
-          value={infoWarAttackFields.opponentModifier}
+          value={infoWarFields.opponentModifier}
           onChange={handleChange}
         />
       </Box>
@@ -285,7 +285,7 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
           label="Damage"
           color="secondary"
           className={classes.fieldSmall}
-          value={infoWarAttackFields.damage}
+          value={infoWarFields.damage}
           onChange={handleChange}
         />
         <TextField
@@ -294,7 +294,7 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
           name="burst"
           color="secondary"
           className={classes.fieldSmall}
-          value={infoWarAttackFields.burst}
+          value={infoWarFields.burst}
           onChange={handleChange}
         />
         <Autocomplete<AmmoStore>
@@ -306,10 +306,10 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
           renderInput={params => (
             <TextField {...params} variant="standard" label="Ammo" />
           )}
-          value={infoWarAttackFields.ammo}
+          value={infoWarFields.ammo}
           onChange={(e, ammo) => {
-            setInfoWarAttackFields({
-              ...infoWarAttackFields,
+            setInfoWarFields({
+              ...infoWarFields,
               ammo,
             });
           }}
@@ -324,7 +324,7 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
             multiple
             name="skillType"
             input={<Input id="infowar-skill-type-chip" />}
-            value={infoWarAttackFields.skillType}
+            value={infoWarFields.skillType}
             onChange={handleChange}
             color="secondary"
             renderValue={selected => (
@@ -355,7 +355,7 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
           label="Effect"
           color="secondary"
           className={classes.fieldWide}
-          value={infoWarAttackFields.effect}
+          value={infoWarFields.effect}
           onChange={handleChange}
         />
       </Box>
@@ -366,7 +366,7 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
           name="special"
           color="secondary"
           className={classes.fieldWide}
-          value={infoWarAttackFields.special}
+          value={infoWarFields.special}
           onChange={handleChange}
         />
       </Box>
@@ -386,6 +386,6 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
 export default InfoWarAttackForm;
 
 interface InfoWarAttackFormProps {
-  infoWarAttack?: InfoWarAttackStore;
-  onSave: (infoWarAttack: InfoWarAttackStore) => void;
+  infoWar?: InfoWarStore;
+  onSave: (infoWarAttack: InfoWarStore) => void;
 }

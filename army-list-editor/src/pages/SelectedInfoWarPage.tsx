@@ -17,12 +17,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router-dom';
 import InfoWarDrawer from '../components/InfoWarDrawer';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import {
-  removeInfoWarAttack,
-  updateInfoWarAttack,
-} from '../store/infoWarAttackSlice';
+import { removeInfoWar, updateInfoWar } from '../store/infoWar';
 import { RootState } from '../store/rootReducer';
-import { InfoWarAttackStore } from '../types/infoWarAttack';
+import { InfoWarStore } from '../types/infoWarAttack';
 import { commaSeparateList } from '../utils/commaSeparateList';
 
 const useStyles = makeStyles(theme => ({
@@ -44,12 +41,10 @@ const SelectedInfoWarPage = () => {
   const dispatch = useDispatch();
   const snack = useAppSnackbar();
   const { infoWarId } = useParams<{ infoWarId: string }>();
-  const { infoWar, ammo } = useSelector(
-    ({ infoWarAttacks, ammo }: RootState) => ({
-      infoWar: infoWarAttacks,
-      ammo,
-    }),
-  );
+  const { infoWar, ammo } = useSelector(({ infoWar, ammo }: RootState) => ({
+    infoWar,
+    ammo,
+  }));
 
   const selectedInfoWar = infoWar.find(infoWar => infoWar.id === infoWarId);
 
@@ -60,12 +55,12 @@ const SelectedInfoWarPage = () => {
   const toggleInfoWarDrawer = () => setIsInfoWarDrawerOpen(isOpen => !isOpen);
 
   const handleDelete = (infoWarId: string) => {
-    dispatch(removeInfoWarAttack(infoWarId));
+    dispatch(removeInfoWar(infoWarId));
     snack('InfoWar Removed', 'success');
   };
 
-  const handleUpdate = (infoWar: InfoWarAttackStore) => {
-    dispatch(updateInfoWarAttack(infoWar));
+  const handleUpdate = (infoWar: InfoWarStore) => {
+    dispatch(updateInfoWar(infoWar));
     snack('InfoWar Updated', 'success');
   };
 
