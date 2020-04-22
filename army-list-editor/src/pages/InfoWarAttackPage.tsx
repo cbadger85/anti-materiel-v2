@@ -1,87 +1,135 @@
-import MUIDataTable from 'mui-datatables';
+import {
+  Box,
+  Button,
+  InputAdornment,
+  List,
+  ListItem,
+  ListItemText,
+  makeStyles,
+  TextField,
+  Typography,
+} from '@material-ui/core';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import SearchIcon from '@material-ui/icons/Search';
+import { sortBy } from 'lodash';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import InfoWarAttackModal from '../components/InfoWarAttackModal';
-import InfoWarAttackTableToolbar from '../components/InfoWarAttackToolbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Route, Switch } from 'react-router-dom';
+import InfoWarDrawer from '../components/InfoWarDrawer';
+import ListDrawer from '../components/ListDrawer';
 import PageTemplate from '../components/PageTemplate';
+import { useAppSnackbar } from '../hooks/useAppSnackbar';
+import { addInfoWarAttack } from '../store/infoWarAttackSlice';
 import { RootState } from '../store/rootReducer';
-import { InfoWarAttackStore, InfoWarAttackType } from '../types/infoWarAttack';
-import { enumToCapitalize } from '../utils/enumToCapitalize';
+import { InfoWarAttackStore } from '../types/infoWarAttack';
+import SelectedInfoWarPage from './SelectedInfoWarPage';
+
+const useStyles = makeStyles(theme => ({
+  arrowForwardIcon: {
+    marginLeft: theme.spacing(1),
+  },
+  addButton: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const InfoWarAttackPage = () => {
-  const [selectedInfoWarAttack, setSelectedInfoWarAttack] = useState<
-    InfoWarAttackStore
-  >();
-  const infoWarAttacks = useSelector(
-    (state: RootState) => state.infoWarAttacks,
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const snack = useAppSnackbar();
+
+  const [isInfoWarDrawerOpen, setIsInfpWarDrawerOpen] = useState(false);
+
+  const infoWar = useSelector((state: RootState) => state.infoWarAttacks);
+
+  const [searchInput, setSearchInput] = useState('');
+
+  const filteredInfoWar = infoWar.filter(infoWar =>
+    infoWar.name.toLowerCase().includes(searchInput.toLowerCase()),
   );
 
-  const columns = [
-    {
-      name: 'name',
-      label: 'Name',
-      options: {
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'attackType',
-      label: 'Attack Type',
-      options: {
-        filter: true,
-        sort: true,
-        customBodyRender: (value: InfoWarAttackType) => enumToCapitalize(value),
-      },
-    },
-    {
-      name: 'category',
-      label: 'Category',
-      options: {
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'link',
-      label: 'Link',
-      options: {
-        filter: false,
-        sort: false,
-        searchable: false,
-      },
-    },
-  ];
+  const toggleInfoWarDrawer = () => setIsInfpWarDrawerOpen(isOpen => !isOpen);
 
-  const handleCloseModal = () => setSelectedInfoWarAttack(undefined);
+  const handleSave = (infoWar: InfoWarAttackStore) => {
+    dispatch(addInfoWarAttack(infoWar));
+    snack('InfoWar Added', 'success');
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
 
   return (
     <PageTemplate title="InfoWar">
-      <MUIDataTable
-        title=""
-        data={infoWarAttacks}
-        columns={columns}
-        options={{
-          download: false,
-          responsive: 'scrollFullHeight',
-          print: false,
-          viewColumns: false,
-          filter: false,
-          selectableRowsHeader: false,
-          selectableRows: 'single',
-          onRowClick: (rowData, rowMeta) =>
-            setSelectedInfoWarAttack(infoWarAttacks[rowMeta.dataIndex]),
-          customToolbarSelect: selectedRow => (
-            <InfoWarAttackTableToolbar
-              row={selectedRow}
-              data={infoWarAttacks}
-            />
-          ),
-        }}
-      />
-      <InfoWarAttackModal
-        infoWarAttack={selectedInfoWarAttack}
-        onClose={handleCloseModal}
+      <ListDrawer>
+        <TextField
+          id="infowar-search-input"
+          label="Search InfoWar"
+          value={searchInput}
+          onChange={handleChange}
+          color="secondary"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <List>
+          {sortBy(filteredInfoWar, infoWar => infoWar.name).map(infoWar => (
+            <ListItem
+              button
+              key={infoWar.id}
+              component={Link}
+              to={`/infowar/${infoWar.id}`}
+            >
+              <ListItemText>{infoWar.name}</ListItemText>
+            </ListItem>
+          ))}
+        </List>
+      </ListDrawer>
+      <Switch>
+        <Route path="/infowar/:infoWarId" exact>
+          <SelectedInfoWarPage />
+        </Route>
+        <Route>
+          {infoWar.length ? (
+            <Box>
+              <Box display="flex">
+                <Typography>
+                  Select an InfoWar action to view its details.
+                </Typography>
+                <ArrowForwardIcon className={classes.arrowForwardIcon} />
+              </Box>
+              <Button
+                onClick={toggleInfoWarDrawer}
+                variant="outlined"
+                color="secondary"
+                className={classes.addButton}
+              >
+                Add InfoWar
+              </Button>
+            </Box>
+          ) : (
+            <Box>
+              <Typography>Add an InfoWar action to get started.</Typography>
+              <Button
+                onClick={toggleInfoWarDrawer}
+                variant="outlined"
+                color="secondary"
+                className={classes.addButton}
+              >
+                Add InfoWar
+              </Button>
+            </Box>
+          )}
+        </Route>
+      </Switch>
+      <InfoWarDrawer
+        isOpen={isInfoWarDrawerOpen}
+        onClose={toggleInfoWarDrawer}
+        onSave={handleSave}
       />
     </PageTemplate>
   );

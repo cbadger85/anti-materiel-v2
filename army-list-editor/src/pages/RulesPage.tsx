@@ -97,7 +97,7 @@ const RulesPage = () => {
           {rules.length ? (
             <Box>
               <Box display="flex">
-                <Typography>Select a rule to view it's details.</Typography>
+                <Typography>Select a rule to view its details.</Typography>
                 <ArrowForwardIcon className={classes.arrowForwardIcon} />
               </Box>
               <Button

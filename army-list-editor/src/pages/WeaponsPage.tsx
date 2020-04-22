@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import SearchIcon from '@material-ui/icons/Search';
+import sortBy from 'lodash/sortBy';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, Switch } from 'react-router-dom';
@@ -23,7 +24,6 @@ import { RootState } from '../store/rootReducer';
 import { addWeapon } from '../store/weaponSlice';
 import { WeaponModeStore, WeaponStore } from '../types/weapon';
 import SelectedWeaponPage from './SelectedWeaponPage';
-import sortBy from 'lodash/sortBy';
 
 const useStyles = makeStyles(theme => ({
   arrowForwardIcon: {
@@ -136,7 +136,7 @@ const WeaponsPage = () => {
           {ammo.length ? (
             <Box>
               <Box display="flex">
-                <Typography>Select a weapon to view it's details.</Typography>
+                <Typography>Select a weapon to view its details.</Typography>
                 <ArrowForwardIcon className={classes.arrowForwardIcon} />
               </Box>
               <Button

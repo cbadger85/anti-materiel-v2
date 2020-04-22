@@ -5,7 +5,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import AmmoPage from './pages/AmmoPage';
-import InfoWarAttackFormPage from './pages/InfoWarAttackFormPage';
 import InfoWarAttackPage from './pages/InfoWarAttackPage';
 import NotFound from './pages/NotFound';
 import RulesPage from './pages/RulesPage';
@@ -50,14 +49,8 @@ export function App() {
             <Route path="/rules">
               <RulesPage />
             </Route>
-            <Route path="/infowar-attacks" exact>
+            <Route path="/infowar">
               <InfoWarAttackPage />
-            </Route>
-            <Route path="/new/infowar-attacks" exact>
-              <InfoWarAttackFormPage />
-            </Route>
-            <Route path="/edit/infowar-attacks/:infoWarAttackId" exact>
-              <InfoWarAttackFormPage />
             </Route>
             <Route path="/weapons">
               <WeaponsPage />

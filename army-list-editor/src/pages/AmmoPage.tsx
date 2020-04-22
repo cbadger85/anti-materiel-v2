@@ -98,7 +98,7 @@ const AmmoPage = () => {
             <Box>
               <Box display="flex">
                 <Typography>
-                  Select an ammo type to view it's details.
+                  Select an ammo type to view its details.
                 </Typography>
                 <ArrowForwardIcon className={classes.arrowForwardIcon} />
               </Box>

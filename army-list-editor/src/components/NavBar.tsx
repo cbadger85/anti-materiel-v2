@@ -26,6 +26,9 @@ import { RootState } from '../store/rootReducer';
 import shortid from 'shortid';
 import { addWeapon } from '../store/weaponSlice';
 import WeaponDrawer from './WeaponDrawer';
+import { InfoWarAttackStore } from '../types/infoWarAttack';
+import { addInfoWarAttack } from '../store/infoWarAttackSlice';
+import InfoWarDrawer from './InfoWarDrawer';
 
 export const drawerWidth = 240;
 export const appBarHeight = 64;
@@ -76,6 +79,7 @@ const NavBar = () => {
   const [isAmmoModalOpen, setIsAmmoModalOpen] = useState(false);
   const [isRuleModalOpen, setIsRuleModalOpen] = useState(false);
   const [isWeaponDrawerOpen, setIsWeaponDrawerOpen] = useState(false);
+  const [isInfoWarDrawerOpen, setIsInfoWarDrawerOpen] = useState(false);
 
   const title = useSelector((state: RootState) => state.app.title);
   const { rules, ammo } = useSelector(
@@ -133,6 +137,11 @@ const NavBar = () => {
     snack('Weapon Added', 'success');
   };
 
+  const handleAddInfoWar = (infoWar: InfoWarAttackStore) => {
+    dispatch(addInfoWarAttack(infoWar));
+    snack('InfoWar Added', 'success');
+  };
+
   return (
     <>
       <AmmoModal
@@ -151,6 +160,11 @@ const NavBar = () => {
         ammo={ammo}
         traits={rules}
         onSave={handleAddWeapon}
+      />
+      <InfoWarDrawer
+        isOpen={isInfoWarDrawerOpen}
+        onClose={() => setIsInfoWarDrawerOpen(false)}
+        onSave={handleAddInfoWar}
       />
       <AppBar className={classes.appBar}>
         <Toolbar>
@@ -217,7 +231,7 @@ const NavBar = () => {
         <NavigationAccordion title="InfoWar">
           <div className={classes.toolbar}>
             <List>
-              <ListItem button component={NavLink} to="/infowar-attacks">
+              <ListItem button component={NavLink} to="/infowar">
                 <ListItemText className={classes.listItemText}>
                   <Box display="flex" alignItems="center">
                     <DescriptionIcon className={classes.listItemIcon} />
@@ -225,7 +239,7 @@ const NavBar = () => {
                   </Box>
                 </ListItemText>
               </ListItem>
-              <ListItem button component={NavLink} to="new/infowar-attacks">
+              <ListItem button onClick={() => setIsInfoWarDrawerOpen(true)}>
                 <ListItemText className={classes.listItemText}>
                   <Box display="flex" alignItems="center">
                     <AddIcon className={classes.listItemIcon} />
