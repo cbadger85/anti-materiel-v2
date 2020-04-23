@@ -1,11 +1,13 @@
+import { Box, Drawer, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
-import { makeStyles, Drawer, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { appBarHeight } from './AppTopBar';
-import NavigationAccordionEntry from './NavigationAccordionEntry';
-import NavigationAccordionWeapon from './NavigationAccordionWeapon';
-import NavigationAccordionInfoWar from './NavigationAccordionInfoWar';
 import NavigationAccordionAmmo from './NavigationAccordionAmmo';
+import NavigationAccordionEntry from './NavigationAccordionEntry';
+import NavigationAccordionInfoWar from './NavigationAccordionInfoWar';
 import NavigationAccordionRule from './NavigationAccordionRule';
+import NavigationAccordionWeapon from './NavigationAccordionWeapon';
+import AppMenuIcon from './AppMenuIcon';
 
 export const drawerWidth = 260;
 
@@ -15,7 +17,8 @@ const useStyles = makeStyles(theme => ({
     height: appBarHeight,
     display: 'flex',
     alignItems: 'center',
-    paddingLeft: theme.spacing(3),
+    textDecoration: 'none',
+    marginLeft: theme.spacing(1),
   },
   drawer: {
     width: drawerWidth,
@@ -40,9 +43,14 @@ const NavigationDrawer = () => {
       }}
       anchor="left"
     >
-      <Typography variant="h6" className={classes.title}>
-        Army Editor
-      </Typography>
+      <Box display="flex" alignItems="center" marginLeft={1}>
+        <AppMenuIcon />
+        <Typography variant="h6">
+          <Link to="/" className={classes.title}>
+            Army Editor
+          </Link>
+        </Typography>
+      </Box>
       <NavigationAccordionEntry />
       <NavigationAccordionWeapon />
       <NavigationAccordionInfoWar />
