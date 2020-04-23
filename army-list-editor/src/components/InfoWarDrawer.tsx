@@ -4,6 +4,10 @@ import React from 'react';
 import { InfoWarStore } from '../types/infoWar';
 import InfoWarForm from './InfoWarForm';
 import { appBarHeight, drawerWidth } from './NavBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAppSnackbar } from '../hooks/useAppSnackbar';
+import { updateInfoWar, addInfoWar } from '../store/infoWar';
+import { RootState } from '../store/rootReducer';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -28,17 +32,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const InfoWarDrawer: React.FC<InfoWarDrawerProps> = ({
-  isOpen,
-  onClose,
-  onSave,
-  infoWar,
-}) => {
+const InfoWarDrawer: React.FC<InfoWarDrawerProps> = ({ onClose }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const snack = useAppSnackbar();
 
-  const handleSave = (infoWar: InfoWarStore) => {
-    onSave(infoWar);
-    onClose();
+  const { isOpen, selectedInfoWar } = useSelector(({ app }: RootState) => ({
+    isOpen: app.infoWarDrawer.isOpen,
+    selectedInfoWar: app.infoWarDrawer.selectedInfoWar,
+  }));
+
+  const handleUpdateInfoWar = (infoWar: InfoWarStore) => {
+    dispatch(updateInfoWar(infoWar));
+    snack('InfoWar Updated', 'success');
+  };
+
+  const handleAddInfoWar = (infoWar: InfoWarStore) => {
+    dispatch(addInfoWar(infoWar));
+    snack('InfoWar Added', 'success');
   };
 
   return (
@@ -58,7 +69,10 @@ const InfoWarDrawer: React.FC<InfoWarDrawerProps> = ({
         <Fab onClick={onClose} className={classes.closeIcon}>
           <CloseIcon />
         </Fab>
-        <InfoWarForm onSave={handleSave} infoWar={infoWar} />
+        <InfoWarForm
+          onSave={selectedInfoWar ? handleUpdateInfoWar : handleAddInfoWar}
+          infoWar={selectedInfoWar}
+        />
       </Box>
     </Drawer>
   );
@@ -67,8 +81,5 @@ const InfoWarDrawer: React.FC<InfoWarDrawerProps> = ({
 export default InfoWarDrawer;
 
 interface InfoWarDrawerProps {
-  isOpen: boolean;
   onClose: () => void;
-  onSave: (infoWar: InfoWarStore) => void;
-  infoWar?: InfoWarStore;
 }

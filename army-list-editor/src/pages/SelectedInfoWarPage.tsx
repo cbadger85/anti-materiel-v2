@@ -1,6 +1,7 @@
 import {
   Box,
   IconButton,
+  makeStyles,
   Paper,
   Table,
   TableBody,
@@ -8,18 +9,16 @@ import {
   TableHead,
   TableRow,
   Typography,
-  makeStyles,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router-dom';
-import InfoWarDrawer from '../components/InfoWarDrawer';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { removeInfoWar, updateInfoWar } from '../store/infoWar';
+import { removeInfoWar } from '../store/infoWar';
+import { openEditInfoWarDrawer } from '../store/infoWarDrawerSlice';
 import { RootState } from '../store/rootReducer';
-import { InfoWarStore } from '../types/infoWar';
 import { commaSeparateList } from '../utils/commaSeparateList';
 
 const useStyles = makeStyles(theme => ({
@@ -36,7 +35,6 @@ const useStyles = makeStyles(theme => ({
 
 const SelectedInfoWarPage = () => {
   const classes = useStyles();
-  const [isInfoWarDrawerOpen, setIsInfoWarDrawerOpen] = useState(false);
 
   const dispatch = useDispatch();
   const snack = useAppSnackbar();
@@ -52,16 +50,13 @@ const SelectedInfoWarPage = () => {
     return <Redirect to="/infowar" />;
   }
 
-  const toggleInfoWarDrawer = () => setIsInfoWarDrawerOpen(isOpen => !isOpen);
+  const handleOpenInfoWarDrawer = () => {
+    dispatch(openEditInfoWarDrawer(selectedInfoWar));
+  };
 
   const handleDelete = (infoWarId: string) => {
     dispatch(removeInfoWar(infoWarId));
     snack('InfoWar Removed', 'success');
-  };
-
-  const handleUpdate = (infoWar: InfoWarStore) => {
-    dispatch(updateInfoWar(infoWar));
-    snack('InfoWar Updated', 'success');
   };
 
   return (
@@ -150,7 +145,7 @@ const SelectedInfoWarPage = () => {
         )}
       </div>
       <Box display="flex">
-        <IconButton onClick={toggleInfoWarDrawer} size="small">
+        <IconButton onClick={handleOpenInfoWarDrawer} size="small">
           <EditIcon />
         </IconButton>
         <IconButton
@@ -160,12 +155,6 @@ const SelectedInfoWarPage = () => {
           <DeleteIcon />
         </IconButton>
       </Box>
-      <InfoWarDrawer
-        isOpen={isInfoWarDrawerOpen}
-        onClose={toggleInfoWarDrawer}
-        onSave={handleUpdate}
-        infoWar={selectedInfoWar}
-      />
     </Box>
   );
 };

@@ -15,13 +15,10 @@ import { sortBy } from 'lodash';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, Switch } from 'react-router-dom';
-import InfoWarDrawer from '../components/InfoWarDrawer';
 import ListDrawer from '../components/ListDrawer';
 import PageTemplate from '../components/PageTemplate';
-import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { addInfoWar } from '../store/infoWar';
+import { openAddInfoWarDrawer } from '../store/infoWarDrawerSlice';
 import { RootState } from '../store/rootReducer';
-import { InfoWarStore } from '../types/infoWar';
 import SelectedInfoWarPage from './SelectedInfoWarPage';
 
 const useStyles = makeStyles(theme => ({
@@ -36,9 +33,6 @@ const useStyles = makeStyles(theme => ({
 const InfoWarPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const snack = useAppSnackbar();
-
-  const [isInfoWarDrawerOpen, setIsInfpWarDrawerOpen] = useState(false);
 
   const infoWar = useSelector((state: RootState) => state.infoWar);
 
@@ -48,11 +42,8 @@ const InfoWarPage = () => {
     infoWar.name.toLowerCase().includes(searchInput.toLowerCase()),
   );
 
-  const toggleInfoWarDrawer = () => setIsInfpWarDrawerOpen(isOpen => !isOpen);
-
-  const handleSave = (infoWar: InfoWarStore) => {
-    dispatch(addInfoWar(infoWar));
-    snack('InfoWar Added', 'success');
+  const handleOpenInfoWarDrawer = () => {
+    dispatch(openAddInfoWarDrawer());
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,7 +94,7 @@ const InfoWarPage = () => {
                 <ArrowForwardIcon className={classes.arrowForwardIcon} />
               </Box>
               <Button
-                onClick={toggleInfoWarDrawer}
+                onClick={handleOpenInfoWarDrawer}
                 variant="outlined"
                 color="secondary"
                 className={classes.addButton}
@@ -115,7 +106,7 @@ const InfoWarPage = () => {
             <Box>
               <Typography>Add an InfoWar action to get started.</Typography>
               <Button
-                onClick={toggleInfoWarDrawer}
+                onClick={handleOpenInfoWarDrawer}
                 variant="outlined"
                 color="secondary"
                 className={classes.addButton}
@@ -126,11 +117,6 @@ const InfoWarPage = () => {
           )}
         </Route>
       </Switch>
-      <InfoWarDrawer
-        isOpen={isInfoWarDrawerOpen}
-        onClose={toggleInfoWarDrawer}
-        onSave={handleSave}
-      />
     </PageTemplate>
   );
 };

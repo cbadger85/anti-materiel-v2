@@ -6,6 +6,7 @@ import weaponReducer from './weaponSlice';
 import titleReducer from './titleSlice';
 import { combineReducers } from '@reduxjs/toolkit';
 import weaponDrawerReducer from './weaponDrawerSlice';
+import infoWarDrawerReducer from './infoWarDrawerSlice';
 
 const rootReducer = combineReducers({
   ammo: ammoReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   app: combineReducers({
     title: titleReducer,
     weaponDrawer: weaponDrawerReducer,
+    infoWarDrawer: infoWarDrawerReducer,
   }),
 });
 

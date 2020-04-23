@@ -17,14 +17,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link as NavLink } from 'react-router-dom';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { addAmmo } from '../store/ammoSlice';
-import { addInfoWar } from '../store/infoWar';
+import {
+  closeInfoWarDrawer,
+  openAddInfoWarDrawer,
+} from '../store/infoWarDrawerSlice';
 import { RootState } from '../store/rootReducer';
 import { addRule } from '../store/ruleSlice';
 import {
   closeWeaponDrawer,
   openAddWeaponDrawer,
 } from '../store/weaponDrawerSlice';
-import { InfoWarStore } from '../types/infoWar';
 import { BaseRule } from '../types/rule';
 import { AmmoStore } from '../types/weapon';
 import AmmoModal from './AmmoModal';
@@ -81,16 +83,17 @@ const NavBar = () => {
 
   const [isAmmoModalOpen, setIsAmmoModalOpen] = useState(false);
   const [isRuleModalOpen, setIsRuleModalOpen] = useState(false);
-  const [isInfoWarDrawerOpen, setIsInfoWarDrawerOpen] = useState(false);
 
-  const { title, isWeaponDrawerOpen } = useSelector(({ app }: RootState) => ({
-    title: app.title,
-    isWeaponDrawerOpen: app.weaponDrawer.isOpen,
-  }));
+  const { title, isWeaponDrawerOpen, isInfoWarDrawerOpen } = useSelector(
+    ({ app }: RootState) => ({
+      title: app.title,
+      isWeaponDrawerOpen: app.weaponDrawer.isOpen,
+      isInfoWarDrawerOpen: app.infoWarDrawer.isOpen,
+    }),
+  );
 
   const toggleAmmoModal = () => setIsAmmoModalOpen(isOpen => !isOpen);
   const toggleRuleModal = () => setIsRuleModalOpen(isOpen => !isOpen);
-  const toggleInfoWarDrawer = () => setIsInfoWarDrawerOpen(isOpen => !isOpen);
 
   const handleOpenWeaponDrawer = () => {
     dispatch(openAddWeaponDrawer());
@@ -98,6 +101,14 @@ const NavBar = () => {
 
   const handleCloseWeaponDrawer = () => {
     dispatch(closeWeaponDrawer());
+  };
+
+  const handleOpenInfoWarDrawer = () => {
+    dispatch(openAddInfoWarDrawer());
+  };
+
+  const handleCloseInfoWarDrawer = () => {
+    dispatch(closeInfoWarDrawer());
   };
 
   const handleAddAmmo = (ammo: AmmoStore) => {
@@ -108,11 +119,6 @@ const NavBar = () => {
   const handleAddRule = (rule: BaseRule) => {
     dispatch(addRule(rule));
     snack('Rule Added', 'success');
-  };
-
-  const handleAddInfoWar = (infoWar: InfoWarStore) => {
-    dispatch(addInfoWar(infoWar));
-    snack('InfoWar Added', 'success');
   };
 
   return (
@@ -128,11 +134,7 @@ const NavBar = () => {
         onSave={handleAddRule}
       />
       <WeaponDrawer onClose={handleCloseWeaponDrawer} />
-      <InfoWarDrawer
-        isOpen={isInfoWarDrawerOpen}
-        onClose={toggleInfoWarDrawer}
-        onSave={handleAddInfoWar}
-      />
+      <InfoWarDrawer onClose={handleCloseInfoWarDrawer} />
       <AppBar className={classes.appBar}>
         <Toolbar>
           <Typography variant="h5" color="textPrimary">
@@ -220,7 +222,14 @@ const NavBar = () => {
                   </Box>
                 </ListItemText>
               </ListItem>
-              <ListItem button onClick={toggleInfoWarDrawer}>
+              <ListItem
+                button
+                onClick={
+                  isInfoWarDrawerOpen
+                    ? handleCloseInfoWarDrawer
+                    : handleOpenInfoWarDrawer
+                }
+              >
                 <ListItemText className={classes.listItemText}>
                   {isInfoWarDrawerOpen ? (
                     <Box display="flex" alignItems="center">
