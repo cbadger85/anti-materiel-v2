@@ -3,8 +3,9 @@ import entryReducer from './entrySlice';
 import infoWarReducer from './infoWar';
 import ruleReducer from './ruleSlice';
 import weaponReducer from './weaponSlice';
-import appReducer from './appSlice';
+import titleReducer from './titleSlice';
 import { combineReducers } from '@reduxjs/toolkit';
+import weaponDrawerReducer from './weaponDrawerSlice';
 
 const rootReducer = combineReducers({
   ammo: ammoReducer,
@@ -12,7 +13,10 @@ const rootReducer = combineReducers({
   infoWar: infoWarReducer,
   rules: ruleReducer,
   weapons: weaponReducer,
-  app: appReducer,
+  app: combineReducers({
+    title: titleReducer,
+    weaponDrawer: weaponDrawerReducer,
+  }),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

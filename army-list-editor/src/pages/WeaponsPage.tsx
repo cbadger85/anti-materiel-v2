@@ -15,14 +15,10 @@ import sortBy from 'lodash/sortBy';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, Switch } from 'react-router-dom';
-import shortid from 'shortid';
 import ListDrawer from '../components/ListDrawer';
 import PageTemplate from '../components/PageTemplate';
-import WeaponDrawer from '../components/WeaponDrawer';
-import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { RootState } from '../store/rootReducer';
-import { addWeapon } from '../store/weaponSlice';
-import { WeaponModeStore, WeaponStore } from '../types/weapon';
+import { openAddWeaponDrawer } from '../store/weaponDrawerSlice';
 import SelectedWeaponPage from './SelectedWeaponPage';
 
 const useStyles = makeStyles(theme => ({
@@ -37,17 +33,8 @@ const useStyles = makeStyles(theme => ({
 const WeaponsPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const snack = useAppSnackbar();
 
-  const [isWeaponDrawerOpen, setIsWeaponDrawerOpen] = useState(false);
-
-  const { rules, ammo, weapons } = useSelector(
-    ({ rules, ammo, weapons }: RootState) => ({
-      rules,
-      ammo,
-      weapons,
-    }),
-  );
+  const weapons = useSelector((state: RootState) => state.weapons);
 
   const [searchInput, setSearchInput] = useState('');
 
@@ -55,43 +42,8 @@ const WeaponsPage = () => {
     weapon.name.toLowerCase().includes(searchInput.toLowerCase()),
   );
 
-  const toggleWeaponDrawer = () => setIsWeaponDrawerOpen(isOpen => !isOpen);
-
-  const handleSave = (weapon: WeaponStore) => {
-    const suppressiveFireModes = weapon.modes
-      .filter(mode =>
-        mode.traitIds
-          .map(traitId => rules.find(rule => rule.id === traitId)?.name)
-          .toString()
-          .toLowerCase()
-          .includes('suppressive'),
-      )
-      .map<WeaponModeStore>(mode => ({
-        ...mode,
-        id: shortid(),
-        name: `${mode.name} Suppressive Fire Mode`,
-        shortRange: '0-8" 0',
-        mediumRange: '8-16" 0',
-        longRange: '16-24" -3',
-        maximumRange: '',
-        burst: '3',
-        traitIds: mode.traitIds.filter(
-          traitId =>
-            !rules
-              .find(rule => rule.id === traitId)
-              ?.name.toString()
-              .toLowerCase()
-              .includes('suppressive'),
-        ),
-      }));
-
-    dispatch(
-      addWeapon({
-        ...weapon,
-        modes: [...weapon.modes, ...suppressiveFireModes],
-      }),
-    );
-    snack('Weapon Added', 'success');
+  const handleOpenWeaponDrawer = () => {
+    dispatch(openAddWeaponDrawer());
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,14 +85,14 @@ const WeaponsPage = () => {
           <SelectedWeaponPage />
         </Route>
         <Route>
-          {ammo.length ? (
+          {weapons.length ? (
             <Box>
               <Box display="flex">
                 <Typography>Select a weapon to view its details.</Typography>
                 <ArrowForwardIcon className={classes.arrowForwardIcon} />
               </Box>
               <Button
-                onClick={toggleWeaponDrawer}
+                onClick={handleOpenWeaponDrawer}
                 variant="outlined"
                 color="secondary"
                 className={classes.addButton}
@@ -152,7 +104,7 @@ const WeaponsPage = () => {
             <Box>
               <Typography>Add a weapon to get started.</Typography>
               <Button
-                onClick={toggleWeaponDrawer}
+                onClick={handleOpenWeaponDrawer}
                 variant="outlined"
                 color="secondary"
                 className={classes.addButton}
@@ -163,13 +115,6 @@ const WeaponsPage = () => {
           )}
         </Route>
       </Switch>
-      <WeaponDrawer
-        isOpen={isWeaponDrawerOpen}
-        onClose={toggleWeaponDrawer}
-        ammo={ammo}
-        traits={rules}
-        onSave={handleSave}
-      />
     </PageTemplate>
   );
 };

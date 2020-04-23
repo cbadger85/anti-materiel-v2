@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { ListDrawerWidth } from './ListDrawer';
 import { drawerWidth } from './NavBar';
 import { useDispatch } from 'react-redux';
-import { changeTitle } from '../store/appSlice';
+import { changeTitle } from '../store/titleSlice';
 
 const PageTemplate: React.FC<PageTemplateProps> = ({
   title = '',

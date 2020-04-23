@@ -1,8 +1,12 @@
 import { Box, Drawer, Fab, makeStyles } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
-import { BaseRule } from '../types/rule';
-import { AmmoStore, WeaponStore } from '../types/weapon';
+import { useDispatch, useSelector } from 'react-redux';
+import shortid from 'shortid';
+import { useAppSnackbar } from '../hooks/useAppSnackbar';
+import { RootState } from '../store/rootReducer';
+import { addWeapon, updateWeapon } from '../store/weaponSlice';
+import { WeaponModeStore, WeaponStore } from '../types/weapon';
 import { appBarHeight, drawerWidth } from './NavBar';
 import WeaponForm from './WeaponForm';
 
@@ -29,19 +33,60 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const WeaponDrawer: React.FC<WeaponDrawerProps> = ({
-  isOpen,
-  onClose,
-  onSave,
-  weapon,
-  ammo,
-  traits,
-}) => {
+const WeaponDrawer: React.FC<WeaponDrawerProps> = ({ onClose }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const snack = useAppSnackbar();
 
-  const handleSave = (weapon: WeaponStore) => {
-    onSave(weapon);
-    onClose();
+  const { rules, ammo, isOpen, selectedWeapon } = useSelector(
+    ({ rules, ammo, app }: RootState) => ({
+      rules,
+      ammo,
+      isOpen: app.weaponDrawer.isOpen,
+      selectedWeapon: app.weaponDrawer.selectedWeapon,
+    }),
+  );
+
+  const handleAddWeapon = (weapon: WeaponStore) => {
+    const suppressiveFireModes = weapon.modes
+      .filter(mode =>
+        mode.traitIds
+          .map(traitId => rules.find(rule => rule.id === traitId)?.name)
+          .toString()
+          .toLowerCase()
+          .includes('suppressive'),
+      )
+      .map<WeaponModeStore>(mode => ({
+        ...mode,
+        id: shortid(),
+        name: `${mode.name} Suppressive Fire Mode`,
+        shortRange: '0-8" 0',
+        mediumRange: '8-16" 0',
+        longRange: '16-24" -3',
+        maximumRange: '',
+        burst: '3',
+        traitIds: mode.traitIds.filter(
+          traitId =>
+            !rules
+              .find(rule => rule.id === traitId)
+              ?.name.toString()
+              .toLowerCase()
+              .includes('suppressive'),
+        ),
+      }));
+
+    dispatch(
+      addWeapon({
+        ...weapon,
+        modes: [...weapon.modes, ...suppressiveFireModes],
+      }),
+    );
+    snack('Weapon Added', 'success');
+  };
+
+  const handleUpdateWeapon = (weapon: WeaponStore) => {
+    dispatch(updateWeapon(weapon));
+    snack('Weapon Updated', 'success');
   };
 
   return (
@@ -62,10 +107,10 @@ const WeaponDrawer: React.FC<WeaponDrawerProps> = ({
           <CloseIcon />
         </Fab>
         <WeaponForm
-          onSave={handleSave}
-          traits={traits}
+          onSave={selectedWeapon ? handleUpdateWeapon : handleAddWeapon}
+          weapon={selectedWeapon}
           ammo={ammo}
-          weapon={weapon}
+          traits={rules}
         />
       </Box>
     </Drawer>
@@ -75,10 +120,5 @@ const WeaponDrawer: React.FC<WeaponDrawerProps> = ({
 export default WeaponDrawer;
 
 interface WeaponDrawerProps {
-  isOpen: boolean;
   onClose: () => void;
-  onSave: (weapon: WeaponStore) => void;
-  traits: BaseRule[];
-  ammo: AmmoStore[];
-  weapon?: WeaponStore;
 }

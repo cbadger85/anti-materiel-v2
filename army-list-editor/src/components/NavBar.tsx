@@ -6,30 +6,32 @@ import {
   ListItem,
   ListItemText,
   makeStyles,
-  Typography,
   Toolbar,
+  Typography,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from '@material-ui/icons/Close';
 import DescriptionIcon from '@material-ui/icons/Description';
 import React, { useState } from 'react';
-import { Link as NavLink } from 'react-router-dom';
-import NavigationAccordion from './NavigationAccordion';
 import { useDispatch, useSelector } from 'react-redux';
-import { AmmoStore, WeaponStore, WeaponModeStore } from '../types/weapon';
-import { addAmmo } from '../store/ammoSlice';
+import { Link as NavLink } from 'react-router-dom';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { BaseRule } from '../types/rule';
-import { addRule } from '../store/ruleSlice';
-import AmmoModal from './AmmoModal';
-import RuleModal from './RuleModal';
-import { RootState } from '../store/rootReducer';
-import shortid from 'shortid';
-import { addWeapon } from '../store/weaponSlice';
-import WeaponDrawer from './WeaponDrawer';
-import { InfoWarStore } from '../types/infoWarAttack';
+import { addAmmo } from '../store/ammoSlice';
 import { addInfoWar } from '../store/infoWar';
+import { RootState } from '../store/rootReducer';
+import { addRule } from '../store/ruleSlice';
+import {
+  closeWeaponDrawer,
+  openAddWeaponDrawer,
+} from '../store/weaponDrawerSlice';
+import { InfoWarStore } from '../types/infoWarAttack';
+import { BaseRule } from '../types/rule';
+import { AmmoStore } from '../types/weapon';
+import AmmoModal from './AmmoModal';
 import InfoWarDrawer from './InfoWarDrawer';
-import CloseIcon from '@material-ui/icons/Close';
+import NavigationAccordion from './NavigationAccordion';
+import RuleModal from './RuleModal';
+import WeaponDrawer from './WeaponDrawer';
 
 export const drawerWidth = 260;
 export const appBarHeight = 64;
@@ -79,22 +81,24 @@ const NavBar = () => {
 
   const [isAmmoModalOpen, setIsAmmoModalOpen] = useState(false);
   const [isRuleModalOpen, setIsRuleModalOpen] = useState(false);
-  const [isWeaponDrawerOpen, setIsWeaponDrawerOpen] = useState(false);
   const [isInfoWarDrawerOpen, setIsInfoWarDrawerOpen] = useState(false);
 
-  const title = useSelector((state: RootState) => state.app.title);
-  const { rules, ammo } = useSelector(
-    ({ rules, ammo, weapons }: RootState) => ({
-      rules,
-      ammo,
-      weapons,
-    }),
-  );
+  const { title, isWeaponDrawerOpen } = useSelector(({ app }: RootState) => ({
+    title: app.title,
+    isWeaponDrawerOpen: app.weaponDrawer.isOpen,
+  }));
 
   const toggleAmmoModal = () => setIsAmmoModalOpen(isOpen => !isOpen);
   const toggleRuleModal = () => setIsRuleModalOpen(isOpen => !isOpen);
-  const toggleWeaponDrawer = () => setIsWeaponDrawerOpen(isOpen => !isOpen);
   const toggleInfoWarDrawer = () => setIsInfoWarDrawerOpen(isOpen => !isOpen);
+
+  const handleOpenWeaponDrawer = () => {
+    dispatch(openAddWeaponDrawer());
+  };
+
+  const handleCloseWeaponDrawer = () => {
+    dispatch(closeWeaponDrawer());
+  };
 
   const handleAddAmmo = (ammo: AmmoStore) => {
     dispatch(addAmmo(ammo));
@@ -104,43 +108,6 @@ const NavBar = () => {
   const handleAddRule = (rule: BaseRule) => {
     dispatch(addRule(rule));
     snack('Rule Added', 'success');
-  };
-
-  const handleAddWeapon = (weapon: WeaponStore) => {
-    const suppressiveFireModes = weapon.modes
-      .filter(mode =>
-        mode.traitIds
-          .map(traitId => rules.find(rule => rule.id === traitId)?.name)
-          .toString()
-          .toLowerCase()
-          .includes('suppressive'),
-      )
-      .map<WeaponModeStore>(mode => ({
-        ...mode,
-        id: shortid(),
-        name: `${mode.name} Suppressive Fire Mode`,
-        shortRange: '0-8" 0',
-        mediumRange: '8-16" 0',
-        longRange: '16-24" -3',
-        maximumRange: '',
-        burst: '3',
-        traitIds: mode.traitIds.filter(
-          traitId =>
-            !rules
-              .find(rule => rule.id === traitId)
-              ?.name.toString()
-              .toLowerCase()
-              .includes('suppressive'),
-        ),
-      }));
-
-    dispatch(
-      addWeapon({
-        ...weapon,
-        modes: [...weapon.modes, ...suppressiveFireModes],
-      }),
-    );
-    snack('Weapon Added', 'success');
   };
 
   const handleAddInfoWar = (infoWar: InfoWarStore) => {
@@ -160,13 +127,7 @@ const NavBar = () => {
         onClose={toggleRuleModal}
         onSave={handleAddRule}
       />
-      <WeaponDrawer
-        isOpen={isWeaponDrawerOpen}
-        onClose={toggleWeaponDrawer}
-        ammo={ammo}
-        traits={rules}
-        onSave={handleAddWeapon}
-      />
+      <WeaponDrawer onClose={handleCloseWeaponDrawer} />
       <InfoWarDrawer
         isOpen={isInfoWarDrawerOpen}
         onClose={toggleInfoWarDrawer}
@@ -223,7 +184,14 @@ const NavBar = () => {
                   </Box>
                 </ListItemText>
               </ListItem>
-              <ListItem button onClick={toggleWeaponDrawer}>
+              <ListItem
+                button
+                onClick={
+                  isWeaponDrawerOpen
+                    ? handleCloseWeaponDrawer
+                    : handleOpenWeaponDrawer
+                }
+              >
                 <ListItemText className={classes.listItemText}>
                   {isWeaponDrawerOpen ? (
                     <Box display="flex" alignItems="center">

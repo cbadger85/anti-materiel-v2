@@ -4,8 +4,8 @@ import { InfoWarStore } from '../types/infoWarAttack';
 
 const initialState: InfoWarStore[] = [];
 
-const infoWarAttackSlice = createSlice({
-  name: 'infoWarAttack',
+const infoWarSlice = createSlice({
+  name: 'infoWar',
   initialState,
   reducers: {
     addInfoWar: {
@@ -26,10 +26,10 @@ const infoWarAttackSlice = createSlice({
   },
 });
 
-export default infoWarAttackSlice.reducer;
+export default infoWarSlice.reducer;
 
 export const {
   addInfoWar,
   removeInfoWar,
   updateInfoWar,
-} = infoWarAttackSlice.actions;
+} = infoWarSlice.actions;

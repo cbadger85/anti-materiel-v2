@@ -92,7 +92,7 @@ const WeaponModeForm: React.FC<WeaponModeFormProps> = ({
     e.preventDefault();
 
     const weaponModeStore = {
-      id: shortid(),
+      id: weaponMode ? weaponMode.id : shortid(),
       name: weaponModeFields.name,
       shortRange: weaponModeFields.shortRange,
       mediumRange: weaponModeFields.mediumRange,

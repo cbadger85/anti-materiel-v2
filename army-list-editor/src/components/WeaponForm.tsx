@@ -88,6 +88,15 @@ const WeaponForm: React.FC<WeaponFormProps> = ({
     });
   };
 
+  const handleUpdateWeaponMode = (updatedMode: WeaponModeStore) => {
+    setWeaponFields({
+      ...weaponFields,
+      modes: weaponFields.modes.map(mode =>
+        updatedMode.id === mode.id ? updatedMode : mode,
+      ),
+    });
+  };
+
   const handleDeleteWeaponMode = (id: string) => {
     setWeaponFields({
       ...weaponFields,
@@ -171,7 +180,9 @@ const WeaponForm: React.FC<WeaponFormProps> = ({
       </form>
       <WeaponModeFormModal
         isOpen={isWeaponModeModal}
-        onSave={handleSaveWeaponMode}
+        onSave={
+          selectedWeaponMode ? handleUpdateWeaponMode : handleSaveWeaponMode
+        }
         onClose={handleCloseModal}
         weaponMode={selectedWeaponMode}
       />
