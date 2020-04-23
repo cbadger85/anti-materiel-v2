@@ -1,20 +1,13 @@
-import {
-  Box,
-  Drawer,
-  Fab,
-  makeStyles,
-  Typography,
-  Divider,
-} from '@material-ui/core';
+import { Box, Drawer, Fab, makeStyles, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAppSnackbar } from '../hooks/useAppSnackbar';
+import { addInfoWar, updateInfoWar } from '../store/infoWar';
+import { RootState } from '../store/rootReducer';
 import { InfoWarStore } from '../types/infoWar';
 import InfoWarForm from './InfoWarForm';
 import { appBarHeight, drawerWidth } from './NavBar';
-import { useDispatch, useSelector } from 'react-redux';
-import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { updateInfoWar, addInfoWar } from '../store/infoWar';
-import { RootState } from '../store/rootReducer';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
