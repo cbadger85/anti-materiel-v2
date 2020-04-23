@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router-dom';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
@@ -20,6 +20,7 @@ import { removeInfoWar } from '../store/infoWar';
 import { openEditInfoWarDrawer } from '../store/infoWarDrawerSlice';
 import { RootState } from '../store/rootReducer';
 import { commaSeparateList } from '../utils/commaSeparateList';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -31,9 +32,14 @@ const useStyles = makeStyles(theme => ({
   bottomCell: {
     border: 'none',
   },
+  bold: {
+    fontWeight: 'bold',
+  },
 }));
 
 const SelectedInfoWarPage = () => {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -50,12 +56,15 @@ const SelectedInfoWarPage = () => {
     return <Redirect to="/infowar" />;
   }
 
+  const toggleDeleteModal = () => setIsDeleteModalOpen(isOpen => !isOpen);
+
   const handleOpenInfoWarDrawer = () => {
     dispatch(openEditInfoWarDrawer(selectedInfoWar));
   };
 
   const handleDelete = (infoWarId: string) => {
     dispatch(removeInfoWar(infoWarId));
+    toggleDeleteModal();
     snack('InfoWar Removed', 'success');
   };
 
@@ -148,13 +157,16 @@ const SelectedInfoWarPage = () => {
         <IconButton onClick={handleOpenInfoWarDrawer} size="small">
           <EditIcon />
         </IconButton>
-        <IconButton
-          onClick={() => handleDelete(selectedInfoWar.id)}
-          size="small"
-        >
+        <IconButton onClick={toggleDeleteModal} size="small">
           <DeleteIcon />
         </IconButton>
       </Box>
+      <ConfirmDeleteModal
+        isOpen={isDeleteModalOpen}
+        onCancel={toggleDeleteModal}
+        onDelete={() => handleDelete(selectedInfoWar.id)}
+        item={<span className={classes.bold}>InfoWar Action</span>}
+      />
     </Box>
   );
 };

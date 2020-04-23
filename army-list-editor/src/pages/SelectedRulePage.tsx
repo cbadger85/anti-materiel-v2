@@ -1,4 +1,11 @@
-import { Box, IconButton, Link, Paper, Typography } from '@material-ui/core';
+import {
+  Box,
+  IconButton,
+  Link,
+  Paper,
+  Typography,
+  makeStyles,
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import React, { useState } from 'react';
@@ -9,10 +16,19 @@ import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { RootState } from '../store/rootReducer';
 import { removeRule, updateRule } from '../store/ruleSlice';
 import { BaseRule } from '../types/rule';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
+
+const useStyles = makeStyles(theme => ({
+  bold: {
+    fontWeight: 'bold',
+  },
+}));
 
 const SelectedRulePage = () => {
   const [isRuleModalOpen, setIsRuleModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+  const classes = useStyles();
   const dispatch = useDispatch();
   const snack = useAppSnackbar();
   const { ruleId } = useParams<{ ruleId: string }>();
@@ -25,9 +41,11 @@ const SelectedRulePage = () => {
   }
 
   const toggleRuleModal = () => setIsRuleModalOpen(isOpen => !isOpen);
+  const toggleDeleteModal = () => setIsDeleteModalOpen(isOpen => !isOpen);
 
   const handleDelete = (ruleId: string) => {
     dispatch(removeRule(ruleId));
+    toggleDeleteModal();
     snack('Rule Removed', 'success');
   };
 
@@ -53,7 +71,7 @@ const SelectedRulePage = () => {
         <IconButton onClick={toggleRuleModal} size="small">
           <EditIcon />
         </IconButton>
-        <IconButton onClick={() => handleDelete(selectedRule.id)} size="small">
+        <IconButton onClick={toggleDeleteModal} size="small">
           <DeleteIcon />
         </IconButton>
       </Box>
@@ -62,6 +80,12 @@ const SelectedRulePage = () => {
         onClose={toggleRuleModal}
         onSave={handleUpdate}
         rule={selectedRule}
+      />
+      <ConfirmDeleteModal
+        isOpen={isDeleteModalOpen}
+        onCancel={toggleDeleteModal}
+        onDelete={() => handleDelete(selectedRule.id)}
+        item={<span className={classes.bold}>Rule</span>}
       />
     </Box>
   );

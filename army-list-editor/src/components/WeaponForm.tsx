@@ -15,6 +15,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { BaseRule } from '../types/rule';
 import WeaponModeFormModal from './WeaponModeModal';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
 
 const useStyles = makeStyles(theme => ({
   field: {
@@ -38,6 +39,9 @@ const useStyles = makeStyles(theme => ({
   weaponModeTitle: {
     marginBottom: theme.spacing(3),
   },
+  bold: {
+    fontWeight: 'bold',
+  },
 }));
 
 const initialFields = {
@@ -56,6 +60,7 @@ const WeaponForm: React.FC<WeaponFormProps> = ({
   const classes = useStyles();
   const [weaponFields, setWeaponFields] = useState(weapon);
   const [isWeaponModeModal, setIsWeaponModeModal] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedWeaponMode, setSelectedWeaponMode] = useState<
     WeaponModeStore
   >();
@@ -70,6 +75,7 @@ const WeaponForm: React.FC<WeaponFormProps> = ({
   };
 
   const handleOpenModal = () => setIsWeaponModeModal(true);
+  const toggleDeleteModal = () => setIsDeleteModalOpen(isOpen => !isOpen);
 
   const handleOpenEditModal = (mode: WeaponModeStore) => {
     setSelectedWeaponMode(mode);
@@ -102,6 +108,7 @@ const WeaponForm: React.FC<WeaponFormProps> = ({
       ...weaponFields,
       modes: weaponFields.modes.filter(mode => mode.id !== id),
     });
+    toggleDeleteModal();
   };
 
   const handleSave = (e: React.FormEvent) => {
@@ -158,10 +165,16 @@ const WeaponForm: React.FC<WeaponFormProps> = ({
                 <IconButton onClick={() => handleOpenEditModal(mode)}>
                   <EditIcon />
                 </IconButton>
-                <IconButton onClick={() => handleDeleteWeaponMode(mode.id)}>
+                <IconButton onClick={toggleDeleteModal}>
                   <DeleteIcon />
                 </IconButton>
               </Box>
+              <ConfirmDeleteModal
+                isOpen={isDeleteModalOpen}
+                onCancel={toggleDeleteModal}
+                onDelete={() => handleDeleteWeaponMode(mode.id)}
+                item={<span className={classes.bold}>Weapon Mode</span>}
+              />
             </Box>
           ))}
           <Button color="secondary" onClick={handleOpenModal}>

@@ -5,6 +5,7 @@ import {
   Link,
   Paper,
   Typography,
+  makeStyles,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -16,10 +17,19 @@ import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { addAmmo, removeAmmo } from '../store/ammoSlice';
 import { RootState } from '../store/rootReducer';
 import { AmmoStore } from '../types/weapon';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
+
+const useStyles = makeStyles(theme => ({
+  bold: {
+    fontWeight: 'bold',
+  },
+}));
 
 const SelectedAmmoPage = () => {
   const [isAmmoModalOpen, setIsAmmoModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+  const classes = useStyles();
   const dispatch = useDispatch();
   const snack = useAppSnackbar();
   const { ammoId } = useParams<{ ammoId: string }>();
@@ -32,9 +42,11 @@ const SelectedAmmoPage = () => {
   }
 
   const toggleAmmoModal = () => setIsAmmoModalOpen(isOpen => !isOpen);
+  const toggleDeleteModal = () => setIsDeleteModalOpen(isOpen => !isOpen);
 
   const handleDelete = (ammoId: string) => {
     dispatch(removeAmmo(ammoId));
+    toggleDeleteModal();
     snack('Ammo Removed', 'success');
   };
 
@@ -74,7 +86,7 @@ const SelectedAmmoPage = () => {
         <IconButton onClick={toggleAmmoModal} size="small">
           <EditIcon />
         </IconButton>
-        <IconButton onClick={() => handleDelete(selectedAmmo.id)} size="small">
+        <IconButton onClick={toggleDeleteModal} size="small">
           <DeleteIcon />
         </IconButton>
       </Box>
@@ -83,6 +95,12 @@ const SelectedAmmoPage = () => {
         onClose={toggleAmmoModal}
         onSave={handleUpdate}
         ammo={selectedAmmo}
+      />
+      <ConfirmDeleteModal
+        isOpen={isDeleteModalOpen}
+        onCancel={toggleDeleteModal}
+        onDelete={() => handleDelete(selectedAmmo.id)}
+        item={<span className={classes.bold}>Ammo</span>}
       />
     </Box>
   );
