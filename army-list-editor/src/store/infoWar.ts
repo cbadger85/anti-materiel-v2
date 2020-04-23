@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import shortid from 'shortid';
-import { InfoWarStore } from '../types/infoWarAttack';
+import { InfoWarStore } from '../types/infoWar';
 
 const initialState: InfoWarStore[] = [];
 

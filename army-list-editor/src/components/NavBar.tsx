@@ -24,7 +24,7 @@ import {
   closeWeaponDrawer,
   openAddWeaponDrawer,
 } from '../store/weaponDrawerSlice';
-import { InfoWarStore } from '../types/infoWarAttack';
+import { InfoWarStore } from '../types/infoWar';
 import { BaseRule } from '../types/rule';
 import { AmmoStore } from '../types/weapon';
 import AmmoModal from './AmmoModal';

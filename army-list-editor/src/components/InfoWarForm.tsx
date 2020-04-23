@@ -26,7 +26,7 @@ import {
   infoWarTargets,
   InfoWarType,
   skillType,
-} from '../types/infoWarAttack';
+} from '../types/infoWar';
 import { AmmoStore } from '../types/weapon';
 
 const useStyles = makeStyles(theme => ({
@@ -92,7 +92,7 @@ const initialFields = {
   special: '',
 };
 
-const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
+const InfoWarForm: React.FC<InfoWarFormProps> = ({
   infoWar = initialFields,
   onSave,
 }) => {
@@ -383,9 +383,9 @@ const InfoWarAttackForm: React.FC<InfoWarAttackFormProps> = ({
   );
 };
 
-export default InfoWarAttackForm;
+export default InfoWarForm;
 
-interface InfoWarAttackFormProps {
+interface InfoWarFormProps {
   infoWar?: InfoWarStore;
-  onSave: (infoWarAttack: InfoWarStore) => void;
+  onSave: (infoWar: InfoWarStore) => void;
 }

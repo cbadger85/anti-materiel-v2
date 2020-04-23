@@ -21,7 +21,7 @@ import PageTemplate from '../components/PageTemplate';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { addInfoWar } from '../store/infoWar';
 import { RootState } from '../store/rootReducer';
-import { InfoWarStore } from '../types/infoWarAttack';
+import { InfoWarStore } from '../types/infoWar';
 import SelectedInfoWarPage from './SelectedInfoWarPage';
 
 const useStyles = makeStyles(theme => ({
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const InfoWarAttackPage = () => {
+const InfoWarPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const snack = useAppSnackbar();
@@ -135,4 +135,4 @@ const InfoWarAttackPage = () => {
   );
 };
 
-export default InfoWarAttackPage;
+export default InfoWarPage;

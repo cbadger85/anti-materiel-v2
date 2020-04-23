@@ -19,7 +19,7 @@ import InfoWarDrawer from '../components/InfoWarDrawer';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { removeInfoWar, updateInfoWar } from '../store/infoWar';
 import { RootState } from '../store/rootReducer';
-import { InfoWarStore } from '../types/infoWarAttack';
+import { InfoWarStore } from '../types/infoWar';
 import { commaSeparateList } from '../utils/commaSeparateList';
 
 const useStyles = makeStyles(theme => ({

@@ -18,7 +18,7 @@ export interface Profile {
   ccwIds: string[];
   miscIds: string[];
   sectorials: Sectorial[];
-  infoWarAttackIds: string[];
+  infoWarIds: string[];
   addsProfiles: AddedProfile[];
   unitId?: string;
 }

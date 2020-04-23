@@ -16,7 +16,7 @@ interface AppState {
 const initialState: AppState = {};
 
 const appSlice = createSlice({
-  name: 'infoWarAttacks',
+  name: 'app',
   initialState,
   reducers: {},
   extraReducers: builder => {
