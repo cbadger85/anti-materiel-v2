@@ -1,4 +1,4 @@
-import { Box, Drawer, Fab, makeStyles } from '@material-ui/core';
+import { Box, Drawer, Fab, makeStyles, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,17 +14,15 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     width: `calc(100% - ${drawerWidth}px)`,
     flexShrink: 0,
-    top: 64,
   },
   drawerPaper: {
     width: `calc(100% - ${drawerWidth}px)`,
-    marginTop: appBarHeight,
-    padding: theme.spacing(2),
+    height: `calc(100vh - ${appBarHeight}px)`,
+    top: 64,
+    padding: theme.spacing(3),
     border: 'none',
   },
   closeIcon: {
-    top: 0,
-    left: `calc(100vw - ${drawerWidth}px - 90px)`,
     backgroundColor: '#1b1b1b',
     color: 'white',
     '&:hover': {
@@ -100,12 +98,17 @@ const WeaponDrawer: React.FC<WeaponDrawerProps> = ({ onClose }) => {
       ModalProps={{
         hideBackdrop: true,
       }}
-      style={{ top: 64, marginLeft: drawerWidth }}
+      style={{ marginLeft: drawerWidth }}
     >
-      <Box maxWidth={1000}>
-        <Fab onClick={onClose} className={classes.closeIcon}>
+      <Box display="flex" justifyContent="space-between">
+        <Typography variant="h6">
+          {selectedWeapon ? 'Edit' : 'Add'} Weapon
+        </Typography>
+        <Fab onClick={onClose} className={classes.closeIcon} size="small">
           <CloseIcon />
         </Fab>
+      </Box>
+      <Box maxWidth={1000} marginTop={4}>
         <WeaponForm
           onSave={selectedWeapon ? handleUpdateWeapon : handleAddWeapon}
           weapon={selectedWeapon}

@@ -22,7 +22,8 @@ const PageTemplate: React.FC<PageTemplateProps> = ({
       marginBottom={12}
       marginLeft={`${drawerWidth + 24}px`}
       marginRight={`${ListDrawerWidth + 24}px`}
-      padding={2}
+      height="calc(100vh - 200px)"
+      overflow="scroll"
     >
       {children}
     </Box>

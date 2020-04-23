@@ -1,4 +1,11 @@
-import { Box, Drawer, Fab, makeStyles } from '@material-ui/core';
+import {
+  Box,
+  Drawer,
+  Fab,
+  makeStyles,
+  Typography,
+  Divider,
+} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
 import { InfoWarStore } from '../types/infoWar';
@@ -13,17 +20,15 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     width: `calc(100% - ${drawerWidth}px)`,
     flexShrink: 0,
-    top: 64,
   },
   drawerPaper: {
     width: `calc(100% - ${drawerWidth}px)`,
-    marginTop: appBarHeight,
-    padding: theme.spacing(2),
+    height: `calc(100vh - ${appBarHeight}px)`,
+    top: 64,
+    padding: theme.spacing(3),
     border: 'none',
   },
   closeIcon: {
-    top: 0,
-    left: `calc(100vw - ${drawerWidth}px - 90px)`,
     backgroundColor: '#1b1b1b',
     color: 'white',
     '&:hover': {
@@ -63,12 +68,17 @@ const InfoWarDrawer: React.FC<InfoWarDrawerProps> = ({ onClose }) => {
       ModalProps={{
         hideBackdrop: true,
       }}
-      style={{ top: 64, marginLeft: drawerWidth }}
+      style={{ marginLeft: drawerWidth }}
     >
-      <Box maxWidth={1000}>
-        <Fab onClick={onClose} className={classes.closeIcon}>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Typography variant="h6">
+          {selectedInfoWar ? 'Edit' : 'Add'} InfoWar
+        </Typography>
+        <Fab onClick={onClose} className={classes.closeIcon} size="small">
           <CloseIcon />
         </Fab>
+      </Box>
+      <Box maxWidth={1000} marginTop={4}>
         <InfoWarForm
           onSave={selectedInfoWar ? handleUpdateInfoWar : handleAddInfoWar}
           infoWar={selectedInfoWar}

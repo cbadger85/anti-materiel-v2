@@ -86,7 +86,7 @@ const WeaponsPage = () => {
         </Route>
         <Route>
           {weapons.length ? (
-            <Box>
+            <Box id="test">
               <Box display="flex">
                 <Typography>Select a weapon to view its details.</Typography>
                 <ArrowForwardIcon className={classes.arrowForwardIcon} />
