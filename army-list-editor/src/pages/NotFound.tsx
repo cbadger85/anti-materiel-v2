@@ -1,5 +1,7 @@
 import { Box, Divider, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { changeTitle } from '../store/titleSlice';
 
 const useStyles = makeStyles(theme => ({
   divider: {
@@ -11,6 +13,12 @@ const useStyles = makeStyles(theme => ({
 
 const NotFound = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeTitle('Error'));
+  }, [dispatch]);
+
   return (
     <Box
       height="100vh"

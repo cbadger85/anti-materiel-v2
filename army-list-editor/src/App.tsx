@@ -3,12 +3,13 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import NavBar from './components/NavBar';
+import AppTopBar from './components/AppTopBar';
 import AmmoPage from './pages/AmmoPage';
 import InfoWarPage from './pages/InfoWarPage';
 import NotFound from './pages/NotFound';
 import RulesPage from './pages/RulesPage';
 import WeaponsPage from './pages/WeaponsPage';
+import NavigationDrawer from './components/NavigationDrawer';
 
 const theme = createMuiTheme({
   palette: {
@@ -41,7 +42,8 @@ export function App() {
         autoHideDuration={2000}
       >
         <Router>
-          <NavBar />
+          <AppTopBar />
+          <NavigationDrawer />
           <Switch>
             <Route path="/ammo">
               <AmmoPage />

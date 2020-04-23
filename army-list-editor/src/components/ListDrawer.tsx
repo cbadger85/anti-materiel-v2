@@ -1,6 +1,6 @@
 import React from 'react';
 import { Drawer, makeStyles } from '@material-ui/core';
-import { appBarHeight } from './NavBar';
+import { appBarHeight } from './AppTopBar';
 
 export const ListDrawerWidth = 300;
 

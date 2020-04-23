@@ -7,8 +7,9 @@ import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { RootState } from '../store/rootReducer';
 import { addWeapon, updateWeapon } from '../store/weaponSlice';
 import { WeaponModeStore, WeaponStore } from '../types/weapon';
-import { appBarHeight, drawerWidth } from './NavBar';
+import { appBarHeight } from './AppTopBar';
 import WeaponForm from './WeaponForm';
+import { drawerWidth } from './NavigationDrawer';
 
 const useStyles = makeStyles(theme => ({
   drawer: {

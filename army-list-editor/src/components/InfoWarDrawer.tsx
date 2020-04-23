@@ -7,7 +7,8 @@ import { addInfoWar, updateInfoWar } from '../store/infoWar';
 import { RootState } from '../store/rootReducer';
 import { InfoWarStore } from '../types/infoWar';
 import InfoWarForm from './InfoWarForm';
-import { appBarHeight, drawerWidth } from './NavBar';
+import { appBarHeight } from './AppTopBar';
+import { drawerWidth } from './NavigationDrawer';
 
 const useStyles = makeStyles(theme => ({
   drawer: {

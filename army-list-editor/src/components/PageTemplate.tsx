@@ -1,9 +1,9 @@
 import { Box } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { ListDrawerWidth } from './ListDrawer';
-import { drawerWidth } from './NavBar';
 import { useDispatch } from 'react-redux';
 import { changeTitle } from '../store/titleSlice';
+import { drawerWidth } from './NavigationDrawer';
 
 const PageTemplate: React.FC<PageTemplateProps> = ({
   title = '',
