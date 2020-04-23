@@ -138,7 +138,7 @@ const NavBar = () => {
       <AppBar className={classes.appBar}>
         <Toolbar>
           <Typography variant="h5" color="textPrimary">
-            {title}
+            {isInfoWarDrawerOpen || isWeaponDrawerOpen || title}
           </Typography>
         </Toolbar>
       </AppBar>
