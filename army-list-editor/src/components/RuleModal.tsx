@@ -61,6 +61,7 @@ const RuleForm: React.FC<RuleFormProps> = ({
         />
       </DialogContent>
       <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
         <Button
           onClick={handleAddRule}
           color="primary"

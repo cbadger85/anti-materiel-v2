@@ -241,6 +241,7 @@ const WeaponModeForm: React.FC<WeaponModeFormProps> = ({
         </Box>
       </DialogContent>
       <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
         <Button
           color="secondary"
           type="submit"

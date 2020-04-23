@@ -98,6 +98,7 @@ const AmmoForm: React.FC<AmmoFormProps> = ({
         />
       </DialogContent>
       <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
         <Button
           onClick={handleSaveAmmo}
           color="primary"
