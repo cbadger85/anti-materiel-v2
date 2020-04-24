@@ -1,23 +1,27 @@
-import ammoReducer from './ammoSlice';
-import entryReducer from './entrySlice';
-import infoWarReducer from './infoWar';
-import ruleReducer from './ruleSlice';
-import weaponReducer from './weaponSlice';
+import ammoListReducer from './ammoListSlice';
+import entryListReducer from './entryListSlice';
+import infoWarListReducer from './infoWarList';
+import ruleListReducer from './ruleListSlice';
+import weaponListReducer from './weaponListSlice';
 import titleReducer from './titleSlice';
 import { combineReducers } from '@reduxjs/toolkit';
 import weaponDrawerReducer from './weaponDrawerSlice';
 import infoWarDrawerReducer from './infoWarDrawerSlice';
+import entryFormModeReducer from './entryFormModeSlice';
+import entryFormReducer from './EntryFormSlice';
 
 const rootReducer = combineReducers({
-  ammo: ammoReducer,
-  entries: entryReducer,
-  infoWar: infoWarReducer,
-  rules: ruleReducer,
-  weapons: weaponReducer,
+  ammo: ammoListReducer,
+  entries: entryListReducer,
+  infoWar: infoWarListReducer,
+  rules: ruleListReducer,
+  weapons: weaponListReducer,
+  entryForm: entryFormReducer,
   app: combineReducers({
     title: titleReducer,
     weaponDrawer: weaponDrawerReducer,
     infoWarDrawer: infoWarDrawerReducer,
+    isEntryFormMode: entryFormModeReducer,
   }),
 });
 

@@ -1,6 +1,6 @@
 import { Sectorial } from './army';
-import { Unit } from './unit';
-import { Profile } from './profile';
+import { Unit, UnitStore } from './unit';
+import { Profile, ProfileStore } from './profile';
 
 export interface EntryNotes {
   text: string[];
@@ -15,5 +15,15 @@ export interface Entry {
   primaryUnit: Unit;
   secondaryUnits: Unit[];
   profiles: Profile[];
+  notes: EntryNotes[];
+}
+
+export interface EntryStore {
+  id: string;
+  isc?: string;
+  name: string;
+  sectorials: Sectorial[];
+  units: UnitStore[];
+  profiles: ProfileStore[];
   notes: EntryNotes[];
 }

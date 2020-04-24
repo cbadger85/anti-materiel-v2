@@ -10,6 +10,7 @@ import NotFound from './pages/NotFound';
 import RulesPage from './pages/RulesPage';
 import WeaponsPage from './pages/WeaponsPage';
 import NavigationDrawer from './components/NavigationDrawer';
+import EntryFormPage from './pages/EntryFormPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -56,6 +57,12 @@ export function App() {
             </Route>
             <Route path="/weapons">
               <WeaponsPage />
+            </Route>
+            <Route path="/new/entries" exact>
+              <EntryFormPage />
+            </Route>
+            <Route path="/edit/entries/:entryId" exact>
+              <EntryFormPage />
             </Route>
             <Route>
               <NotFound />

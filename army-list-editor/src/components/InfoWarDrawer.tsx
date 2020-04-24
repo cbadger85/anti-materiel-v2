@@ -3,7 +3,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { addInfoWar, updateInfoWar } from '../store/infoWar';
+import { addInfoWar, updateInfoWar } from '../store/infoWarList';
 import { RootState } from '../store/rootReducer';
 import { InfoWarStore } from '../types/infoWar';
 import InfoWarForm from './InfoWarForm';

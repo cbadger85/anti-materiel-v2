@@ -1,31 +1,31 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import shortid from 'shortid';
-import { Entry } from '../types/entry';
+import { EntryStore } from '../types/entry';
 
-const initialState: Entry[] = [];
+const initialState: EntryStore[] = [];
 
-const entrySlice = createSlice({
-  name: 'entries',
+const entryListSlice = createSlice({
+  name: 'entryList',
   initialState,
   reducers: {
     addEntry: {
-      reducer: (state, action: PayloadAction<Entry>) => [
+      reducer: (state, action: PayloadAction<EntryStore>) => [
         ...state,
         action.payload,
       ],
-      prepare: (rule: Omit<Entry, 'id'>) => ({
+      prepare: (rule: Omit<EntryStore, 'id'>) => ({
         payload: { ...rule, id: shortid() },
       }),
     },
     removeEntry: (state, action: PayloadAction<string>) =>
       state.filter(rule => rule.id !== action.payload),
-    updateEntry: (state, action: PayloadAction<Entry>) =>
+    updateEntry: (state, action: PayloadAction<EntryStore>) =>
       state.map(rule =>
         rule.id === action.payload.id ? action.payload : rule,
       ),
   },
 });
 
-export default entrySlice.reducer;
+export default entryListSlice.reducer;
 
-export const { addEntry, removeEntry, updateEntry } = entrySlice.actions;
+export const { addEntry, removeEntry, updateEntry } = entryListSlice.actions;

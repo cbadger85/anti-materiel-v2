@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import SaveIcon from '@material-ui/icons/Save';
 import PersonIcon from '@material-ui/icons/Person';
 import PublishIcon from '@material-ui/icons/Publish';
-import ForwardIcon from '@material-ui/icons/Forward';
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 const AppMenuIcon = () => {
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null);
@@ -44,7 +44,7 @@ const AppMenuIcon = () => {
       >
         <MenuItem onClick={closeMenu}>
           <ListItemIcon>
-            <ForwardIcon />
+            <GetAppIcon />
           </ListItemIcon>
           <Typography>Load</Typography>
         </MenuItem>

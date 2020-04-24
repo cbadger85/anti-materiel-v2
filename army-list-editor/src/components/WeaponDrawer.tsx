@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import shortid from 'shortid';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { RootState } from '../store/rootReducer';
-import { addWeapon, updateWeapon } from '../store/weaponSlice';
+import { addWeapon, updateWeapon } from '../store/weaponListSlice';
 import { WeaponModeStore, WeaponStore } from '../types/weapon';
 import { appBarHeight } from './AppTopBar';
 import WeaponForm from './WeaponForm';

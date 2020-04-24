@@ -12,7 +12,7 @@ export interface Profile {
   cost: number;
   swc: number;
   isLieutenant?: boolean;
-  specialRules: Rule[];
+  skills: Rule[];
   equipment: Rule[];
   bswIds: string[];
   ccwIds: string[];
@@ -20,5 +20,20 @@ export interface Profile {
   sectorials: Sectorial[];
   infoWarIds: string[];
   addsProfiles: AddedProfile[];
-  unitId?: string;
+}
+
+export interface ProfileStore {
+  id: string;
+  name: string;
+  cost: number;
+  swc: number;
+  isLieutenant?: boolean;
+  skillIds: string[];
+  equipmentIds: string[];
+  bswIds: string[];
+  ccwIds: string[];
+  miscIds: string[];
+  sectorials: Sectorial[];
+  infoWarIds: string[];
+  addsProfiles: AddedProfile[];
 }

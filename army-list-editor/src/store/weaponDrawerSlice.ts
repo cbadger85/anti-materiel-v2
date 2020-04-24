@@ -1,6 +1,6 @@
 import { WeaponStore } from '../types/weapon';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { addWeapon, updateWeapon } from './weaponSlice';
+import { addWeapon, updateWeapon } from './weaponListSlice';
 
 interface WeaponDrawerStore {
   isOpen: boolean;

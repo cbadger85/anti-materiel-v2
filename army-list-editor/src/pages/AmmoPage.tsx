@@ -19,7 +19,7 @@ import PageTemplate from '../components/PageTemplate';
 import { RootState } from '../store/rootReducer';
 import SelectedAmmoPage from './SelectedAmmoPage';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { addAmmo } from '../store/ammoSlice';
+import { addAmmo } from '../store/ammoListSlice';
 import { AmmoStore } from '../types/weapon';
 import AmmoModal from '../components/AmmoModal';
 import sortBy from 'lodash/sortBy';

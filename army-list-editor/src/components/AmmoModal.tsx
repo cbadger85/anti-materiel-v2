@@ -93,7 +93,12 @@ const AmmoForm: React.FC<AmmoFormProps> = ({
             });
           }}
           renderInput={params => (
-            <TextField {...params} variant="standard" label="Combined Ammo" />
+            <TextField
+              {...params}
+              variant="standard"
+              color="secondary"
+              label="Combined Ammo"
+            />
           )}
         />
       </DialogContent>

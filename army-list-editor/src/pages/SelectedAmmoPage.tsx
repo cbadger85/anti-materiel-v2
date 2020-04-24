@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink, Redirect, useParams } from 'react-router-dom';
 import AmmoModal from '../components/AmmoModal';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { addAmmo, removeAmmo } from '../store/ammoSlice';
+import { addAmmo, removeAmmo } from '../store/ammoListSlice';
 import { RootState } from '../store/rootReducer';
 import { AmmoStore } from '../types/weapon';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';

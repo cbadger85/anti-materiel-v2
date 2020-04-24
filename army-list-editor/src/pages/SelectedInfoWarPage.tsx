@@ -16,7 +16,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router-dom';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { removeInfoWar } from '../store/infoWar';
+import { removeInfoWar } from '../store/infoWarList';
 import { openEditInfoWarDrawer } from '../store/infoWarDrawerSlice';
 import { RootState } from '../store/rootReducer';
 import { commaSeparateList } from '../utils/commaSeparateList';

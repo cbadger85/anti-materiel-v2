@@ -1,6 +1,6 @@
 import { Rule } from './rule';
 import { Sectorial } from './army';
-import { Profile } from './profile';
+import { Profile, ProfileStore } from './profile';
 
 export interface Availability {
   sectorial: Sectorial;
@@ -14,6 +14,8 @@ export interface SecondaryImage {
 
 export interface Details {
   isc?: string;
+  imageName: string;
+  secondaryImages: SecondaryImage[];
   classification: Classification;
   name: string;
   unitType?: UnitType;
@@ -34,6 +36,30 @@ export interface Details {
   ava: Availability[];
   skills: Rule[];
   equipment: Rule[];
+}
+
+export interface DetailsStore {
+  isc?: string;
+  classification: Classification;
+  name: string;
+  unitType?: UnitType;
+  orderType?: OrderType;
+  hackable?: boolean;
+  impetuous?: Impetuous;
+  cube?: Cube;
+  mov: string;
+  cc: string;
+  bs: string;
+  ph: string;
+  wip: string;
+  arm: string;
+  bts: string;
+  w: string;
+  structure?: boolean;
+  s: string;
+  ava: Availability[];
+  skillsIds: string[];
+  equipmentIds: string[];
   imageName: string;
   secondaryImages: SecondaryImage[];
 }
@@ -77,7 +103,17 @@ export interface Unit {
   id: string;
   primaryDetails: Details;
   secondaryDetails?: Details;
-  additionalUnits: Unit[];
+  subUnits: Unit[];
   isProfilesSelectable?: boolean;
   profiles: Profile[];
+}
+
+export interface UnitStore {
+  id: string;
+  primary?: boolean;
+  primaryDetails: DetailsStore;
+  secondaryDetails?: DetailsStore;
+  subUnits: UnitStore[];
+  isProfilesSelectable?: boolean;
+  profiles: ProfileStore[];
 }

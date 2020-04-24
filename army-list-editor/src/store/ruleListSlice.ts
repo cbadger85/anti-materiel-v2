@@ -4,8 +4,8 @@ import shortid from 'shortid';
 
 const initialState: BaseRule[] = [];
 
-const ruleSlice = createSlice({
-  name: 'rules',
+const ruleListSlice = createSlice({
+  name: 'ruleList',
   initialState,
   reducers: {
     addRule: {
@@ -26,6 +26,6 @@ const ruleSlice = createSlice({
   },
 });
 
-export default ruleSlice.reducer;
+export default ruleListSlice.reducer;
 
-export const { addRule, removeRule, updateRule } = ruleSlice.actions;
+export const { addRule, removeRule, updateRule } = ruleListSlice.actions;

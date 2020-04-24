@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { InfoWarStore } from '../types/infoWar';
-import { addInfoWar, updateInfoWar } from './infoWar';
+import { addInfoWar, updateInfoWar } from './infoWarList';
 
 interface InfoWarDrawerStore {
   isOpen: boolean;

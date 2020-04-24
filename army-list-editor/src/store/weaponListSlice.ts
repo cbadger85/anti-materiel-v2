@@ -4,8 +4,8 @@ import { WeaponStore } from '../types/weapon';
 
 const initialState: WeaponStore[] = [];
 
-const weaponSlice = createSlice({
-  name: 'weapons',
+const weaponListSlice = createSlice({
+  name: 'weaponList',
   initialState,
   reducers: {
     addWeapon: {
@@ -26,6 +26,10 @@ const weaponSlice = createSlice({
   },
 });
 
-export default weaponSlice.reducer;
+export default weaponListSlice.reducer;
 
-export const { addWeapon, removeWeapon, updateWeapon } = weaponSlice.actions;
+export const {
+  addWeapon,
+  removeWeapon,
+  updateWeapon,
+} = weaponListSlice.actions;

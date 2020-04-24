@@ -19,7 +19,7 @@ import PageTemplate from '../components/PageTemplate';
 import RuleModal from '../components/RuleModal';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { RootState } from '../store/rootReducer';
-import { addRule } from '../store/ruleSlice';
+import { addRule } from '../store/ruleListSlice';
 import { BaseRule } from '../types/rule';
 import SelectedRulePage from './SelectedRulePage';
 import sortyBy from 'lodash/sortBy';

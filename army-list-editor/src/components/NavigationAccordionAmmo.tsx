@@ -11,7 +11,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
-import { addAmmo } from '../store/ammoSlice';
+import { addAmmo } from '../store/ammoListSlice';
 import { AmmoStore } from '../types/weapon';
 import AmmoModal from './AmmoModal';
 import NavigationAccordion from './NavigationAccordion';

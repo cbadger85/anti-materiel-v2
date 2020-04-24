@@ -14,7 +14,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import RuleModal from '../components/RuleModal';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { RootState } from '../store/rootReducer';
-import { removeRule, updateRule } from '../store/ruleSlice';
+import { removeRule, updateRule } from '../store/ruleListSlice';
 import { BaseRule } from '../types/rule';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 

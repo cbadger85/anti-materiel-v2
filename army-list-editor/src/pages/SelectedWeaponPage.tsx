@@ -14,7 +14,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import WeaponModeTable from '../components/WeaponModeTable';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { RootState } from '../store/rootReducer';
-import { removeWeapon } from '../store/weaponSlice';
+import { removeWeapon } from '../store/weaponListSlice';
 import { openEditWeaponDrawer } from '../store/weaponDrawerSlice';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 

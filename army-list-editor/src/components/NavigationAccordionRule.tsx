@@ -11,7 +11,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { useAppSnackbar } from '../hooks/useAppSnackbar';
 import { BaseRule } from '../types/rule';
-import { addRule } from '../store/ruleSlice';
+import { addRule } from '../store/ruleListSlice';
 import NavigationAccordion from './NavigationAccordion';
 import { NavLink } from 'react-router-dom';
 import RuleModal from './RuleModal';
