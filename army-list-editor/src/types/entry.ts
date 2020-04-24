@@ -3,6 +3,7 @@ import { Unit, UnitStore } from './unit';
 import { Profile, ProfileStore } from './profile';
 
 export interface EntryNotes {
+  id: string;
   text: string[];
   sectorial: Sectorial;
 }

@@ -8,10 +8,10 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addEntryDetails } from '../store/EntryFormSlice';
 import { RootState } from '../store/rootReducer';
 import { Sectorial, sectorials } from '../types/army';
-import { addEntryDetails } from '../store/EntryFormSlice';
 
 const EntryDetailsForm: React.FC<EntryDetailsFormProps> = ({ onClose }) => {
   const initialEntryDetailsFields = useSelector(({ entryForm }: RootState) => ({
