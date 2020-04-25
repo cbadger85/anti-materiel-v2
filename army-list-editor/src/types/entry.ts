@@ -2,10 +2,10 @@ import { Sectorial } from './army';
 import { Unit, UnitStore } from './unit';
 import { Profile, ProfileStore } from './profile';
 
-export interface EntryNotes {
+export interface EntryNote {
   id: string;
-  text: string[];
-  sectorial: Sectorial;
+  text: string;
+  sectorials: Sectorial[];
 }
 
 export interface Entry {
@@ -16,7 +16,7 @@ export interface Entry {
   primaryUnit: Unit;
   secondaryUnits: Unit[];
   profiles: Profile[];
-  notes: EntryNotes[];
+  notes: EntryNote[];
 }
 
 export interface EntryStore {
@@ -26,5 +26,5 @@ export interface EntryStore {
   sectorials: Sectorial[];
   units: UnitStore[];
   profiles: ProfileStore[];
-  notes: EntryNotes[];
+  notes: EntryNote[];
 }

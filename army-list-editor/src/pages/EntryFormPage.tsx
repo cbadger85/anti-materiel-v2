@@ -4,6 +4,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import EntryDetails from '../components/EntryDetails';
 import PageTemplate from '../components/PageTemplate';
 import { RootState } from '../store/rootReducer';
+import EntryNotes from '../components/EntryNotes';
+import { Box } from '@material-ui/core';
 
 const EntryFormPage = () => {
   const { isEntryFormMode, entry } = useSelector((state: RootState) => ({
@@ -25,12 +27,15 @@ const EntryFormPage = () => {
 
   return (
     <PageTemplate title={entryId ? 'Edit Entry' : 'Add Entry'}>
-      <EntryDetails
-        name={entry.name}
-        isc={entry.isc}
-        sectorials={entry.sectorials}
-        editable
-      />
+      <Box marginBottom={3}>
+        <EntryDetails
+          name={entry.name}
+          isc={entry.isc}
+          sectorials={entry.sectorials}
+          editable
+        />
+      </Box>
+      <EntryNotes editable notes={entry.notes} />
     </PageTemplate>
   );
 };

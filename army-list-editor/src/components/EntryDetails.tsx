@@ -33,7 +33,7 @@ const EntryDetails: React.FC<EntryDetailsProps> = ({
   return (
     <div>
       <Box display="flex" alignItems="center">
-        <Typography variant="h6">Entry Details</Typography>
+        <Typography variant="h6">Details</Typography>
         {name && editable && (
           <IconButton
             onClick={toggleEntryDetailsModal}
@@ -54,7 +54,7 @@ const EntryDetails: React.FC<EntryDetailsProps> = ({
             variant="outlined"
             onClick={toggleEntryDetailsModal}
           >
-            Add Entry Details
+            Add Details
           </Button>
         )}
       </Box>

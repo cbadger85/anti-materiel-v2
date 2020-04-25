@@ -99,6 +99,14 @@ export enum Impetuous {
   EXTREMELY_IMPETUOUS = 'EXTREMELY_IMPETUOUS',
 }
 
+export interface UnitValidation {
+  requires: {
+    entryId: string;
+    unitId: string;
+  };
+  limitPerParentUnit?: number;
+}
+
 export interface Unit {
   id: string;
   primaryDetails: Details;
@@ -106,6 +114,7 @@ export interface Unit {
   subUnits: Unit[];
   isProfilesSelectable?: boolean;
   profiles: Profile[];
+  validation: UnitValidation;
 }
 
 export interface UnitStore {
@@ -116,4 +125,5 @@ export interface UnitStore {
   subUnits: UnitStore[];
   isProfilesSelectable?: boolean;
   profiles: ProfileStore[];
+  validation: UnitValidation;
 }

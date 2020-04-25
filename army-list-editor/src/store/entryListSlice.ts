@@ -13,8 +13,8 @@ const entryListSlice = createSlice({
         ...state,
         action.payload,
       ],
-      prepare: (rule: Omit<EntryStore, 'id'>) => ({
-        payload: { ...rule, id: shortid() },
+      prepare: (entry: Omit<EntryStore, 'id'>) => ({
+        payload: { ...entry, id: shortid() },
       }),
     },
     removeEntry: (state, action: PayloadAction<string>) =>
