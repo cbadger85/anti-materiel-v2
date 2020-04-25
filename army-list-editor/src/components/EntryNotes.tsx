@@ -23,7 +23,7 @@ const EntryNotes: React.FC<EntryNotesProps> = ({ editable, notes }) => {
       </Box>
       <Divider />
       <Box marginTop={3}>
-        <EntryNotesDisplay notes={notes} />
+        <EntryNotesDisplay notes={notes} editable />
         <Button
           color="secondary"
           variant="outlined"

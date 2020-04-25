@@ -100,7 +100,7 @@ export enum Impetuous {
 }
 
 export interface UnitValidation {
-  requires: {
+  requires?: {
     entryId: string;
     unitId: string;
   };
@@ -119,7 +119,7 @@ export interface Unit {
 
 export interface UnitStore {
   id: string;
-  primary?: boolean;
+  isPrimary?: boolean;
   primaryDetails: DetailsStore;
   secondaryDetails?: DetailsStore;
   subUnits: UnitStore[];

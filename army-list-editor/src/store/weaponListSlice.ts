@@ -18,10 +18,10 @@ const weaponListSlice = createSlice({
       }),
     },
     removeWeapon: (state, action: PayloadAction<string>) =>
-      state.filter(rule => rule.id !== action.payload),
+      state.filter(weapon => weapon.id !== action.payload),
     updateWeapon: (state, action: PayloadAction<WeaponStore>) =>
-      state.map(rule =>
-        rule.id === action.payload.id ? action.payload : rule,
+      state.map(weapon =>
+        weapon.id === action.payload.id ? action.payload : weapon,
       ),
   },
 });

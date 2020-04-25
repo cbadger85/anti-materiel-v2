@@ -3,6 +3,8 @@ import { EntryStore, EntryNote } from '../types/entry';
 import { addEntry, updateEntry } from './entryListSlice';
 import { Sectorial } from '../types/army';
 import shortid from 'shortid';
+import { UnitStore } from '../types/unit';
+import { ProfileStore } from '../types/profile';
 
 const initialState: EntryStore = {
   id: '',
@@ -30,31 +32,55 @@ const entryFormSlice = createSlice({
       ...state,
       ...action.payload,
     }),
+    addEntryUnit: {
+      reducer: (state, action: PayloadAction<UnitStore>) => {
+        state.units.push(action.payload);
+      },
+      prepare: (note: Omit<UnitStore, 'id'>) => ({
+        payload: { ...note, id: shortid() },
+      }),
+    },
+    updateEntryUnit: (state, action: PayloadAction<UnitStore>) => {
+      state.units = state.units.map(unit =>
+        unit.id === action.payload.id ? action.payload : unit,
+      );
+    },
+    removeEntryUnit: (state, action: PayloadAction<string>) => {
+      state.units = state.units.filter(unit => unit.id !== action.payload);
+    },
+    addEntryProfile: {
+      reducer: (state, action: PayloadAction<ProfileStore>) => {
+        state.profiles.push(action.payload);
+      },
+      prepare: (note: Omit<ProfileStore, 'id'>) => ({
+        payload: { ...note, id: shortid() },
+      }),
+    },
+    updateEntryProfile: (state, action: PayloadAction<ProfileStore>) => {
+      state.profiles = state.profiles.map(profile =>
+        profile.id === action.payload.id ? action.payload : profile,
+      );
+    },
+    removeEntryProfile: (state, action: PayloadAction<string>) => {
+      state.profiles = state.profiles.filter(
+        profile => profile.id !== action.payload,
+      );
+    },
     addEntryNote: {
       reducer: (state, action: PayloadAction<EntryNote>) => {
         state.notes.push(action.payload);
-
-        return state;
       },
       prepare: (note: Omit<EntryNote, 'id'>) => ({
         payload: { ...note, id: shortid() },
       }),
     },
     updateEntryNote: (state, action: PayloadAction<EntryNote>) => {
-      const notes = state.notes.map(note =>
+      state.notes = state.notes.map(note =>
         note.id === action.payload.id ? action.payload : note,
       );
-
-      state.notes = notes;
-
-      return state;
     },
     removeEntryNote: (state, action: PayloadAction<string>) => {
-      const notes = state.notes.filter(note => note.id !== action.payload);
-
-      state.notes = notes;
-
-      return state;
+      state.notes = state.notes.filter(note => note.id !== action.payload);
     },
   },
   extraReducers: builder => {
@@ -69,6 +95,12 @@ export const {
   editEntry,
   addEntryDetails,
   clearEntry,
+  addEntryUnit,
+  updateEntryUnit,
+  removeEntryUnit,
+  addEntryProfile,
+  updateEntryProfile,
+  removeEntryProfile,
   addEntryNote,
   updateEntryNote,
   removeEntryNote,

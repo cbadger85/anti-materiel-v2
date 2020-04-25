@@ -22,11 +22,11 @@ const ammoListSlice = createSlice({
     },
     removeAmmo: (state, action: PayloadAction<string>) =>
       state
-        .filter(rule => rule.id !== action.payload)
-        .filter(rule => !rule.combinedAmmoIds.includes(action.payload)),
+        .filter(ammo => ammo.id !== action.payload)
+        .filter(ammo => !ammo.combinedAmmoIds.includes(action.payload)),
     updateAmmo: (state, action: PayloadAction<AmmoStore>) =>
-      state.map(rule =>
-        rule.id === action.payload.id ? action.payload : rule,
+      state.map(ammo =>
+        ammo.id === action.payload.id ? action.payload : ammo,
       ),
   },
 });

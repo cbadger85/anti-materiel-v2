@@ -18,10 +18,10 @@ const entryListSlice = createSlice({
       }),
     },
     removeEntry: (state, action: PayloadAction<string>) =>
-      state.filter(rule => rule.id !== action.payload),
+      state.filter(entry => entry.id !== action.payload),
     updateEntry: (state, action: PayloadAction<EntryStore>) =>
-      state.map(rule =>
-        rule.id === action.payload.id ? action.payload : rule,
+      state.map(entry =>
+        entry.id === action.payload.id ? action.payload : entry,
       ),
   },
 });

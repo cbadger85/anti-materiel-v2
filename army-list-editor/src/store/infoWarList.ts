@@ -13,15 +13,15 @@ const infoWarListSlice = createSlice({
         ...state,
         action.payload,
       ],
-      prepare: (rule: Omit<InfoWarStore, 'id'>) => ({
-        payload: { ...rule, id: shortid() },
+      prepare: (infoWar: Omit<InfoWarStore, 'id'>) => ({
+        payload: { ...infoWar, id: shortid() },
       }),
     },
     removeInfoWar: (state, action: PayloadAction<string>) =>
-      state.filter(rule => rule.id !== action.payload),
+      state.filter(infoWar => infoWar.id !== action.payload),
     updateInfoWar: (state, action: PayloadAction<InfoWarStore>) =>
-      state.map(rule =>
-        rule.id === action.payload.id ? action.payload : rule,
+      state.map(infoWar =>
+        infoWar.id === action.payload.id ? action.payload : infoWar,
       ),
   },
 });
