@@ -1,6 +1,7 @@
 import { Sectorial } from './army';
 import { Unit, UnitStore } from './unit';
 import { Profile, ProfileStore } from './profile';
+import { EntryValidation } from './validationRules';
 
 export interface EntryNote {
   id: string;
@@ -17,6 +18,7 @@ export interface Entry {
   secondaryUnits: Unit[];
   profiles: Profile[];
   notes: EntryNote[];
+  validation: EntryValidation[];
 }
 
 export interface EntryStore {
@@ -27,4 +29,5 @@ export interface EntryStore {
   units: UnitStore[];
   profiles: ProfileStore[];
   notes: EntryNote[];
+  validation: EntryValidation[];
 }

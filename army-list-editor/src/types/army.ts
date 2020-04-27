@@ -6,26 +6,32 @@ export const armies: Army[] = [
       {
         name: 'PanOceania',
         image: 'pano.svg',
+        blacklist: [],
       },
       {
         name: 'Shock Army of Acontecimento',
         image: 'shock-army.svg',
+        blacklist: [],
       },
       {
         name: 'Military Orders',
         image: 'military-orders.svg',
+        blacklist: [],
       },
       {
         name: 'Neoterran Capitaline Army',
         image: 'neoterra.svg',
+        blacklist: [],
       },
       {
         name: 'Varuna Immediate Reaction Division',
         image: 'varuna.svg',
+        blacklist: [],
       },
       {
         name: `Svalarheima's Winter Force`,
         image: 'svalarheima.svg',
+        blacklist: [],
       },
     ],
   },
@@ -36,18 +42,22 @@ export const armies: Army[] = [
       {
         name: 'Yu Jing',
         image: 'yu-jing.svg',
+        blacklist: [],
       },
       {
         name: 'Imperial Service',
         image: 'iss.svg',
+        blacklist: [],
       },
       {
         name: 'Invincible Army',
         image: 'invincible-army.svg',
+        blacklist: [],
       },
       {
         name: 'The White Banner Army',
         image: 'white-banner.svg',
+        blacklist: [],
       },
     ],
   },
@@ -58,22 +68,27 @@ export const armies: Army[] = [
       {
         name: 'Ariadna',
         image: 'ariadna.svg',
+        blacklist: [],
       },
       {
         name: 'Caledonian Highlander Army',
         image: 'caledonia.svg',
+        blacklist: [],
       },
       {
         name: 'Force de Résponse Rapide Merovingienne',
         image: 'mrrf.svg',
+        blacklist: [],
       },
       {
         name: 'USAriadna Ranger Force',
         image: 'usariadna.svg',
+        blacklist: [],
       },
       {
         name: 'Tartary Army Corps',
         image: 'tak.svg',
+        blacklist: [],
       },
     ],
   },
@@ -84,18 +99,22 @@ export const armies: Army[] = [
       {
         name: 'Haqqislam',
         image: 'haqq.svg',
+        blacklist: [],
       },
       {
         name: 'Hassassin Bahram',
         image: 'hassassins.svg',
+        blacklist: [],
       },
       {
         name: 'Qapu Khalqi',
         image: 'qk.svg',
+        blacklist: [],
       },
       {
         name: 'Ramah Taskforce',
         image: 'ramah.svg',
+        blacklist: [],
       },
     ],
   },
@@ -106,18 +125,22 @@ export const armies: Army[] = [
       {
         name: 'Nomads',
         image: 'nomads.svg',
+        blacklist: [],
       },
       {
         name: 'Jurisdictionial Command of Corregidor',
         image: 'corregidor.svg',
+        blacklist: [],
       },
       {
         name: 'Jurisdictionial Command of Bakunin',
         image: 'bakunin.svg',
+        blacklist: [],
       },
       {
         name: 'Jurisdictionial Command of Tunguska',
         image: 'tunguska.svg',
+        blacklist: [],
       },
     ],
   },
@@ -128,18 +151,22 @@ export const armies: Army[] = [
       {
         name: 'Combined Army',
         image: 'combined-army.svg',
+        blacklist: [],
       },
       {
         name: 'Morat Agression Force',
         image: 'morats.svg',
+        blacklist: [],
       },
       {
         name: 'Shasvastii Expeditionary Force',
         image: 'shasvastii.svg',
+        blacklist: [],
       },
       {
         name: 'Onyx Contact Force',
         image: 'onyx.svg',
+        blacklist: [],
       },
     ],
   },
@@ -150,14 +177,17 @@ export const armies: Army[] = [
       {
         name: 'ALEPH',
         image: 'aleph.svg',
+        blacklist: [],
       },
       {
         name: 'Steel Phalanx',
         image: 'steel-phalanx.svg',
+        blacklist: [],
       },
       {
         name: 'Operations Subsection of the S.S.S.',
         image: 'oss.svg',
+        blacklist: [],
       },
     ],
   },
@@ -168,6 +198,7 @@ export const armies: Army[] = [
       {
         name: 'Tohaa',
         image: 'tohaa.svg',
+        blacklist: [],
       },
     ],
   },
@@ -178,30 +209,37 @@ export const armies: Army[] = [
       {
         name: 'Druze Bayram Security',
         image: 'druze.svg',
+        blacklist: [],
       },
       {
         name: 'Japanese Secessionist Army',
         image: 'jsa.svg',
+        blacklist: [],
       },
       {
         name: 'Ikari Company',
         image: 'ikari.svg',
+        blacklist: [],
       },
       {
         name: 'Starco. Free Company of the Star',
         image: 'starco.svg',
+        blacklist: [],
       },
       {
         name: 'Spiral Corps',
         image: 'spiral.svg',
+        blacklist: [],
       },
       {
         name: 'Foreign Company',
         image: 'foreign-company.svg',
+        blacklist: [],
       },
       {
         name: 'Dahshat Company',
         image: 'dashat.svg',
+        blacklist: [],
       },
     ],
   },
@@ -212,6 +250,7 @@ export const armies: Army[] = [
       {
         name: 'O-12',
         image: 'o-12.svg',
+        blacklist: [],
       },
     ],
   },
@@ -238,6 +277,7 @@ export type Army = {
   sectorials: {
     name: Sectorial;
     image: string;
+    blacklist: string[];
   }[];
 };
 

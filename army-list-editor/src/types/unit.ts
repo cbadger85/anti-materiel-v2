@@ -7,15 +7,9 @@ export interface Availability {
   limit?: number;
 }
 
-export interface SecondaryImage {
-  imageName: string;
-  sectorial: Sectorial;
-}
-
 export interface Details {
   isc?: string;
   imageName: string;
-  secondaryImages: SecondaryImage[];
   classification: Classification;
   name: string;
   unitType?: UnitType;
@@ -61,7 +55,6 @@ export interface DetailsStore {
   skillsIds: string[];
   equipmentIds: string[];
   imageName: string;
-  secondaryImages: SecondaryImage[];
 }
 
 export const classifications = [
@@ -99,12 +92,11 @@ export enum Impetuous {
   EXTREMELY_IMPETUOUS = 'EXTREMELY_IMPETUOUS',
 }
 
-export interface UnitValidation {
-  requires?: {
-    entryId: string;
-    unitId: string;
-  };
-  limitPerParentUnit?: number;
+export interface SubUnit {
+  id: string;
+  primaryDetails: Details;
+  secondaryDetails?: Details;
+  profiles: Profile[];
 }
 
 export interface Unit {
@@ -114,7 +106,6 @@ export interface Unit {
   subUnits: Unit[];
   isProfilesSelectable?: boolean;
   profiles: Profile[];
-  validation: UnitValidation;
 }
 
 export interface UnitStore {
@@ -125,5 +116,4 @@ export interface UnitStore {
   subUnits: UnitStore[];
   isProfilesSelectable?: boolean;
   profiles: ProfileStore[];
-  validation: UnitValidation;
 }

@@ -3,7 +3,9 @@ import { Rule } from './rule';
 
 interface AddedProfile {
   profileId: string;
-  amount: number;
+  name: string;
+  amount?: number;
+  range?: [number, number];
 }
 
 export interface Profile {

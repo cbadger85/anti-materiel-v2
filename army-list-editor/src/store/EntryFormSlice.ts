@@ -5,6 +5,19 @@ import { Sectorial } from '../types/army';
 import shortid from 'shortid';
 import { UnitStore } from '../types/unit';
 import { ProfileStore } from '../types/profile';
+import {
+  EntryValidation,
+  EntryRequiresEntry,
+  EntryForbidsEntry,
+  EntryRequiresEntryInCombatGroup,
+  EntryRequiresRuleInCombatGroup,
+} from '../types/validationRules';
+
+type ValidatorPrepare =
+  | Omit<EntryRequiresEntry, 'id'>
+  | Omit<EntryForbidsEntry, 'id'>
+  | Omit<EntryRequiresEntryInCombatGroup, 'id'>
+  | Omit<EntryRequiresRuleInCombatGroup, 'id'>;
 
 const initialState: EntryStore = {
   id: '',
@@ -14,6 +27,7 @@ const initialState: EntryStore = {
   units: [],
   profiles: [],
   notes: [],
+  validation: [],
 };
 
 interface EntryDetailsPayload {
@@ -81,6 +95,19 @@ const entryFormSlice = createSlice({
     },
     removeEntryNote: (state, action: PayloadAction<string>) => {
       state.notes = state.notes.filter(note => note.id !== action.payload);
+    },
+    addEntryValidation: {
+      reducer: (state, action: PayloadAction<EntryValidation>) => {
+        state.validation.push(action.payload);
+      },
+      prepare: (validator: ValidatorPrepare) => ({
+        payload: { ...validator, id: shortid() },
+      }),
+    },
+    updateEntryValidation: (state, action: PayloadAction<EntryValidation>) => {
+      state.validation.map(validator =>
+        validator.id === action.payload.id ? action.payload : validator,
+      );
     },
   },
   extraReducers: builder => {
